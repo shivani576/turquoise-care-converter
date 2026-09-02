@@ -1,6 +1,7 @@
 import { BadgeCheck, Clock3, GraduationCap, Star } from "lucide-react";
 import { CtaPair } from "./Ctas";
 import { CONDITIONS } from "@/lib/site";
+import heroTreatmentAsset from "@/assets/hero-treatment.jpg.asset.json";
 
 const TRUST = [
   { icon: BadgeCheck, label: "Board-certified physician" },
@@ -13,20 +14,36 @@ export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-neural">
       <div className="container-page pb-14 pt-14 lg:pb-20 lg:pt-20">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">
           <div className="animate-fade-up">
-          <p className="eyebrow eyebrow-dash">Pain, Headache &amp; Nerve Specialists · Natick, MA</p>
-          <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-[1.08] text-foreground sm:text-5xl lg:text-[4.25rem]">
-            Find the Source of Your Pain. Move Forward With Confidence.
-          </h1>
-          </div>
-
-          <div className="border-l-2 border-primary pl-6 lg:mb-2 lg:pl-8">
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="eyebrow eyebrow-dash">Pain, Headache &amp; Nerve Specialists · Natick, MA</p>
+            <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-[1.08] text-foreground sm:text-5xl lg:text-[4.25rem]">
+              Find the Source of Your Pain. Move Forward With Confidence.
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
               Personalized evaluation and treatment for persistent pain, migraine, headache and
               nerve conditions — with the time and expertise to understand what is really happening.
             </p>
             <CtaPair location="hero" className="mt-7" />
+          </div>
+
+          <div className="relative">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-card shadow-soft">
+              <img
+                src={heroTreatmentAsset.url}
+                alt="Physician examining a patient during a pain consultation at Turquoise Institute in Natick, MA"
+                width={1344}
+                height={896}
+                className="h-full w-full object-cover"
+                fetchPriority="high"
+                decoding="async"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/60 to-transparent p-5 pt-16">
+                <p className="text-sm font-semibold text-white/95">
+                  Expert, hands-on evaluation for lasting relief
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
