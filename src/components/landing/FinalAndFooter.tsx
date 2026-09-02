@@ -48,7 +48,7 @@ export function Footer() {
     <footer className="border-t border-border bg-card pb-28 pt-12 md:pb-12">
       <div className="container-page grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <img src={logo} alt="Turquoise Institute" width={360} height={168} loading="lazy" className="h-12 w-auto" />
+          <img src={logo} alt="Turquoise Institute" width={430} height={197} loading="lazy" className="h-12 w-auto" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
             {CLINIC.fullName}. Diagnosing and treating headaches, facial pain and complex pain
             conditions so you can get back to living the life you love.
