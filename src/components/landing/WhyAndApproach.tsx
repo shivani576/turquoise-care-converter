@@ -1,6 +1,7 @@
 import { Crosshair, GraduationCap, Hourglass, ScanLine, Dna } from "lucide-react";
-import office from "@/assets/office.jpg";
+import drTolebeyan from "@/assets/dr-tolebeyan.jpg";
 import { CtaPair } from "./Ctas";
+import { CLINIC } from "@/lib/site";
 
 const DIFFERENTIATORS = [
   {
@@ -44,17 +45,26 @@ export function Why() {
               An independent, physician-led practice designed to give complex pain the time and
               expertise it requires.
             </p>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-ink-foreground/10">
+            <div className="relative mt-8 overflow-hidden rounded-3xl border border-ink-foreground/10">
               <img
-                src={office}
-                alt="Calm, light-filled treatment room at Turquoise Institute in Natick"
-                width={473}
-                height={654}
+                src={drTolebeyan}
+                alt={`${CLINIC.doctor.name}, Founder and Medical Director of Turquoise Institute`}
+                width={682}
+                height={1024}
                 loading="lazy"
                 decoding="async"
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-[4/5] w-full object-cover object-top"
               />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/80 to-transparent p-6 pt-24">
+                <p className="font-display text-2xl font-semibold text-ink-foreground">{CLINIC.doctor.name}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-muted">
+                  {CLINIC.doctor.title} · Board-Certified · Fellowship-Trained at Yale &amp; Dartmouth
+                </p>
+              </div>
             </div>
+            <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-relaxed text-ink-muted">
+              Former Director of the Headache &amp; Facial Pain Program at Tufts Medical Center.
+            </p>
           </div>
 
           <ol className="space-y-4">
