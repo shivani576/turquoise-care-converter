@@ -14,7 +14,7 @@ export function Header() {
             alt="Turquoise Institute — Interventional Pain, Headache & Regenerative Medicine"
             width={360}
             height={168}
-            className="h-11 w-auto sm:h-12"
+            className="h-12 w-auto sm:h-14"
           />
         </a>
 
