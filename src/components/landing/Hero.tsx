@@ -1,7 +1,7 @@
 import { BadgeCheck, Clock3, GraduationCap, Star } from "lucide-react";
 import { CtaPair } from "./Ctas";
 import { CONDITIONS } from "@/lib/site";
-import heroTreatmentImg from "@/assets/hero-treatment.jpg";
+import heroTreatmentAsset from "@/assets/hero-treatment.jpg.asset.json";
 
 const TRUST = [
   { icon: BadgeCheck, label: "Board-certified physician" },
@@ -30,7 +30,7 @@ export function Hero() {
           <div className="relative">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-card shadow-soft">
               <img
-                src={heroTreatmentImg}
+                src={heroTreatmentAsset.url}
                 alt="Physician examining a patient during a pain consultation at Turquoise Institute in Natick, MA"
                 width={1344}
                 height={896}
