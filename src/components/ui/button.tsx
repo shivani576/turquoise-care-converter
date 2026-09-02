@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -16,11 +16,24 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        /* Primary conversion CTA — BOOK A CONSULTATION */
+        cta: "rounded-full bg-primary text-primary-foreground font-bold tracking-wide shadow-cta hover:bg-primary-deep hover:-translate-y-0.5 active:translate-y-0",
+        /* Secondary conversion CTA — CALL NOW */
+        call: "rounded-full bg-call text-call-foreground font-bold tracking-wide hover:bg-ink/90 hover:-translate-y-0.5 active:translate-y-0",
+        /* Call CTA on light surfaces, outlined */
+        callOutline:
+          "rounded-full border-2 border-foreground/15 bg-transparent text-foreground font-bold tracking-wide hover:border-primary hover:text-primary-deep",
+        /* CTA for dark ink sections */
+        ctaLight:
+          "rounded-full bg-primary-soft text-ink font-bold tracking-wide shadow-cta hover:bg-primary-foreground hover:-translate-y-0.5 active:translate-y-0",
+        callLight:
+          "rounded-full border-2 border-ink-foreground/30 bg-transparent text-ink-foreground font-bold tracking-wide hover:bg-ink-foreground/10",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
+        xl: "h-14 px-8 text-[15px]",
         icon: "h-9 w-9",
       },
     },
