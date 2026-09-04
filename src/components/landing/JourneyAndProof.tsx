@@ -56,7 +56,7 @@ export function Journey() {
   );
 }
 
-export function Testimonials({ preferContext }: { preferContext?: string }) {
+export function Testimonials({ preferContext }: { preferContext?: string | undefined }) {
   const items = preferContext
     ? [...TESTIMONIALS].sort((a, b) => Number(b.context === preferContext) - Number(a.context === preferContext))
     : TESTIMONIALS;
