@@ -56,7 +56,10 @@ export function Journey() {
   );
 }
 
-export function Testimonials() {
+export function Testimonials({ preferContext }: { preferContext?: string }) {
+  const items = preferContext
+    ? [...TESTIMONIALS].sort((a, b) => Number(b.context === preferContext) - Number(a.context === preferContext))
+    : TESTIMONIALS;
   return (
     <section className="section-pad bg-background">
       <div className="container-page">
@@ -71,7 +74,7 @@ export function Testimonials() {
         </div>
 
         <ul className="mt-12 grid gap-6 lg:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
+          {items.map((t) => (
             <li key={t.name} className="flex flex-col rounded-3xl border border-border bg-card p-7 shadow-card">
               <Quote className="size-8 text-primary/40" aria-hidden="true" />
               <blockquote className="mt-4 flex-1">
