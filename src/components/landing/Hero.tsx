@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { BadgeCheck, Clock3, GraduationCap, Star } from "lucide-react";
 import { CtaPair } from "./Ctas";
 import { CONDITIONS } from "@/lib/site";
@@ -63,12 +64,13 @@ export function Hero() {
         <ul className="mt-7 flex flex-wrap gap-2" aria-label="Conditions treated">
           {CONDITIONS.map((c) => (
             <li key={c.id}>
-              <a
-                href={`#${c.id}`}
+              <Link
+                to="/$condition"
+                params={{ condition: c.id }}
                 className="inline-flex rounded-full border border-primary/25 bg-card/80 px-3.5 py-1.5 text-xs font-bold text-primary-deep transition-colors hover:border-primary hover:bg-mint"
               >
                 {c.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

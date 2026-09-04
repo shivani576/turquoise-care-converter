@@ -4,11 +4,29 @@ import { Button } from "@/components/ui/button";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 
-export function Header() {
+const HOME_NAV = [
+  { href: "#conditions", label: "Conditions" },
+  { href: "#why", label: "Why Us" },
+  { href: "#approach", label: "Our Approach" },
+  { href: "#location", label: "Location" },
+  { href: "#faq", label: "FAQ" },
+];
+
+const CONDITION_NAV = [
+  { href: "#symptoms", label: "Symptoms" },
+  { href: "#treatment", label: "Treatment" },
+  { href: "#why", label: "Why Us" },
+  { href: "#location", label: "Location" },
+  { href: "#faq", label: "FAQ" },
+  { href: "/#conditions", label: "All Conditions" },
+];
+
+export function Header({ variant = "home" }: { variant?: "home" | "condition" }) {
+  const nav = variant === "condition" ? CONDITION_NAV : HOME_NAV;
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/95 backdrop-blur-md">
       <div className="container-page flex h-[4.5rem] items-center justify-between gap-4">
-        <a href="#top" className="flex items-center" aria-label="Turquoise Institute home">
+        <a href={variant === "condition" ? "/" : "#top"} className="flex items-center" aria-label="Turquoise Institute home">
           <img
             src={logo}
             alt="Turquoise Institute — Interventional Pain, Headache & Regenerative Medicine"
@@ -19,11 +37,11 @@ export function Header() {
         </a>
 
         <nav aria-label="Page sections" className="hidden items-center gap-7 text-sm font-semibold text-foreground/70 lg:flex">
-          <a href="#conditions" className="transition-colors hover:text-primary-deep">Conditions</a>
-          <a href="#why" className="transition-colors hover:text-primary-deep">Why Us</a>
-          <a href="#approach" className="transition-colors hover:text-primary-deep">Our Approach</a>
-          <a href="#location" className="transition-colors hover:text-primary-deep">Location</a>
-          <a href="#faq" className="transition-colors hover:text-primary-deep">FAQ</a>
+          {nav.map((n) => (
+            <a key={n.href} href={n.href} className="transition-colors hover:text-primary-deep">
+              {n.label}
+            </a>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">

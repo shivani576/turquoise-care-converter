@@ -6,17 +6,24 @@ import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 import { CtaPair } from "./Ctas";
 
-export function FinalCta() {
+export function FinalCta({
+  heading = "You Don't Have to Navigate Persistent Pain Alone.",
+  conditionName,
+}: {
+  heading?: string;
+  conditionName?: string;
+}) {
   const { address } = CLINIC;
   return (
     <section className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground">
       <div className="container-page text-center">
         <h2 className="mx-auto max-w-3xl text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-          You Don't Have to Navigate Persistent Pain Alone.
+          {heading}
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
-          Speak with the Turquoise Institute team about what you're experiencing. A careful
-          evaluation is the first step — and it starts with a simple conversation.
+          Speak with the Turquoise Institute team about
+          {conditionName ? ` your ${conditionName.toLowerCase()}` : " what you're experiencing"}. A
+          careful evaluation is the first step — and it starts with a simple conversation.
         </p>
         <div className="mt-9 flex justify-center">
           <CtaPair location="final" tone="dark" />

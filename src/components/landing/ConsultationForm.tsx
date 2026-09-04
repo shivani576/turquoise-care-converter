@@ -12,7 +12,7 @@ const TIMES = ["Morning (9am–12pm)", "Afternoon (12pm–5pm)", "First availabl
 const fieldClass =
   "h-12 rounded-xl border-input bg-card px-4 text-base shadow-none focus-visible:ring-2 focus-visible:ring-primary md:text-[15px]";
 
-export function ConsultationForm() {
+export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: string }) {
   const started = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -116,7 +116,7 @@ export function ConsultationForm() {
                   id="concern"
                   name="concern"
                   required
-                  defaultValue=""
+                  defaultValue={defaultConcern}
                   className={`${fieldClass} w-full appearance-none border bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231f8f78' stroke-width='2' viewBox='0 0 24 24'><path d='m6 9 6 6 6-6'/></svg>")] bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10 text-foreground focus-visible:outline-none`}
                 >
                   <option value="" disabled>

@@ -97,7 +97,7 @@ export function Local() {
   );
 }
 
-export function Faq() {
+export function Faq({ faqs = FAQS }: { faqs?: { q: string; a: string }[] }) {
   return (
     <section id="faq" className="section-pad bg-background">
       <div className="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
@@ -121,7 +121,7 @@ export function Faq() {
           </p>
         </div>
         <Accordion type="single" collapsible className="space-y-3">
-          {FAQS.map((f, i) => (
+          {faqs.map((f, i) => (
             <AccordionItem
               key={f.q}
               value={`faq-${i}`}
