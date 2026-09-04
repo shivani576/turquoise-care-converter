@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { Header } from "@/components/landing/Header";
 import { TrustStrip } from "@/components/landing/TrustAndProblem";
 import {
