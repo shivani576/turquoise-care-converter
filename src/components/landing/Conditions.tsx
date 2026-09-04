@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 import spine from "@/assets/conditions/spine.jpg";
 import facial from "@/assets/conditions/facial.jpg";
@@ -85,17 +86,16 @@ export function Conditions() {
                     >
                       Book a consultation
                     </a>
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noopener"
+                    <Link
+                      to="/$condition"
+                      params={{ condition: c.id }}
                       className="js-track-condition inline-flex items-center gap-1 rounded-full border border-border px-3.5 py-1.5 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary-deep"
                       data-track="condition_card_click"
                       data-condition={c.id}
                       onClick={() => track("condition_card_click", { condition: c.name })}
                     >
                       Learn more <ArrowUpRight className="size-4" aria-hidden="true" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </article>
