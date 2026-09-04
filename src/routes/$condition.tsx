@@ -14,9 +14,29 @@ import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "@/compone
 import { CLINIC, CONDITIONS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
 import { CONDITION_PAGES, isConditionId } from "@/lib/condition-pages";
 
+// Common misspellings/aliases that should land on the right condition page.
+const CONDITION_ALIASES: Record<string, string> = {
+  migrane: "migraine",
+  migranes: "migraine",
+  migraines: "migraine",
+  headaches: "headache",
+  "back-pain": "spine-pain",
+  "spine": "spine-pain",
+  "neck-pain": "spine-pain",
+  "tmj": "tmj-pain",
+  "jaw-pain": "tmj-pain",
+  "face-pain": "facial-pain",
+  "nerve-pain": "neuropathy",
+  "peripheral-neuropathy": "neuropathy",
+};
+
 export const Route = createFileRoute("/$condition")({
   loader: ({ params }) => {
-    if (!isConditionId(params.condition)) throw notFound();
+    if (!isConditionId(params.condition)) {
+      const alias = CONDITION_ALIASES[params.condition];
+      if (alias) throw redirect({ to: "/$condition", params: { condition: alias }, replace: true });
+      throw notFound();
+    }
     const condition = CONDITIONS.find((c) => c.id === params.condition)!;
     return { condition, page: CONDITION_PAGES[condition.id] };
   },
