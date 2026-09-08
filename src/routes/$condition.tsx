@@ -14,21 +14,38 @@ import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "@/compone
 import { CLINIC, CONDITIONS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
 import { CONDITION_PAGES, isConditionId } from "@/lib/condition-pages";
 
-// Common misspellings/aliases that should land on the right condition page.
+// Common misspellings/aliases and retired URLs that should land on the right page.
 const CONDITION_ALIASES: Record<string, string> = {
-  migrane: "migraine",
-  migranes: "migraine",
-  migraines: "migraine",
-  headaches: "headache",
-  "back-pain": "spine-pain",
-  "spine": "spine-pain",
-  "neck-pain": "spine-pain",
-  "tmj": "tmj-pain",
-  "jaw-pain": "tmj-pain",
-  "face-pain": "facial-pain",
-  "nerve-pain": "neuropathy",
-  "peripheral-neuropathy": "neuropathy",
+  migrane: "migraine-treatment",
+  migranes: "migraine-treatment",
+  migraine: "migraine-treatment",
+  migraines: "migraine-treatment",
+  headache: "migraine-treatment",
+  headaches: "migraine-treatment",
+  "botox-migraine": "botox-for-migraine",
+  "botox-for-migrane": "botox-for-migraine",
+  botox: "botox-for-migraine",
+  tmj: "tmj-disorder",
+  "tmj-pain": "tmj-disorder",
+  "jaw-pain": "tmj-disorder",
+  "facial-pain": "tmj-disorder",
+  "face-pain": "tmj-disorder",
+  prp: "prp-injections",
+  "platelet-rich-plasma": "prp-injections",
+  "cervical-dystonia": "botulinum-toxin-spasticity",
+  spasticity: "botulinum-toxin-spasticity",
+  "botulinum-toxin": "botulinum-toxin-spasticity",
+  shoulder: "shoulder-pain",
+  "rotator-cuff": "shoulder-pain",
+  "rotator-cuff-tear": "shoulder-pain",
+  "joint-pain": "joint-pain-osteoarthritis",
+  osteoarthritis: "joint-pain-osteoarthritis",
+  "knee-pain": "joint-pain-osteoarthritis",
+  "spine-pain": "joint-pain-osteoarthritis",
+  sciatica: "joint-pain-osteoarthritis",
+  neuropathy: "joint-pain-osteoarthritis",
 };
+
 
 export const Route = createFileRoute("/$condition")({
   loader: ({ params }) => {
