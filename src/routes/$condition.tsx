@@ -41,9 +41,6 @@ const CONDITION_ALIASES: Record<string, string> = {
   "joint-pain": "joint-pain-osteoarthritis",
   osteoarthritis: "joint-pain-osteoarthritis",
   "knee-pain": "joint-pain-osteoarthritis",
-  "spine-pain": "joint-pain-osteoarthritis",
-  sciatica: "joint-pain-osteoarthritis",
-  neuropathy: "joint-pain-osteoarthritis",
 };
 
 

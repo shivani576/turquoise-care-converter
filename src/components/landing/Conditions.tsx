@@ -27,15 +27,16 @@ export function Conditions() {
     <section id="conditions" className="section-pad bg-sand">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow justify-center">Conditions we treat</p>
+          <p className="eyebrow justify-center">Services we provide</p>
           <h2 className="mt-4 text-balance text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-[2.75rem]">
-            Specialized Care for the Conditions Affecting Your Life
+            Focused Treatments for Pain, Migraine and Joint Conditions
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Seven areas of focused expertise — each evaluated with the same careful, cause-first
-            approach. Recognize your symptoms below and take the next step.
+            approach. Find what fits your symptoms and take the next step.
           </p>
         </div>
+
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CONDITIONS.map((c, i) => (
