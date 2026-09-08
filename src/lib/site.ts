@@ -168,23 +168,23 @@ export const TESTIMONIALS = [
 export const FAQS = [
   {
     q: "What conditions does Turquoise Institute treat?",
-    a: "We specialize in the diagnosis and treatment of chronic headache disorders, chronic pain, facial pain, musculoskeletal conditions, nerve pain and joint disorders. This includes spine pain, facial pain, headache, migraine, sciatica, neuropathy and TMJ pain, as well as neck and back pain, osteoarthritis, knee and shoulder pain, tendon injuries and other complex pain conditions.",
+    a: "Our focused services include migraine treatment, Botox for chronic migraine, TMJ disorder (TMD), botulinum toxin (Botox, Xeomin, Dysport) for spasticity and cervical dystonia, platelet-rich plasma (PRP) injections, shoulder and rotator cuff pain treatment, and joint pain and osteoarthritis treatment.",
   },
   {
     q: "Do you treat migraine and headache conditions?",
     a: "Yes. Dr. Tolebeyan has specialized fellowship training in Headache and Facial Pain Medicine and provides comprehensive evaluation and treatment for migraine, chronic headache disorders, neuralgias, facial pain and other complex headache conditions.",
   },
   {
-    q: "Do you treat sciatica?",
-    a: "Yes. Sciatica and other nerve-related pain are among the conditions we evaluate and treat. Care may include image-guided, minimally invasive procedures such as peripheral nerve blocks, alongside a personalized treatment plan.",
+    q: "Do you offer Botox and other botulinum toxin injections?",
+    a: "Yes. We provide botulinum toxin injections (Botox, Xeomin, Dysport) for chronic migraine prevention and for spasticity and cervical dystonia, with product, dose and injection sites individualized to you.",
   },
   {
-    q: "Do you treat neuropathy?",
-    a: "Yes. Neuropathy is one of the nerve pain conditions we treat. Our focus is on identifying the underlying cause and developing an individualized plan, which may include interventional and regenerative options.",
+    q: "What is PRP, and what do you use it for?",
+    a: "Platelet-rich plasma is prepared by concentrating the platelet portion of a small sample of your own blood, then injected into a painful joint or tendon. We use it as part of regenerative treatment plans for joint, osteoarthritis, shoulder and tendon pain in appropriate patients.",
   },
   {
-    q: "Do you treat TMJ and facial pain?",
-    a: "Yes. TMJ disorders, trigeminal neuralgia and other facial pain conditions are a core part of our practice, drawing on Dr. Tolebeyan's fellowship training in Headache and Facial Pain Medicine.",
+    q: "Do you treat TMJ disorder?",
+    a: "Yes. TMJ disorder (TMD) is a core part of our practice, drawing on Dr. Tolebeyan's fellowship training in Headache and Facial Pain Medicine, and is evaluated as joint, muscle and nerve together.",
   },
   {
     q: "What happens during the first consultation?",

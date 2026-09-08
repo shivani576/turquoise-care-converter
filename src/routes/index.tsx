@@ -10,9 +10,9 @@ import { ConsultationForm } from "@/components/landing/ConsultationForm";
 import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "@/components/landing/FinalAndFooter";
 import { CLINIC, CONDITIONS, FAQS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
 
-const TITLE = "Pain, Migraine & Nerve Pain Specialists in Natick, MA | Turquoise Institute";
+const TITLE = "Migraine, Botox, PRP & Joint Pain Specialists in Natick, MA | Turquoise Institute";
 const DESCRIPTION =
-  "Specialized evaluation and treatment for spine pain, migraine, headache, sciatica, neuropathy, facial pain and TMJ pain. Serving MetroWest & Greater Boston from Natick, MA. Book a consultation.";
+  "Migraine treatment, Botox for migraine, TMJ disorder care, botulinum toxin for spasticity and cervical dystonia, PRP injections, shoulder and rotator cuff pain, and joint pain and osteoarthritis treatment in Natick, MA. Book a consultation.";
 
 const clinicSchema = {
   "@context": "https://schema.org",
