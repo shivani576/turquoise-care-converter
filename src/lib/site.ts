@@ -44,13 +44,13 @@ export const SERVICE_AREAS = [
 ];
 
 export type ConditionId =
-  | "spine-pain"
-  | "facial-pain"
-  | "headache"
-  | "migraine"
-  | "sciatica"
-  | "neuropathy"
-  | "tmj-pain";
+  | "migraine-treatment"
+  | "botox-for-migraine"
+  | "tmj-disorder"
+  | "botulinum-toxin-spasticity"
+  | "prp-injections"
+  | "shoulder-pain"
+  | "joint-pain-osteoarthritis";
 
 export interface Condition {
   id: ConditionId;
@@ -65,83 +65,84 @@ export interface Condition {
 
 export const CONDITIONS: Condition[] = [
   {
-    id: "spine-pain",
-    name: "Spine Pain",
-    formLabel: "Spine Pain",
-    scope: "Types, causes, symptoms & treatment options",
+    id: "migraine-treatment",
+    name: "Migraine Treatment",
+    formLabel: "Migraine Treatment",
+    scope: "Diagnosis, prevention & acute treatment",
     description:
-      "Neck, mid-back and lower-back pain that limits how you move, sit, sleep or work — from disc and joint problems to muscular and nerve-related causes.",
-    symptoms: ["Neck or back stiffness", "Pain that radiates", "Worse with sitting or standing"],
-    url: "https://turquoiseinstitute.com/conditions/spine-pain-types-causes-symptoms-and-treatment-options/",
-    alt: "Clinician reviewing a spine image with a patient experiencing back pain",
-  },
-  {
-    id: "facial-pain",
-    name: "Facial Pain",
-    formLabel: "Facial Pain",
-    scope: "Types, causes, symptoms & treatment options",
-    description:
-      "Persistent or sharp pain across the face, cheek or jaw — including trigeminal neuralgia and other nerve-related facial pain conditions.",
-    symptoms: ["Sharp, electric-like pain", "Triggered by touch or chewing", "Aching in cheek or jaw"],
-    url: "https://turquoiseinstitute.com/conditions/facial-pain-types-causes-symptoms-and-treatment-options/",
-    alt: "Woman holding the side of her face due to facial pain",
-  },
-  {
-    id: "headache",
-    name: "Headache",
-    formLabel: "Headache",
-    scope: "Types, causes, symptoms & treatment options",
-    description:
-      "Frequent or chronic headaches — tension-type, cluster, occipital neuralgia and post-concussion headache — evaluated by a fellowship-trained headache specialist.",
-    symptoms: ["Headaches several days a week", "Pressure or tightness", "Pain at the base of the skull"],
-    url: "https://turquoiseinstitute.com/conditions/headache-types-causes-symptoms-and-treatment-options/",
-    alt: "Woman at her desk pressing her temples during a headache",
-  },
-  {
-    id: "migraine",
-    name: "Migraine",
-    formLabel: "Migraine",
-    scope: "Types, causes, symptoms, diagnosis & treatment options",
-    description:
-      "Migraine is a neurological disease, not \"just a headache.\" We provide comprehensive diagnosis and treatment, including migraine procedures and injections.",
+      "Migraine is a neurological disease, not \"just a headache.\" Comprehensive diagnosis and a personalized prevention and acute treatment plan from a fellowship-trained headache specialist.",
     symptoms: ["Throbbing, one-sided pain", "Light and sound sensitivity", "Nausea or visual aura"],
     url: "https://turquoiseinstitute.com/conditions/migraine-types-causes-symptoms-diagnosis-and-treatment-options/",
-    alt: "Patient describing migraine symptoms to a physician",
+    alt: "Patient describing migraine symptoms to a physician during a consultation",
   },
   {
-    id: "sciatica",
-    name: "Sciatica",
-    formLabel: "Sciatica",
-    scope: "Causes, symptoms, diagnosis & treatment options",
+    id: "botox-for-migraine",
+    name: "Botox for Migraine",
+    formLabel: "Botox for Migraine",
+    scope: "Preventive injections for chronic migraine",
     description:
-      "Pain that starts in the lower back or buttock and travels down the leg, often caused by irritation or compression of the sciatic nerve.",
-    symptoms: ["Shooting pain down one leg", "Numbness or tingling", "Worse when sitting"],
-    url: "https://turquoiseinstitute.com/conditions/sciatica-causes-symptoms-diagnosis-and-treatment-options/",
-    alt: "Person holding their lower back with pain radiating down the leg",
+      "Botulinum toxin injections used as a preventive treatment for chronic migraine — administered in-office by a physician fellowship-trained in Headache and Facial Pain Medicine.",
+    symptoms: ["15 or more headache days a month", "Preventive medications not working", "Wanting fewer attacks"],
+    url: "https://turquoiseinstitute.com/",
+    alt: "Physician marking forehead injection points for chronic migraine prevention",
   },
   {
-    id: "neuropathy",
-    name: "Neuropathy",
-    formLabel: "Neuropathy",
-    scope: "Types, causes, symptoms, diagnosis & treatment options",
+    id: "tmj-disorder",
+    name: "TMJ Disorder",
+    formLabel: "TMJ Disorder (TMD)",
+    scope: "Temporomandibular joint pain & dysfunction",
     description:
-      "Nerve damage that causes burning, tingling, numbness or weakness — commonly in the hands and feet — with a focus on identifying the underlying cause.",
-    symptoms: ["Burning or tingling feet or hands", "Numbness", "Sensitivity to touch"],
-    url: "https://turquoiseinstitute.com/conditions/neuropathy-types-causes-symptoms-diagnosis-and-treatment-options/",
-    alt: "Person holding their foot due to nerve pain and tingling",
-  },
-  {
-    id: "tmj-pain",
-    name: "TMJ Pain",
-    formLabel: "TMJ Pain",
-    scope: "Types, causes, symptoms & treatment options",
-    description:
-      "Temporomandibular joint pain affecting the jaw, ear and temple — often overlapping with headache and facial pain — treated with targeted, minimally invasive options.",
-    symptoms: ["Jaw pain or clicking", "Pain when chewing", "Ear or temple aching"],
+      "Temporomandibular joint disorder affecting the jaw, ear and temple — often overlapping with headache and facial pain — evaluated as joint, muscle and nerve together.",
+    symptoms: ["Jaw pain, clicking or locking", "Pain when chewing", "Ear or temple aching"],
     url: "https://turquoiseinstitute.com/conditions/temporomandibular-joint-tmj-pain-types-causes-symptoms-and-treatment-option/",
-    alt: "Physician explaining jaw joint anatomy to a patient with TMJ pain",
+    alt: "Physician explaining jaw joint anatomy to a patient with TMJ disorder",
+  },
+  {
+    id: "botulinum-toxin-spasticity",
+    name: "Botulinum Toxin for Spasticity & Cervical Dystonia",
+    formLabel: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
+    scope: "Botox, Xeomin & Dysport injections",
+    description:
+      "Targeted botulinum toxin injections (Botox, Xeomin, Dysport) to reduce muscle overactivity in spasticity and cervical dystonia, improving comfort, posture and function.",
+    symptoms: ["Involuntary neck pulling or twisting", "Tight, stiff muscles", "Painful spasms or cramping"],
+    url: "https://turquoiseinstitute.com/",
+    alt: "Clinician administering a botulinum toxin injection into neck muscles for cervical dystonia",
+  },
+  {
+    id: "prp-injections",
+    name: "PRP Injections",
+    formLabel: "Platelet-Rich Plasma (PRP) Injections",
+    scope: "Regenerative treatment for joints & tendons",
+    description:
+      "Platelet-rich plasma prepared from your own blood and injected into the painful joint or tendon as part of a regenerative treatment plan for appropriate patients.",
+    symptoms: ["Ongoing joint or tendon pain", "Injuries slow to heal", "Looking for non-surgical options"],
+    url: "https://turquoiseinstitute.com/",
+    alt: "Gloved hand holding a tube of platelet-rich plasma prepared for injection",
+  },
+  {
+    id: "shoulder-pain",
+    name: "Shoulder & Rotator Cuff Pain",
+    formLabel: "Shoulder / Rotator Cuff Pain",
+    scope: "Rotator cuff tears, tendon & joint pain",
+    description:
+      "Shoulder pain from rotator cuff tears, tendon injury, bursitis or joint wear — evaluated precisely, then treated with image-guided and regenerative options where appropriate.",
+    symptoms: ["Pain lifting or reaching overhead", "Night pain lying on the shoulder", "Weakness or limited motion"],
+    url: "https://turquoiseinstitute.com/",
+    alt: "Physician examining an adult patient's shoulder for rotator cuff pain",
+  },
+  {
+    id: "joint-pain-osteoarthritis",
+    name: "Joint Pain & Osteoarthritis",
+    formLabel: "Joint Pain / Osteoarthritis",
+    scope: "Knee, hip, shoulder & hand osteoarthritis",
+    description:
+      "Osteoarthritis and other joint pain in the knee, hip, shoulder and hand — with image-guided injections and regenerative options aimed at comfort and mobility, not just prescriptions.",
+    symptoms: ["Stiff, aching joints in the morning", "Pain with walking or stairs", "Swelling or grinding"],
+    url: "https://turquoiseinstitute.com/",
+    alt: "Doctor examining an older patient's knee affected by osteoarthritis",
   },
 ];
+
 
 export const TESTIMONIALS = [
   {
@@ -167,23 +168,23 @@ export const TESTIMONIALS = [
 export const FAQS = [
   {
     q: "What conditions does Turquoise Institute treat?",
-    a: "We specialize in the diagnosis and treatment of chronic headache disorders, chronic pain, facial pain, musculoskeletal conditions, nerve pain and joint disorders. This includes spine pain, facial pain, headache, migraine, sciatica, neuropathy and TMJ pain, as well as neck and back pain, osteoarthritis, knee and shoulder pain, tendon injuries and other complex pain conditions.",
+    a: "Our focused services include migraine treatment, Botox for chronic migraine, TMJ disorder (TMD), botulinum toxin (Botox, Xeomin, Dysport) for spasticity and cervical dystonia, platelet-rich plasma (PRP) injections, shoulder and rotator cuff pain treatment, and joint pain and osteoarthritis treatment.",
   },
   {
     q: "Do you treat migraine and headache conditions?",
     a: "Yes. Dr. Tolebeyan has specialized fellowship training in Headache and Facial Pain Medicine and provides comprehensive evaluation and treatment for migraine, chronic headache disorders, neuralgias, facial pain and other complex headache conditions.",
   },
   {
-    q: "Do you treat sciatica?",
-    a: "Yes. Sciatica and other nerve-related pain are among the conditions we evaluate and treat. Care may include image-guided, minimally invasive procedures such as peripheral nerve blocks, alongside a personalized treatment plan.",
+    q: "Do you offer Botox and other botulinum toxin injections?",
+    a: "Yes. We provide botulinum toxin injections (Botox, Xeomin, Dysport) for chronic migraine prevention and for spasticity and cervical dystonia, with product, dose and injection sites individualized to you.",
   },
   {
-    q: "Do you treat neuropathy?",
-    a: "Yes. Neuropathy is one of the nerve pain conditions we treat. Our focus is on identifying the underlying cause and developing an individualized plan, which may include interventional and regenerative options.",
+    q: "What is PRP, and what do you use it for?",
+    a: "Platelet-rich plasma is prepared by concentrating the platelet portion of a small sample of your own blood, then injected into a painful joint or tendon. We use it as part of regenerative treatment plans for joint, osteoarthritis, shoulder and tendon pain in appropriate patients.",
   },
   {
-    q: "Do you treat TMJ and facial pain?",
-    a: "Yes. TMJ disorders, trigeminal neuralgia and other facial pain conditions are a core part of our practice, drawing on Dr. Tolebeyan's fellowship training in Headache and Facial Pain Medicine.",
+    q: "Do you treat TMJ disorder?",
+    a: "Yes. TMJ disorder (TMD) is a core part of our practice, drawing on Dr. Tolebeyan's fellowship training in Headache and Facial Pain Medicine, and is evaluated as joint, muscle and nerve together.",
   },
   {
     q: "What happens during the first consultation?",

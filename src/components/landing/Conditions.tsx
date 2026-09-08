@@ -1,40 +1,42 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
-import spine from "@/assets/conditions/spine.jpg";
-import facial from "@/assets/conditions/facial.jpg";
-import headache from "@/assets/conditions/headache.jpg";
 import migraine from "@/assets/conditions/migraine.jpg";
-import sciatica from "@/assets/conditions/sciatica.jpg";
-import neuropathy from "@/assets/conditions/neuropathy.jpg";
+import botoxMigraine from "@/assets/conditions/botox-migraine.jpg";
 import tmj from "@/assets/conditions/tmj.jpg";
+import botulinum from "@/assets/conditions/botulinum-spasticity.jpg";
+import prp from "@/assets/conditions/prp.jpg";
+import shoulder from "@/assets/conditions/shoulder.jpg";
+import joint from "@/assets/conditions/joint-osteoarthritis.jpg";
 import { CONDITIONS, type ConditionId } from "@/lib/site";
 import { track } from "@/lib/track";
 import { CtaPair } from "./Ctas";
 
 const IMAGES: Record<ConditionId, string> = {
-  "spine-pain": spine,
-  "facial-pain": facial,
-  headache,
-  migraine,
-  sciatica,
-  neuropathy,
-  "tmj-pain": tmj,
+  "migraine-treatment": migraine,
+  "botox-for-migraine": botoxMigraine,
+  "tmj-disorder": tmj,
+  "botulinum-toxin-spasticity": botulinum,
+  "prp-injections": prp,
+  "shoulder-pain": shoulder,
+  "joint-pain-osteoarthritis": joint,
 };
+
 
 export function Conditions() {
   return (
     <section id="conditions" className="section-pad bg-sand">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow justify-center">Conditions we treat</p>
+          <p className="eyebrow justify-center">Services we provide</p>
           <h2 className="mt-4 text-balance text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-[2.75rem]">
-            Specialized Care for the Conditions Affecting Your Life
+            Focused Treatments for Pain, Migraine and Joint Conditions
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Seven areas of focused expertise — each evaluated with the same careful, cause-first
-            approach. Recognize your symptoms below and take the next step.
+            approach. Find what fits your symptoms and take the next step.
           </p>
         </div>
+
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CONDITIONS.map((c, i) => (
