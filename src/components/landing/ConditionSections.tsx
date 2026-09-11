@@ -105,7 +105,9 @@ export function ConditionSigns({ condition, page }: { condition: Condition; page
             How We Evaluate {condition.name}
           </h3>
           <p className="mt-3 leading-relaxed text-foreground/80">{page.evaluation}</p>
-          <p className="mt-5 text-sm font-semibold text-primary-deep">{page.whySpecialist}</p>
+          {page.whySpecialist ? (
+            <p className="mt-5 text-sm font-semibold text-primary-deep">{page.whySpecialist}</p>
+          ) : null}
           <CtaPair location="symptoms" className="mt-7" />
         </div>
       </div>
