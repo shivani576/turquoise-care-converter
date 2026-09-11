@@ -15,7 +15,7 @@ export interface ConditionPage {
   /** Treatment approaches discussed at the consultation */
   treatments: { title: string; text: string }[];
   /** Why see a specialist — condition specific differentiator */
-  whySpecialist: string;
+  whySpecialist?: string;
   faqs: { q: string; a: string }[];
   /** Which testimonials contexts to prioritize */
   testimonialContext?: string;
@@ -43,9 +43,9 @@ const CONSULT_FAQS = [
 export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
   "migraine-treatment": {
     eyebrow: "Migraine Specialist · Natick, MA",
-    headline: "Migraine Is a Neurological Disease — Not \"Just a Headache.\"",
+    headline: "Migraine Treatment Starts with Understanding Your Migraine",
     subheadline:
-      "Fellowship-trained migraine care in Natick: a 60-minute evaluation, an accurate diagnosis, and a prevention and acute treatment plan built for your migraine. No referral needed.",
+      "Meet with a fellowship-trained headache specialist in Natick for a comprehensive 60-minute evaluation and a personalized plan for prevention and acute treatment. No referral needed.",
     title: "Migraine Treatment in Natick, MA | Turquoise Institute",
     description:
       "Fellowship-trained migraine specialist in Natick, MA. Accurate diagnosis, preventive and acute treatment, migraine procedures and injections. 60-minute consultations, no referral needed.",
@@ -80,7 +80,7 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
     eyebrow: "Botox for Chronic Migraine · Natick, MA",
     headline: "Botox for Chronic Migraine — Fewer Attacks, Administered by a Headache Specialist.",
     subheadline:
-      "Botulinum toxin injections used as a preventive treatment for chronic migraine, performed in-office by a physician fellowship-trained in Headache and Facial Pain Medicine.",
+      "Botulinum toxin injections for chronic migraine prevention, performed in-office by a physician fellowship-trained in Headache and Facial Pain Medicine.",
     title: "Botox for Migraine in Natick, MA | Turquoise Institute",
     description:
       "Botox (botulinum toxin) injections for chronic migraine prevention in Natick, MA. Administered by a fellowship-trained headache specialist. 60-minute consultations, no referral needed.",
@@ -117,9 +117,9 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
   },
   "tmj-disorder": {
     eyebrow: "TMJ Disorder Specialist · Natick, MA",
-    headline: "Jaw Pain, Clicking or Ear Aching? Get to the Root of Your TMJ Disorder.",
+    headline: "Targeted Injection Treatments for TMJ-Related Pain",
     subheadline:
-      "Temporomandibular joint disorder often overlaps with headache and facial pain. We evaluate joint, muscle and nerve together and treat with targeted, minimally invasive options.",
+      "For patients with an established TMJ diagnosis, we offer minimally invasive treatment options, including botulinum toxin injections, trigger point injections, and image-guided intra-articular corticosteroid or PRP injections.",
     title: "TMJ Disorder Treatment in Natick, MA | Turquoise Institute",
     description:
       "TMJ disorder (TMD) evaluation and minimally invasive treatment in Natick, MA. Fellowship-trained in Headache & Facial Pain Medicine. No referral needed. Serving Wellesley, Newton & MetroWest.",
@@ -153,7 +153,7 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
     eyebrow: "Botox · Xeomin · Dysport · Natick, MA",
     headline: "Botulinum Toxin for Spasticity and Cervical Dystonia.",
     subheadline:
-      "Targeted Botox, Xeomin and Dysport injections to calm overactive muscles — reducing painful spasms and involuntary neck pulling, and making movement easier.",
+      "Targeted Botox, Xeomin and Dysport injections for cervical dystonia and spasticity related to stroke or multiple sclerosis — helping reduce muscle overactivity, painful spasms and involuntary neck pulling while improving movement and function.",
     title: "Botulinum Toxin for Spasticity & Cervical Dystonia in Natick, MA | Turquoise Institute",
     description:
       "Botox, Xeomin and Dysport injections for spasticity and cervical dystonia in Natick, MA. Targeted, in-office treatment by a board-certified physician. No referral needed.",
@@ -173,8 +173,6 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
       { title: "Function first", text: "Goals set around what you want back — comfort, posture, sleep, grooming, driving or work." },
       { title: "Scheduled follow-up", text: "Response reviewed and doses refined over subsequent treatment cycles." },
     ],
-    whySpecialist:
-      "Botulinum toxin is only as good as its placement. Board-certified, fellowship-trained expertise in pain and neurologic conditions guides both muscle selection and dosing.",
     faqs: [
       {
         q: "Which products do you use, and how do you choose?",
@@ -211,8 +209,6 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
       { title: "Precise placement", text: "Image-guided injection into the confirmed target for appropriate patients." },
       { title: "Recovery plan", text: "Activity and rehabilitation guidance afterward so the treatment has the best chance to work." },
     ],
-    whySpecialist:
-      "Regenerative medicine is part of this practice's core focus, delivered by a board-certified interventional pain physician rather than added on as a side service.",
     faqs: [
       {
         q: "What is PRP?",
@@ -250,7 +246,8 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
       { title: "Motion & strength", text: "Rehabilitation guidance so relief translates into a shoulder you can actually use." },
     ],
     whySpecialist:
-      "Not every rotator cuff tear needs surgery — and not every shoulder pain is the cuff. Interventional pain and regenerative training opens up options in between.",
+      "Not every rotator cuff tear needs surgery — and not every shoulder pain is the cuff. Interventional pain and regenerative medicine open up options in between.",
+
     faqs: [
       {
         q: "Do I need surgery for a rotator cuff tear?",
@@ -283,8 +280,6 @@ export const CONDITION_PAGES: Record<ConditionId, ConditionPage> = {
       { title: "Regenerative options", text: "PRP and other regenerative approaches considered as part of an individualized plan." },
       { title: "Keep moving", text: "Activity, strength and medication guidance that protects the joint over the long term." },
     ],
-    whySpecialist:
-      "Between anti-inflammatories and joint replacement there is a great deal a board-certified interventional pain and regenerative medicine physician can offer.",
     faqs: [
       {
         q: "Which joints do you treat?",
