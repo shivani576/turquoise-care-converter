@@ -123,7 +123,7 @@ function ConditionLandingPage() {
   const { condition, page } = Route.useLoaderData();
   return (
     <>
-      <Header variant="condition" />
+      <Header />
       <main>
         <ConditionHero condition={condition} page={page} />
         <TrustStrip />
@@ -150,7 +150,7 @@ function ConditionLandingPage() {
 function ConditionNotFound() {
   return (
     <>
-      <Header variant="condition" />
+      <Header />
       <main className="container-page py-24 text-center">
         <h1 className="text-3xl font-semibold text-foreground">We couldn't find that page.</h1>
         <p className="mt-4 text-muted-foreground">
