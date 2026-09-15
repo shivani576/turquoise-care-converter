@@ -70,8 +70,8 @@ export const submitLead = createServerFn({ method: "POST" })
         lastName: data.lastName,
         email: data.email,
         phone: data.phone,
-        source: attribution.utm_source
-          ? `${attribution.utm_source}${attribution.gclid ? " (Google Ads)" : ""}`
+        source: attribution["utm_source"]
+          ? `${attribution["utm_source"]}${attribution["gclid"] ? " (Google Ads)" : ""}`
           : "Website — Landing Page",
         tags: buildTags(data, leftover),
       };

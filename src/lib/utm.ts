@@ -37,12 +37,10 @@ export function captureAttribution(): void {
     const stored = readStored();
     // Only overwrite when this visit actually carries campaign params.
     if (Object.keys(fresh).length === 0 && stored) return;
-    const next: Attribution = {
-      ...stored,
-      ...fresh,
-      landing_page: stored?.landing_page ?? window.location.href.slice(0, 500),
-      referrer: stored?.referrer ?? (document.referrer || undefined),
-    };
+    const next: Attribution = { ...stored, ...fresh };
+    next.landing_page = stored?.landing_page ?? window.location.href.slice(0, 500);
+    const referrer = stored?.referrer ?? document.referrer;
+    if (referrer) next.referrer = referrer;
     window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   } catch {
     // sessionStorage can be unavailable (private mode) — attribution is optional.
