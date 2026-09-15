@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { captureAttribution } from "../lib/utm";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -117,6 +118,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Capture ad-campaign attribution (utm_* + gclid) from the landing URL.
+  useEffect(() => {
+    captureAttribution();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
