@@ -1,5 +1,6 @@
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
+import { track } from "@/lib/track";
 
 export function Header() {
   return (
