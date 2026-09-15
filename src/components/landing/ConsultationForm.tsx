@@ -1,4 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Lock, Phone, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -6,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CLINIC, CONDITIONS } from "@/lib/site";
 import { track } from "@/lib/track";
+import { submitLead } from "@/lib/lead.functions";
+import { getAttribution } from "@/lib/utm";
 
 const TIMES = ["Morning (9am–12pm)", "Afternoon (12pm–5pm)", "First available", "Telemedicine visit"];
 
