@@ -20,6 +20,8 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
   const started = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const navigate = useNavigate();
+  const sendLead = useServerFn(submitLead);
 
   const onStart = () => {
     if (started.current) return;
@@ -34,12 +36,30 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
     const preferredTime = String(fd.get("preferredTime") ?? "");
     setSubmitting(true);
     track("form_submit", { form: "consultation", concern });
-    // TODO: connect to the practice's CRM / scheduling endpoint (e.g. LeadConnector).
-    await new Promise((r) => setTimeout(r, 600));
+
+    try {
+      await sendLead({
+        data: {
+          firstName: String(fd.get("firstName") ?? ""),
+          lastName: String(fd.get("lastName") ?? ""),
+          email: String(fd.get("email") ?? ""),
+          phone: String(fd.get("phone") ?? ""),
+          concern,
+          preferredTime,
+          pagePath: typeof window === "undefined" ? "/" : window.location.pathname,
+          attribution: getAttribution(),
+        },
+      });
+    } catch (error) {
+      // A CRM/network hiccup must never block the patient's flow.
+      console.error("Lead submission failed", error);
+    }
+
     track("appointment_request", { concern, preferredTime });
-    setSubmitting(false);
     setDone(true);
     toast.success("Request received — our team will contact you shortly.");
+    await navigate({ to: "/thank-you" });
+    setSubmitting(false);
   };
 
   return (
