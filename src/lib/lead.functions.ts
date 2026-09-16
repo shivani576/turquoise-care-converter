@@ -84,9 +84,29 @@ export const submitLead = createServerFn({ method: "POST" })
       });
 
       if (!res.ok) {
-        console.error(
-          `submitLead: GHL contact create failed (${res.status}): ${(await res.text()).slice(0, 500)}`,
-        );
+        const text = await res.text();
+
+        // GHL rejects a second contact with the same email/phone when duplicate
+        // contacts are disallowed. Update the existing record instead so the
+        // lead (and its campaign data) is never lost.
+        const duplicateId = extractDuplicateContactId(res.status, text);
+        if (duplicateId) {
+          const { locationId: _omit, ...updateBody } = body;
+          const updateRes = await fetch(`${GHL_BASE}/contacts/${duplicateId}`, {
+            method: "PUT",
+            headers,
+            body: JSON.stringify(updateBody),
+          });
+          if (updateRes.ok) return { ok: true, synced: true as const };
+          console.error(
+            `submitLead: GHL duplicate contact update failed (${updateRes.status}): ${(
+              await updateRes.text()
+            ).slice(0, 500)}`,
+          );
+          return { ok: true, synced: false as const };
+        }
+
+        console.error(`submitLead: GHL contact create failed (${res.status}): ${text.slice(0, 500)}`);
         return { ok: true, synced: false as const };
       }
 
