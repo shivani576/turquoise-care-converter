@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CLINIC, CONDITIONS } from "@/lib/site";
+import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 import { submitLead } from "@/lib/lead.functions";
 import { getAttribution } from "@/lib/utm";
@@ -32,10 +32,8 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const concern = String(fd.get("concern") ?? "");
-    const preferredTime = String(fd.get("preferredTime") ?? "");
     setSubmitting(true);
-    track("form_submit", { form: "consultation", concern });
+    track("form_submit", { form: "consultation", concern: defaultConcern });
 
     try {
       await sendLead({
@@ -44,8 +42,8 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
           lastName: String(fd.get("lastName") ?? ""),
           email: String(fd.get("email") ?? ""),
           phone: String(fd.get("phone") ?? ""),
-          concern,
-          preferredTime,
+          concern: defaultConcern,
+          preferredTime: String(fd.get("preferredTime") ?? ""),
           pagePath: typeof window === "undefined" ? "/" : window.location.pathname,
           attribution: getAttribution(),
         },
@@ -55,7 +53,7 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
       console.error("Lead submission failed", error);
     }
 
-    track("appointment_request", { concern, preferredTime });
+    track("appointment_request", { concern: defaultConcern, preferredTime: String(fd.get("preferredTime") ?? "") });
     setDone(true);
     toast.success("Request received — our team will contact you shortly.");
     await navigate({ to: "/thank-you" });
@@ -133,26 +131,6 @@ export function ConsultationForm({ defaultConcern = "" }: { defaultConcern?: str
                   <Label htmlFor="email">Email</Label>
                   <Input id="email" name="email" type="email" inputMode="email" autoComplete="email" required className={fieldClass} />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="concern">What can we help you with?</Label>
-                <select
-                  id="concern"
-                  name="concern"
-                  required
-                  defaultValue={defaultConcern}
-                  className={`${fieldClass} w-full appearance-none border bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231f8f78' stroke-width='2' viewBox='0 0 24 24'><path d='m6 9 6 6 6-6'/></svg>")] bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10 text-foreground focus-visible:outline-none`}
-                >
-                  <option value="" disabled>
-                    Select a condition
-                  </option>
-                  {CONDITIONS.map((c) => (
-                    <option key={c.id} value={c.formLabel}>
-                      {c.formLabel}
-                    </option>
-                  ))}
-                  <option value="Other">Other</option>
-                </select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="preferredTime">Preferred appointment time</Label>
