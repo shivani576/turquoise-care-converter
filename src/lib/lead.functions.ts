@@ -117,6 +117,21 @@ export const submitLead = createServerFn({ method: "POST" })
     }
   });
 
+/** Returns the existing contact id when GHL refused the create as a duplicate. */
+function extractDuplicateContactId(status: number, body: string): string | undefined {
+  if (status !== 400) return undefined;
+  try {
+    const payload = JSON.parse(body) as {
+      message?: string;
+      meta?: { contactId?: string };
+    };
+    if (!/duplicat/i.test(payload.message ?? "")) return undefined;
+    return payload.meta?.contactId;
+  } catch {
+    return undefined;
+  }
+}
+
 function buildTags(data: Lead, leftoverAttribution: Record<string, string>): string[] {
   const tags = ["website-lead", "landing-page"];
   if (data.concern) tags.push(`interest: ${data.concern}`.toLowerCase());
