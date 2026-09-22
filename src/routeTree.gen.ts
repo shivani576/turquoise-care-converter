@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConditionRouteImport } from './routes/$condition'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as ApiPublicGhlDiagRouteImport } from './routes/api/public/ghl-diag'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicGhlDiagRoute = ApiPublicGhlDiagRouteImport.update({
+  id: '/api/public/ghl-diag',
+  path: '/api/public/ghl-diag',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$condition': typeof ConditionRoute
   '/thank-you': typeof ThankYouRoute
+  '/api/public/ghl-diag': typeof ApiPublicGhlDiagRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$condition': typeof ConditionRoute
   '/thank-you': typeof ThankYouRoute
+  '/api/public/ghl-diag': typeof ApiPublicGhlDiagRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$condition': typeof ConditionRoute
   '/thank-you': typeof ThankYouRoute
+  '/api/public/ghl-diag': typeof ApiPublicGhlDiagRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$condition' | '/thank-you'
+  fullPaths: '/' | '/$condition' | '/thank-you' | '/api/public/ghl-diag'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$condition' | '/thank-you'
-  id: '__root__' | '/' | '/$condition' | '/thank-you'
+  to: '/' | '/$condition' | '/thank-you' | '/api/public/ghl-diag'
+  id: '__root__' | '/' | '/$condition' | '/thank-you' | '/api/public/ghl-diag'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConditionRoute: typeof ConditionRoute
   ThankYouRoute: typeof ThankYouRoute
+  ApiPublicGhlDiagRoute: typeof ApiPublicGhlDiagRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/ghl-diag': {
+      id: '/api/public/ghl-diag'
+      path: '/api/public/ghl-diag'
+      fullPath: '/api/public/ghl-diag'
+      preLoaderRoute: typeof ApiPublicGhlDiagRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConditionRoute: ConditionRoute,
   ThankYouRoute: ThankYouRoute,
+  ApiPublicGhlDiagRoute: ApiPublicGhlDiagRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
