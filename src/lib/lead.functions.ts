@@ -151,7 +151,10 @@ function extractDuplicateContactId(status: number, body: string): string | undef
 }
 
 function buildTags(data: Lead, leftoverAttribution: Record<string, string>): string[] {
-  const tags = ["website-lead", "landing-page"];
+  // Dated stamp on every submission (create or duplicate-update) so GHL
+  // workflows can trigger on any form fill, not only on new contacts.
+  const stamp = new Date().toISOString().slice(0, 10);
+  const tags = ["website-lead", "landing-page", "form-submitted", `submitted: ${stamp}`];
   if (data.concern) tags.push(`interest: ${data.concern}`.toLowerCase());
   if (data.preferredTime) tags.push(`preferred: ${data.preferredTime}`.toLowerCase());
   if (data.pagePath && data.pagePath !== "/") tags.push(`page: ${data.pagePath}`.toLowerCase());
