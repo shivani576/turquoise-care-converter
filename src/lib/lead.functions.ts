@@ -97,7 +97,12 @@ export const submitLead = createServerFn({ method: "POST" })
             headers,
             body: JSON.stringify(updateBody),
           });
-          if (updateRes.ok) return { ok: true, synced: true as const };
+          if (updateRes.ok) {
+            console.log(
+              `submitLead: updated existing GHL contact ${duplicateId} (duplicate email/phone) for ${data.email} / ${data.phone}`,
+            );
+            return { ok: true, synced: true as const, action: "updated" as const, contactId: duplicateId };
+          }
           console.error(
             `submitLead: GHL duplicate contact update failed (${updateRes.status}): ${(
               await updateRes.text()
@@ -110,7 +115,20 @@ export const submitLead = createServerFn({ method: "POST" })
         return { ok: true, synced: false as const };
       }
 
-      return { ok: true, synced: true as const };
+      const created = (await res.json().catch(() => ({}))) as {
+        contact?: { id?: string; locationId?: string };
+      };
+      console.log(
+        `submitLead: created GHL contact ${created.contact?.id ?? "unknown"} in location ${
+          created.contact?.locationId ?? "unknown"
+        } for ${data.email} / ${data.phone}`,
+      );
+      return {
+        ok: true,
+        synced: true as const,
+        action: "created" as const,
+        contactId: created.contact?.id,
+      };
     } catch (error) {
       console.error("submitLead: GHL sync threw", error);
       return { ok: true, synced: false as const };
