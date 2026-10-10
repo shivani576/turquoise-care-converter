@@ -64,11 +64,7 @@ export const submitLead = createServerFn({ method: "POST" })
         Object.entries(data.attribution).filter(([, v]) => Boolean(v)),
       ) as Record<string, string>;
 
-      const { customFields, leftover } = await mapCustomFields(
-        headers,
-        locationId,
-        attribution,
-      );
+      const { customFields, leftover } = await mapCustomFields(headers, locationId, attribution);
 
       const body: Record<string, unknown> = {
         locationId,
@@ -108,12 +104,21 @@ export const submitLead = createServerFn({ method: "POST" })
             // workflow fires again for repeat submissions.
             const tagUrl = `${GHL_BASE}/contacts/${duplicateId}/tags`;
             const tagBody = JSON.stringify({ tags: ["form-submitted"] });
-            await fetch(tagUrl, { method: "DELETE", headers, body: tagBody }).catch(() => undefined);
-            const readd = await fetch(tagUrl, { method: "POST", headers, body: tagBody }).catch(() => undefined);
+            await fetch(tagUrl, { method: "DELETE", headers, body: tagBody }).catch(
+              () => undefined,
+            );
+            const readd = await fetch(tagUrl, { method: "POST", headers, body: tagBody }).catch(
+              () => undefined,
+            );
             console.log(
               `submitLead: updated existing GHL contact ${duplicateId} (duplicate email/phone) for ${data.email} / ${data.phone}; re-tagged form-submitted: ${readd?.status ?? "failed"}`,
             );
-            return { ok: true, synced: true as const, action: "updated" as const, contactId: duplicateId };
+            return {
+              ok: true,
+              synced: true as const,
+              action: "updated" as const,
+              contactId: duplicateId,
+            };
           }
           console.error(
             `submitLead: GHL duplicate contact update failed (${updateRes.status}): ${(
@@ -123,7 +128,9 @@ export const submitLead = createServerFn({ method: "POST" })
           return { ok: true, synced: false as const };
         }
 
-        console.error(`submitLead: GHL contact create failed (${res.status}): ${text.slice(0, 500)}`);
+        console.error(
+          `submitLead: GHL contact create failed (${res.status}): ${text.slice(0, 500)}`,
+        );
         return { ok: true, synced: false as const };
       }
 

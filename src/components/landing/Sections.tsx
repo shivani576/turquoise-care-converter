@@ -45,7 +45,9 @@ export function PainPoints({ page }: { page: PageCopy }) {
     <section className="section-pad">
       <div className="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">{page.painTitle}</h2>
+          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+            {page.painTitle}
+          </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{page.painNote}</p>
           <CtaPair location="pain" className="mt-8" />
         </div>
@@ -94,7 +96,10 @@ export function ConditionPicker() {
                   <span className="block font-display text-lg text-foreground">{c.name}</span>
                   <span className="mt-1 block text-sm text-muted-foreground">{c.hook}</span>
                 </span>
-                <ArrowRight className="size-5 shrink-0 text-primary-deep transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight
+                  className="size-5 shrink-0 text-primary-deep transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Link>
             </li>
           ))}
@@ -110,7 +115,9 @@ export function Options({ page }: { page: PageCopy }) {
     <section className="section-pad bg-mint" id="options">
       <div className="container-page">
         <div className="max-w-2xl">
-          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">{page.optionsTitle}</h2>
+          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+            {page.optionsTitle}
+          </h2>
           <p className="mt-4 text-lg text-muted-foreground">{page.optionsIntro}</p>
         </div>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -122,8 +129,8 @@ export function Options({ page }: { page: PageCopy }) {
           ))}
         </ul>
         <p className="mt-8 text-sm text-muted-foreground">
-          Your options depend on your diagnosis — Dr. Amir will walk you through what makes sense for
-          you at your first visit.
+          Your options depend on your diagnosis — Dr. Amir will walk you through what makes sense
+          for you at your first visit.
         </p>
       </div>
     </section>
@@ -158,23 +165,28 @@ export function MeetDoctor() {
           <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
             {CLINIC.doctor.name}
           </h2>
-          <p className="font-script mt-2 text-xl text-primary-deep">Relief from pain. Renewal of life.</p>
+          <p className="font-script mt-2 text-xl text-primary-deep">
+            Relief from pain. Renewal of life.
+          </p>
           <div className="mt-5 space-y-4 text-lg leading-relaxed text-foreground/80">
             <p>
-              Dr. Amir is a board-certified physician with fellowship training in both Headache &amp;
-              Facial Pain Medicine and Interventional Pain Medicine.
-              He previously directed the Headache and Facial Pain Program at Tufts Medical Center.
+              Dr. Amir is a board-certified physician with fellowship training in both Headache
+              &amp; Facial Pain Medicine and Interventional Pain Medicine. He previously directed
+              the Headache and Facial Pain Program at Tufts Medical Center.
             </p>
             <p>
               He founded Turquoise Institute so patients could get what's missing in most
-              appointments: time. Your first visit is a full hour with him, and he explains what's going
-              on in plain language before suggesting any treatment.
+              appointments: time. Your first visit is a full hour with him, and he explains what's
+              going on in plain language before suggesting any treatment.
             </p>
           </div>
           <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
             {CREDENTIALS.map((c) => (
               <li key={c} className="flex items-start gap-2.5 text-[15px] text-foreground">
-                <BadgeCheck className="mt-0.5 size-5 shrink-0 text-primary-deep" aria-hidden="true" />
+                <BadgeCheck
+                  className="mt-0.5 size-5 shrink-0 text-primary-deep"
+                  aria-hidden="true"
+                />
                 {c}
               </li>
             ))}
@@ -206,7 +218,9 @@ export function HowItWorks() {
   return (
     <section className="section-pad bg-ink text-ink-foreground" id="how-it-works">
       <div className="container-page">
-        <h2 className="max-w-2xl text-balance text-3xl leading-tight sm:text-4xl">What happens next</h2>
+        <h2 className="max-w-2xl text-balance text-3xl leading-tight sm:text-4xl">
+          What happens next
+        </h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
           {steps.map(({ icon: Icon, title, text }, i) => (
             <li key={title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -214,7 +228,9 @@ export function HowItWorks() {
                 <span className="flex size-10 items-center justify-center rounded-full bg-primary text-ink">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
-                <span className="font-label text-sm uppercase tracking-wider text-primary-soft">Step {i + 1}</span>
+                <span className="font-label text-sm uppercase tracking-wider text-primary-soft">
+                  Step {i + 1}
+                </span>
               </div>
               <h3 className="mt-4 font-display text-xl">{title}</h3>
               <p className="mt-2 leading-relaxed text-ink-muted">{text}</p>
@@ -237,12 +253,14 @@ export function CostUpfront() {
             <Receipt className="size-7" aria-hidden="true" />
           </span>
           <div className="flex-1">
-            <h2 className="text-2xl leading-tight text-foreground sm:text-3xl">About cost &amp; insurance</h2>
+            <h2 className="text-2xl leading-tight text-foreground sm:text-3xl">
+              About cost &amp; insurance
+            </h2>
             <p className="mt-3 max-w-3xl leading-relaxed text-foreground/80">
-              We're a direct-pay specialist practice. That means no referrals, no waiting on insurance
-              approvals, and full visits instead of rushed ones. You'll get an itemized receipt to
-              submit to your insurer for possible out-of-network reimbursement — and our team will go
-              over costs with you before you book.
+              We're a direct-pay specialist practice. That means no referrals, no waiting on
+              insurance approvals, and full visits instead of rushed ones. You'll get an itemized
+              receipt to submit to your insurer for possible out-of-network reimbursement — and our
+              team will go over costs with you before you book.
             </p>
           </div>
           <a

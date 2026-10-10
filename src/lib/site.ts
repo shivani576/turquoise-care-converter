@@ -1,6 +1,7 @@
 // Source of truth: turquoiseinstitute.com + Google Business Profile (checked Oct 2026).
 // Set VITE_SITE_URL to the final landing-page domain before launch.
-export const SITE_URL = (import.meta.env?.VITE_SITE_URL as string | undefined) ?? "https://turquoiseinstitute.com";
+export const SITE_URL =
+  (import.meta.env?.["VITE_SITE_URL"] as string | undefined) ?? "https://turquoiseinstitute.com";
 
 export const CLINIC = {
   name: "Turquoise Institute",
@@ -24,7 +25,8 @@ export const CLINIC = {
   googleMapsUrl: "https://maps.google.com/?cid=1310132766221795055",
   directionsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=10+Union+St+Suite+2D+Natick+MA+01760",
-  mapEmbedUrl: "https://www.google.com/maps?q=10+Union+St+Suite+2D+Natick+MA+01760&z=15&output=embed",
+  mapEmbedUrl:
+    "https://www.google.com/maps?q=10+Union+St+Suite+2D+Natick+MA+01760&z=15&output=embed",
   doctor: {
     name: "Dr. Amir Soheil Tolebeyan",
     short: "Dr. Tolebeyan",
@@ -165,10 +167,26 @@ export interface Reel {
 }
 
 export const REELS: Reel[] = [
-  { code: "DeMXeRCABoB", title: "What if your next migraine treatment isn't another pill?", topic: "botox" },
-  { code: "DbS_zNhKYrj", title: "Botox isn't just cosmetic — how it helps chronic migraine", topic: "botox" },
-  { code: "DX92rd2qyXb", title: "What kind of headache are you actually dealing with?", topic: "migraine" },
-  { code: "DZ-o0q2KDw6", title: "Why migraines often follow your hormonal cycle", topic: "migraine" },
+  {
+    code: "DeMXeRCABoB",
+    title: "What if your next migraine treatment isn't another pill?",
+    topic: "botox",
+  },
+  {
+    code: "DbS_zNhKYrj",
+    title: "Botox isn't just cosmetic — how it helps chronic migraine",
+    topic: "botox",
+  },
+  {
+    code: "DX92rd2qyXb",
+    title: "What kind of headache are you actually dealing with?",
+    topic: "migraine",
+  },
+  {
+    code: "DZ-o0q2KDw6",
+    title: "Why migraines often follow your hormonal cycle",
+    topic: "migraine",
+  },
   { code: "DaQ7Jkfvz58", title: "Can weather changes trigger your migraines?", topic: "migraine" },
   { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
   { code: "DYkOmlxgSp_", title: "Your MRI may not explain your pain", topic: "pain" },

@@ -1,7 +1,15 @@
 import type { PageCopy } from "@/lib/condition-pages";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
-import { ProofBar, PainPoints, Options, ConditionPicker, MeetDoctor, HowItWorks, CostUpfront } from "./Sections";
+import {
+  ProofBar,
+  PainPoints,
+  Options,
+  ConditionPicker,
+  MeetDoctor,
+  HowItWorks,
+  CostUpfront,
+} from "./Sections";
 import { Reviews } from "./Reviews";
 import { Reels } from "./Reels";
 import { Faq, Location } from "./Faq";
@@ -28,7 +36,11 @@ export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: bo
         <CostUpfront />
         <Faq faqs={page.faqs} />
         <Location />
-        <FinalCta heading={page.finalHeadline} defaultConcern={page.formConcern} ctaLabel={page.ctaLabel} />
+        <FinalCta
+          heading={page.finalHeadline}
+          defaultConcern={page.formConcern}
+          ctaLabel={page.ctaLabel}
+        />
       </main>
       <Footer />
       <StickyMobileCta />

@@ -31,7 +31,11 @@ export function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
             — we're happy to answer questions before you commit.
           </p>
         </div>
-        <Accordion type="single" collapsible className="divide-y divide-border rounded-2xl border border-border bg-card px-5 sm:px-7">
+        <Accordion
+          type="single"
+          collapsible
+          className="divide-y divide-border rounded-2xl border border-border bg-card px-5 sm:px-7"
+        >
           {faqs.map((f, i) => (
             <AccordionItem key={f.q} value={`q${i}`} className="border-0">
               <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground hover:no-underline sm:text-[17px]">
@@ -65,8 +69,8 @@ export function Location() {
             </p>
           </address>
           <p className="mt-4 text-[15px] text-muted-foreground">
-            Patients come to us from {SERVICE_AREAS.slice(1).join(", ")} and across MetroWest. Telemedicine
-            follow-ups are available for appropriate patients.
+            Patients come to us from {SERVICE_AREAS.slice(1).join(", ")} and across MetroWest.
+            Telemedicine follow-ups are available for appropriate patients.
           </p>
           <a
             href={CLINIC.directionsUrl}

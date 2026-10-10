@@ -34,7 +34,6 @@ const CONDITION_ALIASES: Record<string, string> = {
   "knee-pain": "joint-pain-osteoarthritis",
 };
 
-
 export const Route = createFileRoute("/$condition")({
   loader: ({ params }) => {
     if (!isConditionId(params.condition)) {
@@ -47,7 +46,12 @@ export const Route = createFileRoute("/$condition")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Page not found | Turquoise Institute" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [
+          { title: "Page not found | Turquoise Institute" },
+          { name: "robots", content: "noindex" },
+        ],
+      };
     }
     const page = CONDITION_PAGES[loaderData.conditionId];
     const url = `${SITE_URL}/${loaderData.conditionId}`;
@@ -57,12 +61,21 @@ export const Route = createFileRoute("/$condition")({
       name: page.title,
       description: page.description,
       url,
-      provider: { "@type": "MedicalClinic", "@id": `${SITE_URL}#clinic`, name: CLINIC.name, telephone: CLINIC.phoneTel },
+      provider: {
+        "@type": "MedicalClinic",
+        "@id": `${SITE_URL}#clinic`,
+        name: CLINIC.name,
+        telephone: CLINIC.phoneTel,
+      },
     };
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: page.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      mainEntity: page.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
     };
     return {
       meta: [
@@ -95,8 +108,13 @@ function ConditionNotFound() {
       <Header />
       <main className="container-page py-24 text-center">
         <h1 className="text-3xl text-foreground">We couldn't find that page.</h1>
-        <p className="mt-4 text-muted-foreground">See the conditions we treat or book a visit from our home page.</p>
-        <a href="/" className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4">
+        <p className="mt-4 text-muted-foreground">
+          See the conditions we treat or book a visit from our home page.
+        </p>
+        <a
+          href="/"
+          className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4"
+        >
           Go to the home page
         </a>
       </main>

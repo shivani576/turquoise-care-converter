@@ -28,11 +28,13 @@ export interface PageCopy {
   finalHeadline: string;
 }
 
+const BOTOX_VS_COSMETIC_FAQ = {
+  q: "Is Botox for migraine the same as cosmetic Botox?",
+  a: "It's the same medicine used in a different way. For chronic migraine, small injections are placed at specific points around the head, neck and shoulders following an FDA-approved protocol, and it's repeated about every 12 weeks. The goal is fewer headache days — not a cosmetic change.",
+};
+
 const MIGRAINE_FAQS = [
-  {
-    q: "Is Botox for migraine the same as cosmetic Botox?",
-    a: "It's the same medicine used in a different way. For chronic migraine, small injections are placed at specific points around the head, neck and shoulders following an FDA-approved protocol, and it's repeated about every 12 weeks. The goal is fewer headache days — not a cosmetic change.",
-  },
+  BOTOX_VS_COSMETIC_FAQ,
   {
     q: "How soon can I be seen?",
     a: "Call (978) 440-0021 or send the form and our team will find the earliest time that works for you. Telemedicine visits are available for appropriate patients.",
@@ -48,7 +50,11 @@ export const HOME_PAGE: PageCopy = {
   highlight: "Get Answers From a Specialist",
   subheadline:
     "Tried the pills, the PT and the rushed appointments? Dr. Amir Tolebeyan spends a full hour finding what's driving your pain, then treats it in his office — Botox for migraine, nerve blocks, PRP and image-guided injections.",
-  heroPoints: ["60-minute first visit with the doctor himself", "Treatment can often start the same day", "No referral needed"],
+  heroPoints: [
+    "60-minute first visit with the doctor himself",
+    "Treatment can often start the same day",
+    "No referral needed",
+  ],
   ctaLabel: "Book My Consultation",
   painTitle: "Does any of this sound familiar?",
   painPoints: [
@@ -57,7 +63,8 @@ export const HOME_PAGE: PageCopy = {
     "The pain is making you cancel plans, miss work or skip things you love.",
     "You'd rather avoid surgery, or more pills, if there's another way.",
   ],
-  painNote: "Ongoing pain is real, and it's treatable — but it needs someone who looks for the cause.",
+  painNote:
+    "Ongoing pain is real, and it's treatable — but it needs someone who looks for the cause.",
   optionsTitle: "What we help with",
   optionsIntro: "Pick what's bothering you most to see how we approach it.",
   options: [],
@@ -82,7 +89,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "See a Headache Specialist",
     subheadline:
       "Medication stopped working, or you're taking painkillers more days than not? Dr. Amir Tolebeyan is fellowship-trained in headache medicine. In one 60-minute visit he works out your migraine pattern and builds a plan to cut your headache days — with in-office options like nerve blocks and Botox.",
-    heroPoints: ["Fellowship-trained at Yale & Dartmouth", "Nerve blocks & Botox done in the office", "No referral needed"],
+    heroPoints: [
+      "Fellowship-trained at Yale & Dartmouth",
+      "Nerve blocks & Botox done in the office",
+      "No referral needed",
+    ],
     ctaLabel: "Book My Migraine Visit",
     formConcern: "Migraine Treatment",
     painTitle: "Does this sound like you?",
@@ -91,16 +102,17 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "You've missed work, family plans or your kids' events because of an attack.",
       "You've tried several medications — they stopped working, or the side effects weren't worth it.",
       "You're reaching for painkillers so often you're worried about it.",
-      "You've been told it's \"just stress\" or \"just a headache.\"",
+      'You\'ve been told it\'s "just stress" or "just a headache."',
     ],
-    painNote: "Migraine is a neurological condition, not a weakness — and it's very treatable with the right plan.",
+    painNote:
+      "Migraine is a neurological condition, not a weakness — and it's very treatable with the right plan.",
     optionsTitle: "Your treatment options, in plain English",
     optionsIntro:
       "Every plan is built around your headache pattern, history and goals. These are the tools Dr. Amir uses most:",
     options: [
       {
         title: "A clear diagnosis first",
-        text: "Many \"migraines\" are actually a mix of headache types. Sorting out exactly what you have changes which treatments will work.",
+        text: 'Many "migraines" are actually a mix of headache types. Sorting out exactly what you have changes which treatments will work.',
       },
       {
         title: "A prevention plan that fits you",
@@ -137,7 +149,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Ask About Botox",
     subheadline:
       "Botox is an FDA-approved preventive treatment for adults with chronic migraine — 15 or more headache days a month. The injections take a few minutes in the office and are repeated about every 12 weeks. Here they're given by a fellowship-trained headache specialist, not a med spa.",
-    heroPoints: ["Given by a headache specialist", "A few minutes in the office, about every 12 weeks", "Find out if you qualify at your first visit"],
+    heroPoints: [
+      "Given by a headache specialist",
+      "A few minutes in the office, about every 12 weeks",
+      "Find out if you qualify at your first visit",
+    ],
     ctaLabel: "See If I Qualify",
     formConcern: "Botox for Migraine",
     painTitle: "Botox may be worth discussing if…",
@@ -169,7 +185,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
     ],
     faqs: [
-      MIGRAINE_FAQS[0],
+      BOTOX_VS_COSMETIC_FAQ,
       {
         q: "Does it hurt?",
         a: "Most people describe a series of quick pinches. The needles are very fine and the visit is short. You can usually go straight back to your day.",
@@ -193,7 +209,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "See a Facial Pain Specialist",
     subheadline:
       "Night guard not enough? TMJ pain often spreads to the temples, ears and neck and shows up as headaches. Dr. Amir is fellowship-trained in Headache & Facial Pain, so he treats the jaw and the headaches together — including targeted Botox injections when appropriate.",
-    heroPoints: ["Treats jaw pain and headaches together", "Targeted in-office injections", "No referral needed"],
+    heroPoints: [
+      "Treats jaw pain and headaches together",
+      "Targeted in-office injections",
+      "No referral needed",
+    ],
     ctaLabel: "Book My TMJ Visit",
     formConcern: "TMJ Disorder (TMD)",
     painTitle: "Does this sound like you?",
@@ -206,7 +226,8 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     ],
     painNote: "Jaw pain and headaches are often connected. Treating just one usually isn't enough.",
     optionsTitle: "How we approach TMJ pain",
-    optionsIntro: "We look at the joint, the muscles and the nerves together — then match the treatment to the cause.",
+    optionsIntro:
+      "We look at the joint, the muscles and the nerves together — then match the treatment to the cause.",
     options: [
       {
         title: "Find the real pain source",
@@ -245,7 +266,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Targeted Injections Can Help",
     subheadline:
       "Cervical dystonia and spasticity make muscles tighten when they shouldn't. Precisely placed Botox, Xeomin or Dysport injections relax the overactive muscles, easing pain and making everyday movement more comfortable.",
-    heroPoints: ["Botox, Xeomin and Dysport available", "Dose and injection sites tailored to you", "No referral needed"],
+    heroPoints: [
+      "Botox, Xeomin and Dysport available",
+      "Dose and injection sites tailored to you",
+      "No referral needed",
+    ],
     ctaLabel: "Book My Consultation",
     formConcern: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
     painTitle: "Does this sound like you?",
@@ -255,7 +280,8 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "Stiff, tight muscles make daily tasks harder.",
       "Previous injections helped, but not as much as you hoped.",
     ],
-    painNote: "These conditions are manageable — the precision of the injections makes a big difference.",
+    painNote:
+      "These conditions are manageable — the precision of the injections makes a big difference.",
     optionsTitle: "How treatment works",
     optionsIntro: "Careful assessment first, then injections planned muscle by muscle.",
     options: [
@@ -286,7 +312,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "See If PRP Is Right for You",
     subheadline:
       "Tried PT, rest and cortisone shots? PRP uses a concentrate of your own platelets, injected into the injured joint or tendon under image guidance. It's a non-surgical option for the right patient — and your first visit tells you honestly whether that's you.",
-    heroPoints: ["Made from your own blood", "Image-guided for accuracy", "Honest candidacy check, no pressure"],
+    heroPoints: [
+      "Made from your own blood",
+      "Image-guided for accuracy",
+      "Honest candidacy check, no pressure",
+    ],
     ctaLabel: "Check If I'm a Candidate",
     formConcern: "Platelet-Rich Plasma (PRP) Injections",
     painTitle: "PRP may be worth discussing if…",
@@ -296,7 +326,8 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "Cortisone shots wore off — or you'd like to avoid more of them.",
       "You want to delay or avoid surgery if possible.",
     ],
-    painNote: "PRP isn't right for everyone — your first visit will tell you honestly whether it's a good fit.",
+    painNote:
+      "PRP isn't right for everyone — your first visit will tell you honestly whether it's a good fit.",
     optionsTitle: "How PRP works",
     optionsIntro: "Everything happens in one office visit.",
     options: [
@@ -337,7 +368,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Explore Non-Surgical Options First",
     subheadline:
       "Hurts to reach overhead or sleep on that side? Rotator cuff, tendon, bursitis and arthritis pain can feel the same but need different treatment. Dr. Amir pinpoints the source, then uses image-guided injections or PRP to get you moving again.",
-    heroPoints: ["A precise diagnosis of what's injured", "Image-guided injections and PRP", "No referral needed"],
+    heroPoints: [
+      "A precise diagnosis of what's injured",
+      "Image-guided injections and PRP",
+      "No referral needed",
+    ],
     ctaLabel: "Book My Shoulder Visit",
     formConcern: "Shoulder / Rotator Cuff Pain",
     painTitle: "Does this sound like you?",
@@ -382,7 +417,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Explore Options Before Surgery",
     subheadline:
       "Stairs hurt, walks got shorter, PT only helped a little? Dr. Amir uses image-guided injections and PRP to ease arthritis pain and keep you active — with straight talk on what each option can and can't do.",
-    heroPoints: ["Knee, hip, shoulder and hand arthritis", "Image-guided injections and PRP", "Straight answers, no pressure"],
+    heroPoints: [
+      "Knee, hip, shoulder and hand arthritis",
+      "Image-guided injections and PRP",
+      "Straight answers, no pressure",
+    ],
     ctaLabel: "Book My Joint Visit",
     formConcern: "Joint Pain / Osteoarthritis",
     painTitle: "Does this sound like you?",
@@ -394,7 +433,8 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     ],
     painNote: "Arthritis doesn't have to decide what you can still do.",
     optionsTitle: "How we treat joint pain",
-    optionsIntro: "The right option depends on the joint, how advanced the arthritis is, and your goals.",
+    optionsIntro:
+      "The right option depends on the joint, how advanced the arthritis is, and your goals.",
     options: [
       {
         title: "A clear picture",

@@ -12,16 +12,19 @@ import { cn } from "@/lib/utils";
 const field =
   "h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground placeholder:text-muted-foreground/70 focus-visible:border-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";
 
-const CONCERNS = [...CONDITIONS.map((c) => ({ value: c.formLabel, label: c.name })), { value: "Other pain", label: "Something else" }];
+const CONCERNS = [
+  ...CONDITIONS.map((c) => ({ value: c.formLabel, label: c.name })),
+  { value: "Other pain", label: "Something else" },
+];
 
 interface LeadFormProps {
   /** Where the form sits, for analytics ("hero", "final") */
   location: string;
-  defaultConcern?: string;
+  defaultConcern?: string | undefined;
   className?: string;
   heading?: string;
   /** Button text, e.g. "Book My Migraine Visit" */
-  ctaLabel?: string;
+  ctaLabel?: string | undefined;
 }
 
 /**
@@ -29,7 +32,13 @@ interface LeadFormProps {
  * lead actually reached the CRM; otherwise the visitor is asked to call, so no
  * lead is silently lost and ad platforms aren't fed false conversions.
  */
-export function LeadForm({ location, defaultConcern = "", className, heading, ctaLabel = "Request My Appointment" }: LeadFormProps) {
+export function LeadForm({
+  location,
+  defaultConcern = "",
+  className,
+  heading,
+  ctaLabel = "Request My Appointment",
+}: LeadFormProps) {
   const started = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -82,8 +91,12 @@ export function LeadForm({ location, defaultConcern = "", className, heading, ct
   };
 
   return (
-    <div className={cn("rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-7", className)}>
-      {heading ? <p className="font-display text-xl text-foreground sm:text-2xl">{heading}</p> : null}
+    <div
+      className={cn("rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-7", className)}
+    >
+      {heading ? (
+        <p className="font-display text-xl text-foreground sm:text-2xl">{heading}</p>
+      ) : null}
       <p className={cn("text-sm text-muted-foreground", heading && "mt-1")}>
         Takes 30 seconds. Our team will call you to find a time that works.
       </p>
@@ -96,23 +109,62 @@ export function LeadForm({ location, defaultConcern = "", className, heading, ct
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
             <span className="sr-only">First name</span>
-            <input id={`${idp}-first`} name="firstName" autoComplete="given-name" required maxLength={80} placeholder="First name" className={field} />
+            <input
+              id={`${idp}-first`}
+              name="firstName"
+              autoComplete="given-name"
+              required
+              maxLength={80}
+              placeholder="First name"
+              className={field}
+            />
           </label>
           <label className="block">
             <span className="sr-only">Last name</span>
-            <input id={`${idp}-last`} name="lastName" autoComplete="family-name" required maxLength={80} placeholder="Last name" className={field} />
+            <input
+              id={`${idp}-last`}
+              name="lastName"
+              autoComplete="family-name"
+              required
+              maxLength={80}
+              placeholder="Last name"
+              className={field}
+            />
           </label>
         </div>
         <label className="block">
           <span className="sr-only">Phone</span>
-          <input id={`${idp}-phone`} name="phone" type="tel" inputMode="tel" autoComplete="tel" required minLength={7} maxLength={40} placeholder="Phone" className={field} />
+          <input
+            id={`${idp}-phone`}
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            required
+            minLength={7}
+            maxLength={40}
+            placeholder="Phone"
+            className={field}
+          />
         </label>
         <label className="block">
           <span className="sr-only">Email</span>
-          <input id={`${idp}-email`} name="email" type="email" inputMode="email" autoComplete="email" required maxLength={200} placeholder="Email" className={field} />
+          <input
+            id={`${idp}-email`}
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            required
+            maxLength={200}
+            placeholder="Email"
+            className={field}
+          />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-foreground">What's bothering you most?</span>
+          <span className="mb-1.5 block text-sm font-medium text-foreground">
+            What's bothering you most?
+          </span>
           <select
             id={`${idp}-concern`}
             name="concern"
@@ -147,7 +199,10 @@ export function LeadForm({ location, defaultConcern = "", className, heading, ct
         </Button>
 
         {failed ? (
-          <div role="alert" className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-foreground">
+          <div
+            role="alert"
+            className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-foreground"
+          >
             We couldn't send your request just now. Please call us at{" "}
             <a
               href={`tel:${CLINIC.phoneTel}`}
@@ -166,9 +221,14 @@ export function LeadForm({ location, defaultConcern = "", className, heading, ct
           <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
           <span>
             Your details are private and only used to contact you about your visit. Please don't
-            include medical details here. By submitting you agree to be contacted by{" "}
-            {CLINIC.name}. See our{" "}
-            <a href={CLINIC.privacyUrl} target="_blank" rel="noopener" className="underline underline-offset-2">
+            include medical details here. By submitting you agree to be contacted by {CLINIC.name}.
+            See our{" "}
+            <a
+              href={CLINIC.privacyUrl}
+              target="_blank"
+              rel="noopener"
+              className="underline underline-offset-2"
+            >
               privacy policy
             </a>
             .
@@ -183,7 +243,8 @@ export function LeadForm({ location, defaultConcern = "", className, heading, ct
         data-location={`form-${location}`}
         onClick={() => track("phone_click", { location: `form-${location}` })}
       >
-        <Phone className="size-4 text-primary-deep" aria-hidden="true" /> Prefer to talk? Call {CLINIC.phoneDisplay}
+        <Phone className="size-4 text-primary-deep" aria-hidden="true" /> Prefer to talk? Call{" "}
+        {CLINIC.phoneDisplay}
       </a>
     </div>
   );

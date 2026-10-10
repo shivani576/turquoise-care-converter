@@ -32,7 +32,10 @@ function ThankYouPage() {
     <>
       <Header />
       <main className="relative overflow-hidden bg-mint/60">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-neural opacity-70" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-neural opacity-70"
+        />
         <div className="container-page relative flex min-h-[70vh] flex-col items-center justify-center py-20 text-center">
           <span className="flex size-16 items-center justify-center rounded-full bg-card text-primary-deep shadow-soft">
             <CheckCircle2 className="size-9" aria-hidden="true" />

@@ -17,9 +17,7 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
   const [open, setOpen] = useState<Reel | null>(null);
   const rail = useRef<HTMLUListElement>(null);
 
-  const ordered = topics?.length
-    ? [...REELS].sort((a, b) => rank(a) - rank(b))
-    : REELS;
+  const ordered = topics?.length ? [...REELS].sort((a, b) => rank(a) - rank(b)) : REELS;
   function rank(r: Reel) {
     const i = topics!.indexOf(r.topic);
     return i === -1 ? 99 : i;
@@ -50,10 +48,20 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
             </h2>
           </div>
           <div className="hidden gap-2 md:flex">
-            <button type="button" onClick={() => scroll(-1)} aria-label="Scroll videos left" className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep">
+            <button
+              type="button"
+              onClick={() => scroll(-1)}
+              aria-label="Scroll videos left"
+              className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep"
+            >
               <ChevronLeft className="size-5" />
             </button>
-            <button type="button" onClick={() => scroll(1)} aria-label="Scroll videos right" className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep">
+            <button
+              type="button"
+              onClick={() => scroll(1)}
+              aria-label="Scroll videos right"
+              className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep"
+            >
               <ChevronRight className="size-5" />
             </button>
           </div>

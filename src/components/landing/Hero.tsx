@@ -4,7 +4,7 @@ import { CLINIC, GOOGLE_RATING } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
 import { LeadForm } from "./LeadForm";
 
-function Headline({ text, highlight }: { text: string; highlight?: string }) {
+function Headline({ text, highlight }: { text: string; highlight?: string | undefined }) {
   if (!highlight || !text.includes(highlight)) return <>{text}</>;
   const [before, after] = text.split(highlight);
   return (
@@ -19,7 +19,10 @@ function Headline({ text, highlight }: { text: string; highlight?: string }) {
 export function Hero({ page }: { page: PageCopy }) {
   return (
     <section id="top" className="relative overflow-hidden bg-mint">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-neural opacity-60" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-neural opacity-60"
+      />
       {/* Phones: headline → form → proof. Desktop: copy left, form right. */}
       <div className="container-page relative grid gap-7 pb-12 pt-8 [grid-template-areas:'copy'_'form'_'points'] sm:pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-x-12 lg:gap-y-0 lg:pb-20 lg:pt-16 lg:[grid-template-areas:'copy_form'_'points_form']">
         <div className="min-w-0 animate-fade-up [grid-area:copy]">
@@ -35,7 +38,10 @@ export function Hero({ page }: { page: PageCopy }) {
         <div className="min-w-0 [grid-area:points]">
           <ul className="mt-1 space-y-2.5 lg:mt-6">
             {page.heroPoints.map((p) => (
-              <li key={p} className="flex items-start gap-3 text-[15px] font-medium text-foreground sm:text-base">
+              <li
+                key={p}
+                className="flex items-start gap-3 text-[15px] font-medium text-foreground sm:text-base"
+              >
                 <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary-deep text-white">
                   <Check className="size-3.5" aria-hidden="true" strokeWidth={3} />
                 </span>
@@ -55,7 +61,9 @@ export function Hero({ page }: { page: PageCopy }) {
               fetchPriority="high"
             />
             <div className="min-w-0">
-              <p className="font-display text-lg leading-tight text-foreground">{CLINIC.doctor.name}</p>
+              <p className="font-display text-lg leading-tight text-foreground">
+                {CLINIC.doctor.name}
+              </p>
               <p className="mt-0.5 text-sm text-muted-foreground">
                 Interventional Pain &amp; Headache Specialist
               </p>
@@ -77,7 +85,12 @@ export function Hero({ page }: { page: PageCopy }) {
         </div>
 
         <div id="consultation-top" className="min-w-0 [grid-area:form] lg:pt-2">
-          <LeadForm location="hero" defaultConcern={page.formConcern} heading="Request an appointment" ctaLabel={page.ctaLabel} />
+          <LeadForm
+            location="hero"
+            defaultConcern={page.formConcern}
+            heading="Request an appointment"
+            ctaLabel={page.ctaLabel}
+          />
         </div>
       </div>
     </section>

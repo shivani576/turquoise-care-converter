@@ -7,12 +7,25 @@ import { track } from "@/lib/track";
 import { LeadForm } from "./LeadForm";
 
 /** Closing section with the second form — the anchor every "Book" button scrolls to. */
-export function FinalCta({ heading, defaultConcern, ctaLabel }: { heading: string; defaultConcern?: string; ctaLabel?: string }) {
+export function FinalCta({
+  heading,
+  defaultConcern,
+  ctaLabel,
+}: {
+  heading: string;
+  defaultConcern?: string | undefined;
+  ctaLabel?: string | undefined;
+}) {
   return (
-    <section id="consultation" className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground">
+    <section
+      id="consultation"
+      className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground"
+    >
       <div className="container-page grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-16">
         <div>
-          <h2 className="max-w-xl text-balance text-3xl leading-tight sm:text-4xl lg:text-5xl">{heading}</h2>
+          <h2 className="max-w-xl text-balance text-3xl leading-tight sm:text-4xl lg:text-5xl">
+            {heading}
+          </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
             Tell us a little about what's going on and our team will call you to set up your
             60-minute visit with {CLINIC.doctor.short}. No referral needed.
@@ -29,11 +42,17 @@ export function FinalCta({ heading, defaultConcern, ctaLabel }: { heading: strin
           </a>
           <p className="mt-2 flex items-center gap-2 text-sm text-ink-muted">
             <MapPin className="size-4 text-primary-soft" aria-hidden="true" />
-            {CLINIC.address.street}, {CLINIC.address.city}, {CLINIC.address.state} {CLINIC.address.zip}
+            {CLINIC.address.street}, {CLINIC.address.city}, {CLINIC.address.state}{" "}
+            {CLINIC.address.zip}
           </p>
         </div>
         <div className="text-foreground">
-          <LeadForm location="final" defaultConcern={defaultConcern} heading="Request an appointment" ctaLabel={ctaLabel} />
+          <LeadForm
+            location="final"
+            defaultConcern={defaultConcern}
+            heading="Request an appointment"
+            ctaLabel={ctaLabel}
+          />
         </div>
       </div>
     </section>
@@ -46,7 +65,14 @@ export function Footer() {
     <footer className="border-t border-border bg-card pb-28 pt-12 md:pb-12">
       <div className="container-page grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <img src={logo} alt="Turquoise Institute" width={430} height={197} loading="lazy" className="h-12 w-auto" />
+          <img
+            src={logo}
+            alt="Turquoise Institute"
+            width={430}
+            height={197}
+            loading="lazy"
+            className="h-12 w-auto"
+          />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
             {CLINIC.fullName}. Diagnosing and treating headaches, facial pain and complex pain
             conditions so you can get back to living the life you love.
@@ -102,17 +128,59 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-deep">Information</p>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-deep">
+            Information
+          </p>
           <ul className="mt-4 space-y-2.5 text-sm text-foreground/80">
-            <li><a href={CLINIC.website} target="_blank" rel="noopener" className="hover:text-primary-deep">turquoiseinstitute.com</a></li>
-            <li><a href={CLINIC.insuranceUrl} target="_blank" rel="noopener" className="hover:text-primary-deep">Insurance &amp; Payment Policy</a></li>
-            <li><a href={CLINIC.privacyUrl} target="_blank" rel="noopener" className="hover:text-primary-deep">Privacy Policy</a></li>
-            <li><a href={CLINIC.termsUrl} target="_blank" rel="noopener" className="hover:text-primary-deep">Terms and Conditions</a></li>
+            <li>
+              <a
+                href={CLINIC.website}
+                target="_blank"
+                rel="noopener"
+                className="hover:text-primary-deep"
+              >
+                turquoiseinstitute.com
+              </a>
+            </li>
+            <li>
+              <a
+                href={CLINIC.insuranceUrl}
+                target="_blank"
+                rel="noopener"
+                className="hover:text-primary-deep"
+              >
+                Insurance &amp; Payment Policy
+              </a>
+            </li>
+            <li>
+              <a
+                href={CLINIC.privacyUrl}
+                target="_blank"
+                rel="noopener"
+                className="hover:text-primary-deep"
+              >
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a
+                href={CLINIC.termsUrl}
+                target="_blank"
+                rel="noopener"
+                className="hover:text-primary-deep"
+              >
+                Terms and Conditions
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="container-page mt-10 border-t border-border pt-6 text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} {CLINIC.name}. All rights reserved. This page is for informational purposes and does not constitute medical advice. If you are experiencing a medical emergency, call 911.</p>
+        <p>
+          © {new Date().getFullYear()} {CLINIC.name}. All rights reserved. This page is for
+          informational purposes and does not constitute medical advice. If you are experiencing a
+          medical emergency, call 911.
+        </p>
       </div>
     </footer>
   );
