@@ -63,8 +63,12 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --font-display: "Libre Baskerville", "Georgia", serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Matched to turquoiseinstitute.com: Alata headings, Doppio One buttons/labels,
+     Sofadi One script accent, Roboto body copy. */
+  --font-display: "Alata", "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-label: "Doppio One", "Roboto", ui-sans-serif, sans-serif;
+  --font-script: "Sofadi One", cursive;
 
   --shadow-card: 0 1px 2px oklch(0.25 0.03 200 / 0.05), 0 12px 32px -12px oklch(0.25 0.03 200 / 0.14);
   --shadow-card-hover: 0 2px 4px oklch(0.25 0.03 200 / 0.06), 0 24px 48px -16px oklch(0.25 0.03 200 / 0.22);
@@ -99,32 +103,32 @@
   --radius: 1rem;
 
   /* Surfaces */
-  --background: oklch(0.99 0.004 95);
-  --foreground: oklch(0.24 0.035 205);
+  --background: #ffffff;
+  --foreground: #2f3438;
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.035 205);
+  --card-foreground: #2f3438;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.24 0.035 205);
 
   /* Brand turquoise */
-  --primary: oklch(0.56 0.11 172);
-  --primary-foreground: oklch(0.995 0.005 170);
-  --primary-deep: oklch(0.46 0.095 178);
-  --primary-soft: oklch(0.72 0.11 168);
+  --primary: #46b698; /* brand teal from turquoiseinstitute.com */
+  --primary-foreground: #ffffff;
+  --primary-deep: #1f7a62; /* AA-contrast teal for text & buttons */
+  --primary-soft: #8fd6c2;
 
   /* Mint & sand neutrals from the brand */
-  --mint: oklch(0.955 0.03 172);
-  --mint-deep: oklch(0.905 0.05 172);
+  --mint: #eaf7f3;
+  --mint-deep: #cfece4; /* brand mint */
   --sand: oklch(0.965 0.012 85);
   --secondary: oklch(0.955 0.03 172);
   --secondary-foreground: oklch(0.32 0.06 190);
   --muted: oklch(0.96 0.01 110);
-  --muted-foreground: oklch(0.5 0.03 205);
+  --muted-foreground: #54595f; /* brand gray */
   --accent: oklch(0.93 0.04 172);
   --accent-foreground: oklch(0.3 0.06 190);
 
   /* Deep teal ink for premium dark sections */
-  --ink: oklch(0.25 0.045 205);
+  --ink: #173f36;
   --ink-foreground: oklch(0.97 0.01 170);
   --ink-muted: oklch(0.78 0.03 190);
 
@@ -220,7 +224,16 @@
   h3,
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  .font-label {
+    font-family: var(--font-label);
+  }
+
+  .font-script {
+    font-family: var(--font-script);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -257,9 +270,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-primary-deep);
 }
@@ -295,4 +308,11 @@
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

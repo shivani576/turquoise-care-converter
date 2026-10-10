@@ -17,12 +17,12 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         /* Primary conversion CTA — BOOK A CONSULTATION */
-        cta: "rounded-full bg-primary text-primary-foreground font-bold tracking-wide shadow-cta hover:bg-primary-deep hover:-translate-y-0.5 active:translate-y-0",
+        cta: "rounded-full bg-primary-deep text-primary-foreground font-label uppercase tracking-wide shadow-cta hover:bg-ink hover:-translate-y-0.5 active:translate-y-0",
         /* Secondary conversion CTA — CALL NOW */
         call: "rounded-full bg-call text-call-foreground font-bold tracking-wide hover:bg-ink/90 hover:-translate-y-0.5 active:translate-y-0",
         /* Call CTA on light surfaces, outlined */
         callOutline:
-          "rounded-full border-2 border-foreground/15 bg-transparent text-foreground font-bold tracking-wide hover:border-primary hover:text-primary-deep",
+          "rounded-full border-2 border-primary-deep/30 bg-card text-primary-deep font-label uppercase tracking-wide hover:border-primary-deep hover:bg-mint",
         /* CTA for dark ink sections */
         ctaLight:
           "rounded-full bg-primary-soft text-ink font-bold tracking-wide shadow-cta hover:bg-primary-foreground hover:-translate-y-0.5 active:translate-y-0",
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
-        xl: "h-14 px-8 text-[15px]",
+        xl: "h-14 px-7 text-[15px]",
         icon: "h-9 w-9",
       },
     },

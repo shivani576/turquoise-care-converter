@@ -1,5 +1,6 @@
-// Source of truth: turquoiseinstitute.com (verified Sept 2026)
-export const SITE_URL = "https://id-preview--1efd8ecb-c13f-4780-93c0-a8f3acd4f2b5.lovable.app"; // update to the final landing-page domain before launch
+// Source of truth: turquoiseinstitute.com + Google Business Profile (checked Oct 2026).
+// Set VITE_SITE_URL to the final landing-page domain before launch.
+export const SITE_URL = (import.meta.env?.VITE_SITE_URL as string | undefined) ?? "https://turquoiseinstitute.com";
 
 export const CLINIC = {
   name: "Turquoise Institute",
@@ -15,17 +16,19 @@ export const CLINIC = {
     zip: "01760",
   },
   website: "https://turquoiseinstitute.com/",
-  scheduleUrl: "https://turquoiseinstitute.com/schedule-consultation/",
-  insuranceUrl: "https://turquoiseinstitute.com/insurance-and-payment-policy/",
   privacyUrl: "https://turquoiseinstitute.com/privacy-policy/",
   termsUrl: "https://turquoiseinstitute.com/terms-and-conditions/",
-  instagram: "https://www.instagram.com/dramir.pain.headachemd",
+  insuranceUrl: "https://turquoiseinstitute.com/insurance-and-payment-policy/",
+  instagram: "https://www.instagram.com/dramir.pain.headachemd/",
+  instagramHandle: "@dramir.pain.headachemd",
+  googleMapsUrl: "https://maps.google.com/?cid=1310132766221795055",
   directionsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=10+Union+St+Suite+2D+Natick+MA+01760",
   mapEmbedUrl: "https://www.google.com/maps?q=10+Union+St+Suite+2D+Natick+MA+01760&z=15&output=embed",
   doctor: {
     name: "Dr. Amir Soheil Tolebeyan",
     short: "Dr. Tolebeyan",
+    first: "Dr. Amir",
     title: "Founder & Medical Director",
   },
 };
@@ -35,12 +38,20 @@ export const SERVICE_AREAS = [
   "Wellesley",
   "Weston",
   "Newton",
+  "Needham",
   "Wayland",
   "Sudbury",
   "Sherborn",
-  "Lincoln",
-  "Concord",
+  "Framingham",
   "Lexington",
+];
+
+export const CREDENTIALS = [
+  "Board-certified physician",
+  "Fellowship-trained in Headache & Facial Pain Medicine",
+  "Fellowship-trained in Interventional Pain Medicine",
+  "Trained at Yale & Dartmouth",
+  "Former director, Headache & Facial Pain Program, Tufts Medical Center",
 ];
 
 export type ConditionId =
@@ -54,160 +65,134 @@ export type ConditionId =
 
 export interface Condition {
   id: ConditionId;
+  /** Short label used on cards and in the picker */
   name: string;
+  /** Value stored with the lead in the CRM */
   formLabel: string;
-  scope: string;
-  description: string;
-  symptoms: string[];
+  /** One-line hook for the "What brings you in?" picker */
+  hook: string;
   url: string;
-  alt: string;
 }
 
 export const CONDITIONS: Condition[] = [
   {
     id: "migraine-treatment",
-    name: "Migraine Treatment",
+    name: "Migraines & headaches",
     formLabel: "Migraine Treatment",
-    scope: "Diagnosis, prevention & acute treatment",
-    description:
-      "Migraine is a neurological disease, not \"just a headache.\" Comprehensive diagnosis and a personalized prevention and acute treatment plan from a fellowship-trained headache specialist.",
-    symptoms: ["Throbbing, one-sided pain", "Light and sound sensitivity", "Nausea or visual aura"],
+    hook: "Frequent attacks, medications that stopped working",
     url: "https://turquoiseinstitute.com/conditions/migraine-types-causes-symptoms-diagnosis-and-treatment-options/",
-    alt: "Patient describing migraine symptoms to a physician during a consultation",
   },
   {
     id: "botox-for-migraine",
-    name: "Botox for Migraine",
+    name: "Botox for chronic migraine",
     formLabel: "Botox for Migraine",
-    scope: "Preventive injections for chronic migraine",
-    description:
-      "Botulinum toxin injections used as a preventive treatment for chronic migraine — administered in-office by a physician fellowship-trained in Headache and Facial Pain Medicine.",
-    symptoms: ["15 or more headache days a month", "Preventive medications not working", "Wanting fewer attacks"],
+    hook: "15 or more headache days a month",
     url: "https://turquoiseinstitute.com/",
-    alt: "Physician marking forehead injection points for chronic migraine prevention",
   },
   {
     id: "tmj-disorder",
-    name: "TMJ Disorder",
+    name: "TMJ & jaw pain",
     formLabel: "TMJ Disorder (TMD)",
-    scope: "Temporomandibular joint pain & dysfunction",
-    description:
-      "Temporomandibular joint disorder affecting the jaw, ear and temple — often overlapping with headache and facial pain — evaluated as joint, muscle and nerve together.",
-    symptoms: ["Jaw pain, clicking or locking", "Pain when chewing", "Ear or temple aching"],
+    hook: "Clicking, clenching, jaw-related headaches",
     url: "https://turquoiseinstitute.com/conditions/temporomandibular-joint-tmj-pain-types-causes-symptoms-and-treatment-option/",
-    alt: "Physician explaining jaw joint anatomy to a patient with TMJ disorder",
-  },
-  {
-    id: "botulinum-toxin-spasticity",
-    name: "Botulinum Toxin for Spasticity & Cervical Dystonia",
-    formLabel: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
-    scope: "Botox, Xeomin & Dysport injections",
-    description:
-      "Targeted botulinum toxin injections (Botox, Xeomin, Dysport) to reduce muscle overactivity in spasticity and cervical dystonia, improving comfort, posture and function.",
-    symptoms: ["Involuntary neck pulling or twisting", "Tight, stiff muscles", "Painful spasms or cramping"],
-    url: "https://turquoiseinstitute.com/",
-    alt: "Clinician administering a botulinum toxin injection into neck muscles for cervical dystonia",
   },
   {
     id: "prp-injections",
-    name: "PRP Injections",
+    name: "PRP injections",
     formLabel: "Platelet-Rich Plasma (PRP) Injections",
-    scope: "Regenerative treatment for joints & tendons",
-    description:
-      "Platelet-rich plasma prepared from your own blood and injected into the painful joint or tendon as part of a regenerative treatment plan for appropriate patients.",
-    symptoms: ["Ongoing joint or tendon pain", "Injuries slow to heal", "Looking for non-surgical options"],
+    hook: "Non-surgical option for joints & tendons",
     url: "https://turquoiseinstitute.com/",
-    alt: "Gloved hand holding a tube of platelet-rich plasma prepared for injection",
   },
   {
     id: "shoulder-pain",
-    name: "Shoulder & Rotator Cuff Pain",
+    name: "Shoulder & rotator cuff pain",
     formLabel: "Shoulder / Rotator Cuff Pain",
-    scope: "Rotator cuff tears, tendon & joint pain",
-    description:
-      "Shoulder pain from rotator cuff tears, tendon injury, bursitis or joint wear — evaluated precisely, then treated with image-guided and regenerative options where appropriate.",
-    symptoms: ["Pain lifting or reaching overhead", "Night pain lying on the shoulder", "Weakness or limited motion"],
+    hook: "Pain reaching overhead or sleeping on it",
     url: "https://turquoiseinstitute.com/",
-    alt: "Physician examining an adult patient's shoulder for rotator cuff pain",
   },
   {
     id: "joint-pain-osteoarthritis",
-    name: "Joint Pain & Osteoarthritis",
+    name: "Knee, hip & joint arthritis",
     formLabel: "Joint Pain / Osteoarthritis",
-    scope: "Knee, hip, shoulder & hand osteoarthritis",
-    description:
-      "Osteoarthritis and other joint pain in the knee, hip, shoulder and hand — with image-guided injections and regenerative options aimed at comfort and mobility, not just prescriptions.",
-    symptoms: ["Stiff, aching joints in the morning", "Pain with walking or stairs", "Swelling or grinding"],
+    hook: "Stiff, aching joints holding you back",
     url: "https://turquoiseinstitute.com/",
-    alt: "Doctor examining an older patient's knee affected by osteoarthritis",
+  },
+  {
+    id: "botulinum-toxin-spasticity",
+    name: "Neck spasms & cervical dystonia",
+    formLabel: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
+    hook: "Neck pulling, twisting or muscle spasms",
+    url: "https://turquoiseinstitute.com/",
   },
 ];
 
+/**
+ * Real Google reviews, copied word-for-word from the clinic's Google Business
+ * Profile (5.0 rating, 4 reviews as of Oct 2026). Used as the fallback when
+ * the live Places API feed is not configured. Do not edit the text.
+ */
+export const GOOGLE_RATING = { rating: 5.0, count: 4 };
 
-export const TESTIMONIALS = [
+export const GOOGLE_REVIEWS = [
   {
-    quote:
-      "Outstanding experience at Turquoise Institute. I received wonderful care and service for my migraines. Dr. Tolebeyan is compassionate, knowledgeable, and listens to patients. Highly recommend this clinic to anyone looking for true expertise in headache and pain management.",
-    name: "Fi NK",
-    context: "Migraines",
+    author: "Ana Laura Moura",
+    rating: 5,
+    when: "3 months ago",
+    tag: "headache",
+    text: "I am currently undergoing treatment with Dr. Tolebeyan, and I am very grateful for the care I've received so far. He is knowledgeable, attentive, and truly cares about his patients. He takes the time to listen, answer questions, and never makes me feel rushed during appointments. I also appreciate how available and supportive he has been whenever I've had concerns between visits. I highly recommend Dr. Tolebeyan to anyone dealing with headaches or migraines. It's reassuring to have a doctor who genuinely cares and is committed to helping his patients.",
   },
   {
-    quote:
-      "After struggling with migraines for most of my life, I finally found relief here. The treatments have been life-changing, and the staff is so caring and supportive. Highly recommend!",
-    name: "Jilla Budaghzadeh",
-    context: "Migraines",
+    author: "Fi NK",
+    rating: 5,
+    when: "5 months ago",
+    tag: "headache",
+    text: "Outstanding experience at Turquoise Institute. I received wonderful care and service for my migraines. Dr. Tolebeyan is compassionate, knowledgeable, and listens to patients. Highly recommend this clinic to anyone looking for true expertise in headache and pain management.",
   },
   {
-    quote:
-      "He is knowledgeable, attentive, and truly cares about his patients. He takes the time to listen, answer questions, and never makes me feel rushed during appointments. I also appreciate how available and supportive he has been whenever I've had concerns between visits.",
-    name: "Ana Laura Mouraopen",
-    context: "Empathetic and Available",
+    author: "Jilla Budaghzadeh",
+    rating: 5,
+    when: "4 months ago",
+    tag: "pain",
+    text: "I highly recommend Dr. Tolebiyan to anyone seeking thoughtful and high-quality care for pain and headache management.",
   },
 ];
 
-export const FAQS = [
+/** Dr. Amir's own Instagram reels, shown in the "Hear it from Dr. Amir" row. */
+export interface Reel {
+  code: string;
+  title: string;
+  topic: "migraine" | "botox" | "prp" | "pain";
+}
+
+export const REELS: Reel[] = [
+  { code: "DeMXeRCABoB", title: "What if your next migraine treatment isn't another pill?", topic: "botox" },
+  { code: "DbS_zNhKYrj", title: "Botox isn't just cosmetic — how it helps chronic migraine", topic: "botox" },
+  { code: "DX92rd2qyXb", title: "What kind of headache are you actually dealing with?", topic: "migraine" },
+  { code: "DZ-o0q2KDw6", title: "Why migraines often follow your hormonal cycle", topic: "migraine" },
+  { code: "DaQ7Jkfvz58", title: "Can weather changes trigger your migraines?", topic: "migraine" },
+  { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
+  { code: "DYkOmlxgSp_", title: "Your MRI may not explain your pain", topic: "pain" },
+];
+
+export const GENERAL_FAQS = [
   {
-    q: "What conditions does Turquoise Institute treat?",
-    a: "Our focused services include migraine treatment, Botox for chronic migraine, TMJ disorder (TMD), botulinum toxin (Botox, Xeomin, Dysport) for spasticity and cervical dystonia, platelet-rich plasma (PRP) injections, shoulder and rotator cuff pain treatment, and joint pain and osteoarthritis treatment.",
+    q: "Do I need a referral?",
+    a: "No. You can book directly with us — online or by calling (978) 440-0021. Telemedicine visits are also available for appropriate patients.",
   },
   {
-    q: "Do you treat migraine and headache conditions?",
-    a: "Yes. Dr. Tolebeyan has specialized fellowship training in Headache and Facial Pain Medicine and provides comprehensive evaluation and treatment for migraine, chronic headache disorders, neuralgias, facial pain and other complex headache conditions.",
+    q: "What happens at the first visit?",
+    a: "Your first visit is about 60 minutes with Dr. Tolebeyan himself. He goes through your history, what you've already tried, examines you and reviews any scans — then explains what he thinks is going on and lays out your options. When it makes sense, treatment can often start the same day.",
   },
   {
-    q: "Do you offer Botox and other botulinum toxin injections?",
-    a: "Yes. We provide botulinum toxin injections (Botox, Xeomin, Dysport) for chronic migraine prevention and for spasticity and cervical dystonia, with product, dose and injection sites individualized to you.",
+    q: "Do you take insurance?",
+    a: "We're a direct-pay, out-of-network practice, so we don't bill commercial insurance, Medicare or Medicaid. You'll get an itemized receipt you can submit to your insurer for possible out-of-network reimbursement. Our team can walk you through costs before you book.",
   },
   {
-    q: "What is PRP, and what do you use it for?",
-    a: "Platelet-rich plasma is prepared by concentrating the platelet portion of a small sample of your own blood, then injected into a painful joint or tendon. We use it as part of regenerative treatment plans for joint, osteoarthritis, shoulder and tendon pain in appropriate patients.",
+    q: "What should I bring?",
+    a: "Your medication list (including what you've tried before), any MRI, CT or X-ray reports, and previous procedure notes if you have them.",
   },
   {
-    q: "Do you treat TMJ disorder?",
-    a: "Yes. TMJ disorder (TMD) is a core part of our practice, drawing on Dr. Tolebeyan's fellowship training in Headache and Facial Pain Medicine, and is evaluated as joint, muscle and nerve together.",
-  },
-  {
-    q: "What happens during the first consultation?",
-    a: "New patient consultations are typically 60 minutes, allowing sufficient time for a detailed history, comprehensive evaluation and personalized treatment planning. In many cases, same-day diagnosis and treatment may be available depending on your treatment plan.",
-  },
-  {
-    q: "How do I schedule an appointment?",
-    a: "Appointments can be requested online or by calling our office directly at (978) 440-0021. No referral is necessary — patients may schedule directly with our office. Telemedicine consultations are also available for appropriate patients.",
-  },
-  {
-    q: "Where is Turquoise Institute located?",
-    a: "Turquoise Institute is located at 10 Union Street, Suite 2D, Natick, MA 01760.",
-  },
-  {
-    q: "Which communities do you serve?",
-    a: "From our Natick office we care for patients throughout MetroWest and Greater Boston, including Wellesley, Weston, Newton, Wayland, Sudbury, Sherborn, Lincoln, Concord and Lexington, as well as the 02494 (Needham) area.",
-  },
-  {
-    q: "What should I bring to my appointment?",
-    a: "Please bring any relevant medical records, imaging studies (MRI, CT, X-rays), medication lists, previous procedure reports and insurance information if you plan to seek out-of-network reimbursement.",
-  },
-  {
-    q: "Do you accept insurance?",
-    a: "Turquoise Institute operates as a direct-pay, out-of-network practice and does not participate with commercial insurance plans or Medicare/Medicaid. Patients receive an itemized statement and receipt that may be submitted to their insurance company for possible out-of-network reimbursement. Most regenerative treatments are considered self-pay services.",
+    q: "Where are you located?",
+    a: "10 Union Street, Suite 2D, Natick, MA 01760 — easy to reach from Wellesley, Weston, Newton, Needham, Framingham, Wayland and Sudbury.",
   },
 ];

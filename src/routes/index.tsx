@@ -1,18 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Header } from "@/components/landing/Header";
-import { Hero } from "@/components/landing/Hero";
-import { TrustStrip, Problem } from "@/components/landing/TrustAndProblem";
-import { Conditions } from "@/components/landing/Conditions";
-import { Why, Approach } from "@/components/landing/WhyAndApproach";
-import { Journey, Testimonials } from "@/components/landing/JourneyAndProof";
-import { Local, Faq } from "@/components/landing/LocalAndFaq";
-import { ConsultationForm } from "@/components/landing/ConsultationForm";
-import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "@/components/landing/FinalAndFooter";
-import { CLINIC, CONDITIONS, FAQS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
-
-const TITLE = "Migraine, Botox, PRP & Joint Pain Specialists in Natick, MA | Turquoise Institute";
-const DESCRIPTION =
-  "Migraine treatment, Botox for migraine, TMJ disorder care, botulinum toxin for spasticity and cervical dystonia, PRP injections, shoulder and rotator cuff pain, and joint pain and osteoarthritis treatment in Natick, MA. Book a consultation.";
+import { PageBody } from "@/components/landing/PageBody";
+import { HOME_PAGE } from "@/lib/condition-pages";
+import { CLINIC, CONDITIONS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
 
 const clinicSchema = {
   "@context": "https://schema.org",
@@ -21,9 +10,8 @@ const clinicSchema = {
   name: CLINIC.name,
   alternateName: CLINIC.fullName,
   url: SITE_URL,
-  sameAs: [CLINIC.website, CLINIC.instagram],
+  sameAs: [CLINIC.website, CLINIC.instagram, CLINIC.googleMapsUrl],
   telephone: CLINIC.phoneTel,
-  faxNumber: CLINIC.fax,
   email: CLINIC.email,
   address: {
     "@type": "PostalAddress",
@@ -35,24 +23,15 @@ const clinicSchema = {
   },
   medicalSpecialty: ["PainManagement", "Neurology"],
   areaServed: SERVICE_AREAS.map((name) => ({ "@type": "City", name: `${name}, MA` })),
-  founder: {
-    "@type": "Physician",
-    name: CLINIC.doctor.name,
-    jobTitle: CLINIC.doctor.title,
-    medicalSpecialty: ["PainManagement", "Neurology"],
-  },
-  availableService: CONDITIONS.map((c) => ({
-    "@type": "MedicalTherapy",
-    name: `${c.name} evaluation and treatment`,
-    url: c.url,
-  })),
+  founder: { "@type": "Physician", name: CLINIC.doctor.name, jobTitle: CLINIC.doctor.title },
+  availableService: CONDITIONS.map((c) => ({ "@type": "MedicalTherapy", name: c.name })),
   isAcceptingNewPatients: true,
 };
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
+  mainEntity: HOME_PAGE.faqs.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -62,17 +41,12 @@ const faqSchema = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
+      { title: HOME_PAGE.title },
+      { name: "description", content: HOME_PAGE.description },
       { name: "robots", content: "index, follow, max-image-preview:large" },
-      { name: "geo.region", content: "US-MA" },
-      { name: "geo.placename", content: "Natick" },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
+      { property: "og:title", content: HOME_PAGE.title },
+      { property: "og:description", content: HOME_PAGE.description },
       { property: "og:url", content: SITE_URL },
-      { property: "og:locale", content: "en_US" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
     ],
     links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
@@ -80,30 +54,5 @@ export const Route = createFileRoute("/")({
       { type: "application/ld+json", children: JSON.stringify(faqSchema) },
     ],
   }),
-  component: LandingPage,
+  component: () => <PageBody page={HOME_PAGE} isHome />,
 });
-
-function LandingPage() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <TrustStrip />
-        <Problem />
-        <Conditions />
-        <Why />
-        <Approach />
-        <Journey />
-        <Testimonials />
-        <Local />
-        <Faq />
-        <ConsultationForm />
-        <FinalCta />
-      </main>
-      <Footer />
-      <StickyMobileCta />
-      <ScrollDepthTracker />
-    </>
-  );
-}

@@ -4,46 +4,37 @@ import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
-import { CtaPair } from "./Ctas";
+import { LeadForm } from "./LeadForm";
 
-export function FinalCta({
-  heading = "You Don't Have to Navigate Persistent Pain Alone.",
-  conditionName,
-}: {
-  heading?: string;
-  conditionName?: string;
-}) {
-  const { address } = CLINIC;
+/** Closing section with the second form — the anchor every "Book" button scrolls to. */
+export function FinalCta({ heading, defaultConcern, ctaLabel }: { heading: string; defaultConcern?: string; ctaLabel?: string }) {
   return (
-    <section className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground">
-      <div className="container-page text-center">
-        <h2 className="mx-auto max-w-3xl text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-          {heading}
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
-          Speak with the Turquoise Institute team about
-          {conditionName ? ` your ${conditionName.toLowerCase()}` : " what you're experiencing"}. A
-          careful evaluation is the first step — and it starts with a simple conversation.
-        </p>
-        <div className="mt-9 flex justify-center">
-          <CtaPair location="final" tone="dark" />
-        </div>
-        <address className="mx-auto mt-10 flex max-w-xl flex-col items-center gap-2 text-sm not-italic text-ink-muted sm:flex-row sm:justify-center sm:gap-6">
-          <span className="inline-flex items-center gap-2">
-            <MapPin className="size-4 text-primary-soft" aria-hidden="true" />
-            {address.street}, {address.city}, {address.state} {address.zip}
-          </span>
+    <section id="consultation" className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground">
+      <div className="container-page grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-16">
+        <div>
+          <h2 className="max-w-xl text-balance text-3xl leading-tight sm:text-4xl lg:text-5xl">{heading}</h2>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
+            Tell us a little about what's going on and our team will call you to set up your
+            60-minute visit with {CLINIC.doctor.short}. No referral needed.
+          </p>
           <a
             href={`tel:${CLINIC.phoneTel}`}
-            className="js-track-call inline-flex items-center gap-2 font-semibold text-ink-foreground"
+            className="js-track-call mt-8 inline-flex items-center gap-3 font-display text-2xl text-ink-foreground hover:text-primary-soft sm:text-3xl"
             data-track="phone_click"
             data-location="final"
             onClick={() => track("phone_click", { location: "final" })}
           >
-            <Phone className="size-4 text-primary-soft" aria-hidden="true" />
+            <Phone className="size-6 text-primary-soft" aria-hidden="true" />
             {CLINIC.phoneDisplay}
           </a>
-        </address>
+          <p className="mt-2 flex items-center gap-2 text-sm text-ink-muted">
+            <MapPin className="size-4 text-primary-soft" aria-hidden="true" />
+            {CLINIC.address.street}, {CLINIC.address.city}, {CLINIC.address.state} {CLINIC.address.zip}
+          </p>
+        </div>
+        <div className="text-foreground">
+          <LeadForm location="final" defaultConcern={defaultConcern} heading="Request an appointment" ctaLabel={ctaLabel} />
+        </div>
       </div>
     </section>
   );

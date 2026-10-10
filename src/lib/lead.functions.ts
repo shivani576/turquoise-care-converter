@@ -42,6 +42,12 @@ export const submitLead = createServerFn({ method: "POST" })
     const locationId = process.env["GHL_LOCATION_ID"];
 
     if (!token || !locationId) {
+      // LEAD_PREVIEW=1 lets a preview deployment exercise the full flow
+      // without a CRM. Never set it in production.
+      if (process.env["LEAD_PREVIEW"] === "1") {
+        console.log(`submitLead (preview mode): ${data.firstName} / ${data.concern}`);
+        return { ok: true, synced: true as const, action: "preview" as const };
+      }
       console.error("submitLead: GHL_API_TOKEN or GHL_LOCATION_ID is not configured");
       return { ok: true, synced: false as const };
     }

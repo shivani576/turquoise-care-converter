@@ -1,79 +1,84 @@
-import { Link } from "@tanstack/react-router";
-import { BadgeCheck, Clock3, GraduationCap, Star } from "lucide-react";
-import { CtaPair } from "./Ctas";
-import { CONDITIONS } from "@/lib/site";
-import heroTreatmentAsset from "@/assets/hero-treatment.jpg.asset.json";
+import { Check, Star } from "lucide-react";
+import heroPhoto from "@/assets/photos/dr-amir-white-coat-portrait.jpg";
+import { CLINIC, GOOGLE_RATING } from "@/lib/site";
+import type { PageCopy } from "@/lib/condition-pages";
+import { LeadForm } from "./LeadForm";
 
-const TRUST = [
-  { icon: BadgeCheck, label: "Board-certified physician" },
-  { icon: GraduationCap, label: "Fellowship-trained: Yale & Dartmouth" },
-  { icon: Clock3, label: "60-minute new patient consultations" },
-  { icon: Star, label: "No referral required" },
-];
-
-export function Hero() {
+function Headline({ text, highlight }: { text: string; highlight?: string }) {
+  if (!highlight || !text.includes(highlight)) return <>{text}</>;
+  const [before, after] = text.split(highlight);
   return (
-    <section id="top" className="relative overflow-hidden bg-neural">
-      <div className="container-page pb-14 pt-14 lg:pb-20 lg:pt-20">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">
-          <div className="animate-fade-up">
-            <p className="eyebrow eyebrow-dash">Pain, Headache &amp; Nerve Specialists · Natick, MA</p>
-            <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-[1.08] text-foreground sm:text-5xl lg:text-[4.25rem]">
-              Find the Source of Your Pain. Move Forward With Confidence.
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              Personalized evaluation and treatment for persistent pain, migraine, headache and
-              nerve conditions — with the time and expertise to understand what is really happening.
-            </p>
-            <CtaPair location="hero" className="mt-7" />
-          </div>
+    <>
+      {before}
+      <span className="text-primary-deep">{highlight}</span>
+      {after}
+    </>
+  );
+}
 
-          <div className="relative">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-card shadow-soft">
-              <img
-                src={heroTreatmentAsset.url}
-                alt="Physician examining a patient during a pain consultation at Turquoise Institute in Natick, MA"
-                width={1344}
-                height={896}
-                className="h-full w-full object-cover"
-                fetchPriority="high"
-                decoding="async"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/60 to-transparent p-5 pt-16">
-                <p className="text-sm font-semibold text-white/95">
-                  Expert, hands-on evaluation for lasting relief
-                </p>
-              </div>
+export function Hero({ page }: { page: PageCopy }) {
+  return (
+    <section id="top" className="relative overflow-hidden bg-mint">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-neural opacity-60" />
+      {/* Phones: headline → form → proof. Desktop: copy left, form right. */}
+      <div className="container-page relative grid gap-7 pb-12 pt-8 [grid-template-areas:'copy'_'form'_'points'] sm:pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-x-12 lg:gap-y-0 lg:pb-20 lg:pt-16 lg:[grid-template-areas:'copy_form'_'points_form']">
+        <div className="min-w-0 animate-fade-up [grid-area:copy]">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h1 className="mt-4 text-balance text-[2rem] leading-[1.12] text-foreground sm:text-5xl lg:text-[3.35rem]">
+            <Headline text={page.headline} highlight={page.highlight} />
+          </h1>
+          <p className="mt-5 max-w-2xl text-[1.06rem] leading-relaxed text-foreground/80 sm:text-lg">
+            {page.subheadline}
+          </p>
+        </div>
+
+        <div className="min-w-0 [grid-area:points]">
+          <ul className="mt-1 space-y-2.5 lg:mt-6">
+            {page.heroPoints.map((p) => (
+              <li key={p} className="flex items-start gap-3 text-[15px] font-medium text-foreground sm:text-base">
+                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary-deep text-white">
+                  <Check className="size-3.5" aria-hidden="true" strokeWidth={3} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          {/* Doctor card: real photo, name, Google rating */}
+          <div className="mt-8 flex items-center gap-4 rounded-2xl border border-border bg-card/90 p-3 pr-5 shadow-card sm:max-w-lg">
+            <img
+              src={heroPhoto}
+              alt={`${CLINIC.doctor.name} in his Natick office`}
+              width={404}
+              height={718}
+              className="h-28 w-24 shrink-0 rounded-xl object-cover object-top sm:h-32 sm:w-28"
+              fetchPriority="high"
+            />
+            <div className="min-w-0">
+              <p className="font-display text-lg leading-tight text-foreground">{CLINIC.doctor.name}</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Interventional Pain &amp; Headache Specialist
+              </p>
+              <a
+                href={CLINIC.googleMapsUrl}
+                target="_blank"
+                rel="noopener"
+                className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary-deep"
+              >
+                <span className="flex text-[#f5a623]" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-4 fill-current" />
+                  ))}
+                </span>
+                {GOOGLE_RATING.rating.toFixed(1)} on Google
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border pt-7 lg:mt-16">
-          <ul className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm font-semibold text-foreground/80 sm:grid-cols-2 lg:grid-cols-4">
-            {TRUST.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2.5">
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-mint text-primary-deep">
-                  <Icon className="size-4" aria-hidden="true" />
-                </span>
-                {label}
-              </li>
-            ))}
-          </ul>
+        <div id="consultation-top" className="min-w-0 [grid-area:form] lg:pt-2">
+          <LeadForm location="hero" defaultConcern={page.formConcern} heading="Request an appointment" ctaLabel={page.ctaLabel} />
         </div>
-
-        <ul className="mt-7 flex flex-wrap gap-2" aria-label="Conditions treated">
-          {CONDITIONS.map((c) => (
-            <li key={c.id}>
-              <Link
-                to="/$condition"
-                params={{ condition: c.id }}
-                className="inline-flex rounded-full border border-primary/25 bg-card/80 px-3.5 py-1.5 text-xs font-bold text-primary-deep transition-colors hover:border-primary hover:bg-mint"
-              >
-                {c.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

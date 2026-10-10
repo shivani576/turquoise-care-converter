@@ -12,6 +12,9 @@ export type TrackEvent =
   | "condition_card_click"
   | "form_start"
   | "form_submit"
+  | "form_error"
+  | "reel_open"
+  | "review_click"
   | "appointment_request"
   | "scroll_depth";
 
