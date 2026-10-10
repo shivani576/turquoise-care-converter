@@ -4,7 +4,10 @@ import { CLINIC, REELS, type Reel } from "@/lib/site";
 import { track } from "@/lib/track";
 
 // Cover images are stills from Dr. Amir's own reels.
-const covers = import.meta.glob<string>("@/assets/reels/*.jpg", { eager: true, import: "default" });
+const covers = import.meta.glob<string>("../../assets/reels/*.jpg", {
+  eager: true,
+  import: "default",
+});
 const coverFor = (code: string) =>
   Object.entries(covers).find(([path]) => path.endsWith(`/${code}.jpg`))?.[1];
 
