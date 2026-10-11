@@ -61,7 +61,8 @@ export function Location({ keyword }: { keyword: string }) {
         <div className="min-w-0 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8">
           <p className="eyebrow">Near you</p>
           <h2 className="mt-3 text-balance text-2xl leading-tight text-heading sm:text-3xl">
-            {keyword.charAt(0).toUpperCase() + keyword.slice(1)} near Wellesley, Framingham &amp; Needham
+            {keyword.charAt(0).toUpperCase() + keyword.slice(1)} near Wellesley, Framingham &amp;
+            Needham
           </h2>
           <address className="mt-4 not-italic">
             <p className="flex items-start gap-2 text-foreground/80">

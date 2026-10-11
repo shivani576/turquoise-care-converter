@@ -3,6 +3,7 @@ import { CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/FinalAndFooter";
 import { CLINIC, SITE_URL } from "@/lib/site";
+import { track } from "@/lib/track";
 
 export const Route = createFileRoute("/thank-you")({
   head: () => ({
@@ -52,6 +53,8 @@ function ThankYouPage() {
           <div className="mt-10 grid w-full max-w-2xl gap-4 text-left sm:grid-cols-2">
             <a
               href={`tel:${CLINIC.phoneTel}`}
+              data-track="phone_click"
+              onClick={() => track("phone_click", { location: "thank-you" })}
               className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft"
             >
               <Phone className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
@@ -62,6 +65,8 @@ function ThankYouPage() {
             </a>
             <a
               href={`mailto:${CLINIC.email}`}
+              data-track="email_click"
+              onClick={() => track("email_click", { location: "thank-you" })}
               className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft"
             >
               <Mail className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
@@ -72,6 +77,8 @@ function ThankYouPage() {
             </a>
             <a
               href={CLINIC.directionsUrl}
+              data-track="directions_click"
+              onClick={() => track("directions_click", { location: "thank-you" })}
               target="_blank"
               rel="noopener"
               className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft sm:col-span-2"

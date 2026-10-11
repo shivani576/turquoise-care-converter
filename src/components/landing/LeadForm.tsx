@@ -88,7 +88,8 @@ export function LeadForm({
       return;
     }
 
-    track("appointment_request", { concern, location });
+    // event_id lets GTM dedupe the conversion (Google Ads transaction_id, Meta eventID).
+    track("appointment_request", { concern, location, event_id: newEventId() });
     await navigate({ to: "/thank-you" });
   };
 
@@ -168,31 +169,40 @@ export function LeadForm({
             What's bothering you most?
           </span>
           <span className="relative block">
-          <select
-            id={`${idp}-concern`}
-            name="concern"
-            defaultValue={defaultConcern}
-            required
-            className={cn(field, "appearance-none pr-10")}
-          >
-            <option value="" disabled>
-              Choose one
-            </option>
-            {CONCERNS.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
+            <select
+              id={`${idp}-concern`}
+              name="concern"
+              defaultValue={defaultConcern}
+              required
+              className={cn(field, "appearance-none pr-10")}
+            >
+              <option value="" disabled>
+                Choose one
               </option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep" aria-hidden="true" />
+              {CONCERNS.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep"
+              aria-hidden="true"
+            />
           </span>
         </label>
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-foreground">
-            Best time to call you <span className="font-normal text-muted-foreground">(optional)</span>
+            Best time to call you{" "}
+            <span className="font-normal text-muted-foreground">(optional)</span>
           </span>
           <span className="relative block">
-            <select id={`${idp}-time`} name="preferredTime" defaultValue="" className={cn(field, "appearance-none pr-10")}>
+            <select
+              id={`${idp}-time`}
+              name="preferredTime"
+              defaultValue=""
+              className={cn(field, "appearance-none pr-10")}
+            >
               <option value="">Any time</option>
               {CALL_TIMES.map((t) => (
                 <option key={t} value={t}>
@@ -200,7 +210,10 @@ export function LeadForm({
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep" aria-hidden="true" />
+            <ChevronDown
+              className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep"
+              aria-hidden="true"
+            />
           </span>
         </label>
 
@@ -266,4 +279,12 @@ export function LeadForm({
       </a>
     </div>
   );
+}
+
+function newEventId(): string {
+  try {
+    return crypto.randomUUID();
+  } catch {
+    return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  }
 }

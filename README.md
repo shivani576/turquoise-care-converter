@@ -7,7 +7,10 @@ TanStack Start + React + Tailwind, server functions for the lead form and Google
 
 - `/` — home page for brand / general ads, with a "What brings you in?" picker
 - `/migraine`, `/botox-migraine`, `/tmj`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms` — one page per ad group (old long paths redirect)
-- `/thank-you` — fire the Google Ads / Meta conversion on this page view in GTM (GTM-TJ79BBT5)
+- `/thank-you` — confirmation page (noindex). Ad conversions fire on the `appointment_request` dataLayer event in GTM (GTM-TJ79BBT5)
+- `/robots.txt`, `/sitemap.xml` — generated per host; previews and `*.vercel.app` are never indexed
+
+Step-by-step setup for the domain, Vercel, GoHighLevel and GTM: [`docs/LAUNCH.md`](docs/LAUNCH.md).
 
 All page copy lives in `src/lib/condition-pages.ts`; clinic facts, reels and reviews in `src/lib/site.ts`.
 
@@ -21,13 +24,13 @@ npm run build && npm start
 
 ## Environment variables (set in Vercel/Netlify, never commit)
 
-| Name                                       | Purpose                                                                       |
-| ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `GHL_API_TOKEN`, `GHL_LOCATION_ID`         | Send leads to GoHighLevel                                                     |
-| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | Optional: live Google rating + reviews (falls back to the saved real reviews) |
-| `VITE_SITE_URL`                            | Final domain, for canonical links                                             |
-| `LEAD_PREVIEW=1`                           | Preview deployments only: lets the form complete without a CRM                |
-| `NITRO_PRESET`                             | `vercel` or `netlify` on the host                                             |
+| Name                                       | Purpose                                                                                  |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `GHL_API_TOKEN`, `GHL_LOCATION_ID`         | Send leads to GoHighLevel                                                                |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | Optional: live Google rating + reviews (falls back to the saved real reviews)            |
+| `VITE_SITE_URL`                            | Optional: overrides the canonical domain (default `https://care.turquoiseinstitute.com`) |
+| `LEAD_PREVIEW=1`                           | Preview deployments only: lets the form complete without a CRM                           |
+| `NITRO_PRESET`                             | `vercel` or `netlify` on the host                                                        |
 
 ## Notes
 

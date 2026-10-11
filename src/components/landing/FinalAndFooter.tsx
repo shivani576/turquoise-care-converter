@@ -23,7 +23,9 @@ export function FinalCta({
     >
       <div className="container-page grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-16">
         <div>
-          <h2 className="max-w-xl text-balance text-3xl leading-tight text-ink-foreground sm:text-4xl lg:text-5xl">{heading}</h2>
+          <h2 className="max-w-xl text-balance text-3xl leading-tight text-ink-foreground sm:text-4xl lg:text-5xl">
+            {heading}
+          </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
             Tell us a little about what's going on and our team will call you to set up your
             60-minute visit with {CLINIC.doctor.short}. No referral needed.

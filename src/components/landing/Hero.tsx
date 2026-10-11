@@ -1,6 +1,7 @@
 import { BadgeCheck, MapPin, Star } from "lucide-react";
 import headshot from "@/assets/photos/dr-amir-headshot.jpg";
 import { CLINIC, GOOGLE_RATING } from "@/lib/site";
+import { track } from "@/lib/track";
 import type { PageCopy } from "@/lib/condition-pages";
 import { CtaPair } from "./Ctas";
 import { useTown } from "./useTown";
@@ -87,6 +88,8 @@ export function Hero({ page }: { page: PageCopy }) {
                 href={CLINIC.googleMapsUrl}
                 target="_blank"
                 rel="noopener"
+                data-track="review_click"
+                onClick={() => track("review_click", { location: "hero" })}
                 className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary-deep"
               >
                 <span className="flex text-[#f5a623]" aria-hidden="true">

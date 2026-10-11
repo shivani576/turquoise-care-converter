@@ -28,7 +28,11 @@ const clinicSchema = {
   areaServed: [
     {
       "@type": "GeoCircle",
-      geoMidpoint: { "@type": "GeoCoordinates", latitude: CLINIC_GEO.lat, longitude: CLINIC_GEO.lng },
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: CLINIC_GEO.lat,
+        longitude: CLINIC_GEO.lng,
+      },
       geoRadius: CLINIC_GEO.radiusKm * 1000,
     },
     ...SERVICE_AREAS.map((name) => ({ "@type": "City", name: `${name}, MA` })),

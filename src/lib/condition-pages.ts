@@ -81,7 +81,7 @@ export const HOME_PAGE: PageCopy = {
 };
 
 export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
-  "migraine": {
+  migraine: {
     title: "Migraine Specialist in Natick, MA | Near Wellesley, Framingham & Needham",
     description:
       "Migraine doctor in Natick, MA for patients from Wellesley, Framingham, Needham, Sherborn, Dover and Wayland. Fellowship-trained headache specialist, 60-minute first visit, nerve blocks & Botox. No referral needed.",
@@ -199,7 +199,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     finalHeadline: "Find out if Botox is right for your migraines.",
   },
 
-  "tmj": {
+  tmj: {
     title: "TMJ & Jaw Pain Treatment in Natick, MA | Near Wellesley & Framingham",
     description:
       "TMJ and jaw pain treatment in Natick, MA from a physician fellowship-trained in Headache & Facial Pain. Serving Wellesley, Framingham, Needham, Sherborn and Wayland. No referral needed.",
@@ -298,7 +298,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     finalHeadline: "Get relief from muscle spasms that won't let go.",
   },
 
-  "prp": {
+  prp: {
     title: "PRP Injections in Natick, MA | Near Wellesley, Framingham & Needham",
     description:
       "Image-guided PRP injections for knee, shoulder and tendon pain in Natick, MA. Serving Wellesley, Framingham, Needham, Sherborn, Dover and Wayland. No referral needed.",
@@ -351,15 +351,14 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     finalHeadline: "Find out if PRP could help you avoid surgery.",
   },
 
-  "shoulder": {
+  shoulder: {
     title: "Shoulder & Rotator Cuff Pain Treatment in Natick, MA | Near Wellesley",
     description:
       "Non-surgical shoulder and rotator cuff pain treatment in Natick, MA: image-guided injections and PRP. Serving Wellesley, Framingham, Needham and nearby towns. No referral needed.",
     eyebrow: "Shoulder & rotator cuff pain · Natick, MA",
     headline: "Shoulder Pain Keeping You Up at Night? Explore Non-Surgical Options First.",
     highlight: "Explore Non-Surgical Options First",
-    subheadline:
-      "We pinpoint the real source, then treat it with image-guided injections or PRP.",
+    subheadline: "We pinpoint the real source, then treat it with image-guided injections or PRP.",
     heroPoints: ["Precise diagnosis", "Image-guided injections & PRP", "No referral needed"],
     localKeyword: "shoulder pain treatment",
     whySpecialist:
@@ -406,8 +405,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     eyebrow: "Knee, hip & joint arthritis · Natick, MA",
     headline: "Knee or Hip Arthritis Slowing You Down? Explore Options Before Surgery.",
     highlight: "Explore Options Before Surgery",
-    subheadline:
-      "Image-guided injections and PRP to ease arthritis pain and keep you active.",
+    subheadline: "Image-guided injections and PRP to ease arthritis pain and keep you active.",
     heroPoints: ["Knee, hip & hand", "Image-guided injections & PRP", "No referral needed"],
     localKeyword: "knee and joint pain treatment",
     ctaLabel: "Book My Joint Visit",

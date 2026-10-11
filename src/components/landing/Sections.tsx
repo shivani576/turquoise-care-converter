@@ -45,7 +45,9 @@ export function PainPoints({ page }: { page: PageCopy }) {
     <section className="section-pad">
       <div className="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">{page.painTitle}</h2>
+          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">
+            {page.painTitle}
+          </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{page.painNote}</p>
           <CtaPair location="pain" className="mt-8" />
         </div>
@@ -113,7 +115,9 @@ export function Options({ page }: { page: PageCopy }) {
     <section className="section-pad bg-mint" id="options">
       <div className="container-page">
         <div className="max-w-2xl">
-          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">{page.optionsTitle}</h2>
+          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">
+            {page.optionsTitle}
+          </h2>
           <p className="mt-4 text-lg text-muted-foreground">{page.optionsIntro}</p>
         </div>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -222,7 +226,9 @@ export function HowItWorks() {
   return (
     <section className="section-pad bg-ink text-ink-foreground" id="how-it-works">
       <div className="container-page">
-        <h2 className="max-w-2xl text-balance text-3xl leading-tight text-ink-foreground sm:text-4xl">What happens next</h2>
+        <h2 className="max-w-2xl text-balance text-3xl leading-tight text-ink-foreground sm:text-4xl">
+          What happens next
+        </h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
           {steps.map(({ icon: Icon, title, text }, i) => (
             <li key={title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -255,7 +261,9 @@ export function CostUpfront() {
             <Receipt className="size-7" aria-hidden="true" />
           </span>
           <div className="flex-1">
-            <h2 className="text-2xl leading-tight text-heading sm:text-3xl">About cost &amp; insurance</h2>
+            <h2 className="text-2xl leading-tight text-heading sm:text-3xl">
+              About cost &amp; insurance
+            </h2>
             <p className="mt-3 max-w-3xl leading-relaxed text-foreground/80">
               We're a direct-pay specialist practice. That means no referrals, no waiting on
               insurance approvals, and full visits instead of rushed ones. You'll get an itemized

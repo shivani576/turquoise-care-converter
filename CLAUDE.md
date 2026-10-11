@@ -5,17 +5,22 @@ interventional pain & headache specialist), 10 Union St., Suite 2D, Natick, MA 0
 The single job of every page: turn an ad click into a booked consultation (form or call).
 
 ## Branches, hosting, domain
+
 - Work on **`claude-code-rebuild`**. Do **not** push to `main` — `main` is the old Lovable
   build and syncs back into Lovable.
 - Hosted on **Vercel** (project `turquoise-care-converter`). Every push to
   `claude-code-rebuild` deploys automatically; Production Branch must be `claude-code-rebuild`.
 - Planned domain: `care.turquoiseinstitute.com` (CNAME `care` → value shown in Vercel → Domains).
   Never switch the domain's nameservers to Vercel — it would break the main site and email.
-- Vercel env vars: `NITRO_PRESET=vercel`, `GHL_API_TOKEN`, `GHL_LOCATION_ID`, `VITE_SITE_URL`,
+- `SITE_URL` defaults to `https://care.turquoiseinstitute.com` (`VITE_SITE_URL` overrides). Any other
+  host (previews, *.vercel.app, localhost) gets `X-Robots-Tag: noindex` + a disallow-all robots.txt.
+- Vercel env vars: `NITRO_PRESET=vercel`, `GHL_API_TOKEN`, `GHL_LOCATION_ID`, optional `VITE_SITE_URL`,
   optional `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID`. `LEAD_PREVIEW=1` only on previews.
 
 ## Stack
+
 TanStack Start (React 19, SSR) + Tailwind v4 + Nitro. `npm run dev` (port 3000), `npm run build`.
+
 - Copy for every page: `src/lib/condition-pages.ts` (`HOME_PAGE`, `CONDITION_PAGES`)
 - Clinic facts, towns, reels, reviews: `src/lib/site.ts`
 - Shared layout: `src/components/landing/PageBody.tsx`
@@ -24,13 +29,18 @@ TanStack Start (React 19, SSR) + Tailwind v4 + Nitro. `npm run dev` (port 3000),
 - UTMs + gclid captured in `src/lib/utm.ts` and sent with each lead
 
 ## Pages (short URLs are canonical; old Lovable paths + misspellings redirect)
+
 `/` home · `/migraine` · `/botox-migraine` · `/tmj` · `/prp` · `/shoulder` · `/joint-pain` ·
-`/neck-spasms` · `/thank-you` (fire ad conversions on this page view in GTM).
+`/neck-spasms` · `/thank-you` (noindex). Ad conversions fire on the `appointment_request`
+dataLayer event (carries `event_id` for dedupe), not on the thank-you page view.
+`/robots.txt` and `/sitemap.xml` are server routes (`src/routes/robots[.]txt.ts`, `sitemap[.]xml.ts`).
+Setup steps for domain, Vercel, GHL and GTM: `docs/LAUNCH.md`.
 Aliases live in `CONDITION_ALIASES` in `src/routes/$condition.tsx`.
 Ads may append `?town=<town>` (e.g. `/migraine?town=wellesley`): the hero headline's
 "in Natick" becomes "near Wellesley". Allowed towns = `TOWN_PARAM` in `site.ts`.
 
 ## Page structure (keep this order)
+
 Header (logo, mint phone pill, teal "Schedule Now"; no nav menu) → Hero → proof bar →
 "Does this sound like you?" → options (or condition picker on home) + "Why see a specialist?"
 → Meet the doctor → Google reviews → Instagram reels → What happens next → Cost & insurance →
@@ -38,22 +48,26 @@ FAQ (+ auto "near Wellesley or Framingham" FAQ) → "Near you" local section + m
 closing section with the **only form** (`#consultation`) → footer, sticky mobile Call/Book bar.
 
 ### Hero rules (decided with the client — don't re-add removed items)
+
 - Only: H1 (key phrase highlighted in brand teal), ONE short sentence, two buttons
   (page-specific `ctaLabel` + call), one address line naming nearby towns.
 - Right side: "You'll meet" card with Dr. Amir's headshot, name, title, Yale & Dartmouth, 5.0 on Google.
 - NO eyebrow line above the H1, NO tick/bullet list, NO form in the hero.
 
 ## Brand (must match turquoiseinstitute.com)
+
 - Colours: teal `#46B698` (buttons, highlights), mint `#C7ECE2`/`#CFECE4`, heading grey `#54595F`.
 - Fonts: **Alata** headings, **Doppio One** buttons/labels, **Roboto** body, Sofadi One script accent.
 - Buttons: 15px radius, Doppio One, white text on teal; phone button = mint with grey text.
 
 ## Photos — real only, never AI-generated
+
 - `src/assets/photos/dr-amir-headshot.jpg` — official headshot (primary doctor photo).
 - Other photos and reel covers are stills from Dr. Amir's Instagram (`@dramir.pain.headachemd`).
   Avoid frames showing the "Align Spine Chiropractic" wall art or identifiable patients.
 
 ## Copy rules
+
 - Talk to the patient's problem first, the clinic second; plain English; short sentences.
 - Headlines follow competitor/ad research: symptom question + who helps + "in Natick".
 - No outcome guarantees, invented stats, or unverified claims. Verified facts: board-certified;
@@ -67,18 +81,23 @@ closing section with the **only form** (`#consultation`) → footer, sticky mobi
   fine on the landing page.
 
 ## Local targeting (ads radius ≈10 km around the clinic)
+
 Towns: Natick, Wellesley, Framingham, Needham, Sherborn, Dover, Wayland, Weston, Ashland;
 villages: South Natick, Wellesley Hills, Saxonville, Cochituate. These appear in titles,
 descriptions, the hero address line, "Near you" section, FAQ and schema (GeoCircle 10 km).
 Don't add towns beyond ~10 km (Newton, Sudbury, Lexington, Concord were removed on purpose).
 
 ## Lead form behaviour
+
 Fields: first/last name, phone, email, concern (pre-selected per page), optional best time to call.
 A conversion (`appointment_request` + redirect to `/thank-you`) fires **only** when GoHighLevel
 accepted the lead; on failure the visitor is asked to call. Keep it that way.
 
 ## Open items
-- Connect `care.turquoiseinstitute.com`; then add `public/sitemap.xml` and set `VITE_SITE_URL`.
+
+- Connect `care.turquoiseinstitute.com` (CNAME) and redirect the *.vercel.app domain to it.
+- Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`. Never send `concern` or
+  contact details to ad platforms (health data).
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
 - Collect more Google reviews (only 4); consider a free intro-call offer (competitors use it).
 - Replace Instagram stills with original high-res photos when available.
