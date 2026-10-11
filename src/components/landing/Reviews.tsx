@@ -14,7 +14,7 @@ const initial: ReviewsPayload = {
 
 function Stars({ value, className = "size-4" }: { value: number; className?: string }) {
   return (
-    <span className="flex text-[#f5a623]" aria-label={`${value} out of 5 stars`}>
+    <span role="img" className="flex text-[#f5a623]" aria-label={`${value} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}

@@ -28,6 +28,8 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-deep: var(--primary-deep);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
   --color-primary-soft: var(--primary-soft);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -117,6 +119,10 @@
   --primary: #46b698; /* brand teal from turquoiseinstitute.com */
   --primary-foreground: #ffffff;
   --primary-deep: #1f7a62; /* AA-contrast teal for text & buttons */
+  /* Button teal: the brand #46b698 darkened just enough for white text to pass
+     WCAG AA (4.67:1; #46b698 is 2.5:1). */
+  --cta: #32816c;
+  --cta-hover: #2a6d5b;
   --primary-soft: #8fd6c2;
 
   /* Mint & sand neutrals from the brand */

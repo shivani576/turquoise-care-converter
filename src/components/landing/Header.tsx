@@ -37,7 +37,7 @@ export function Header() {
           <a
             href="#consultation"
             id="cta-book-header"
-            className="js-track-book inline-flex h-10 items-center gap-2 rounded-[15px] bg-primary px-3 font-label text-sm text-white shadow-cta hover:bg-[#3a9f84] sm:h-11 sm:px-5"
+            className="js-track-book inline-flex h-10 items-center gap-2 rounded-[15px] bg-cta px-3 font-label text-sm text-white shadow-cta hover:bg-cta-hover sm:h-11 sm:px-5"
             data-track="book_consultation_click"
             data-location="header"
             onClick={() => track("book_consultation_click", { location: "header" })}

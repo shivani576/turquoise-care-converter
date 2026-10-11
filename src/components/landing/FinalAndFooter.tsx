@@ -189,7 +189,8 @@ export function Footer() {
 /** Fixed bottom CTA bar on mobile: CALL NOW | BOOK A CONSULTATION */
 export function StickyMobileCta() {
   return (
-    <div
+    <nav
+      aria-label="Call or book"
       id="sticky-mobile-cta"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_-12px_oklch(0.25_0.03_200/0.25)] backdrop-blur md:hidden"
     >
@@ -217,7 +218,7 @@ export function StickyMobileCta() {
           </a>
         </Button>
       </div>
-    </div>
+    </nav>
   );
 }
 
