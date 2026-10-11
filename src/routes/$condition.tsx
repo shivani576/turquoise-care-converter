@@ -15,31 +15,31 @@ const CONDITION_ALIASES: Record<string, string> = {
   "shoulder-pain": "shoulder",
   "joint-pain-osteoarthritis": "joint-pain",
   "botulinum-toxin-spasticity": "neck-spasms",
-  "migrane": "migraine",
-  "migranes": "migraine",
-  "migraines": "migraine",
-  "headache": "migraine",
-  "headaches": "migraine",
+  migrane: "migraine",
+  migranes: "migraine",
+  migraines: "migraine",
+  headache: "migraine",
+  headaches: "migraine",
   "migraine-specialist": "migraine",
-  "botox": "botox-migraine",
+  botox: "botox-migraine",
   "botox-for-migrane": "botox-migraine",
   "migraine-botox": "botox-migraine",
   "tmj-pain": "tmj",
   "jaw-pain": "tmj",
   "facial-pain": "tmj",
-  "tmd": "tmj",
+  tmd: "tmj",
   "platelet-rich-plasma": "prp",
   "prp-injection": "prp",
   "cervical-dystonia": "neck-spasms",
-  "spasticity": "neck-spasms",
+  spasticity: "neck-spasms",
   "botulinum-toxin": "neck-spasms",
   "rotator-cuff": "shoulder",
   "rotator-cuff-tear": "shoulder",
   "shoulder-pain-treatment": "shoulder",
-  "osteoarthritis": "joint-pain",
+  osteoarthritis: "joint-pain",
   "knee-pain": "joint-pain",
-  "knee": "joint-pain",
-  "arthritis": "joint-pain",
+  knee: "joint-pain",
+  arthritis: "joint-pain",
   "hip-pain": "joint-pain",
 };
 
@@ -47,7 +47,13 @@ export const Route = createFileRoute("/$condition")({
   loader: ({ params }) => {
     if (!isConditionId(params.condition)) {
       const alias = CONDITION_ALIASES[params.condition];
-      if (alias) throw redirect({ to: "/$condition", params: { condition: alias }, replace: true });
+      if (alias)
+        throw redirect({
+          to: "/$condition",
+          params: { condition: alias },
+          replace: true,
+          statusCode: 301,
+        });
       throw notFound();
     }
     const condition = CONDITIONS.find((c) => c.id === params.condition)!;
@@ -131,8 +137,13 @@ function ConditionNotFound() {
       <Header />
       <main className="container-page py-24 text-center">
         <h1 className="text-3xl text-heading">We couldn't find that page.</h1>
-        <p className="mt-4 text-muted-foreground">See the conditions we treat or book a visit from our home page.</p>
-        <a href="/" className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4">
+        <p className="mt-4 text-muted-foreground">
+          See the conditions we treat or book a visit from our home page.
+        </p>
+        <a
+          href="/"
+          className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4"
+        >
           Go to the home page
         </a>
       </main>

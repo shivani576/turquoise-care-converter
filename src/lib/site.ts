@@ -1,7 +1,10 @@
 // Source of truth: turquoiseinstitute.com + Google Business Profile (checked Oct 2026).
-// Set VITE_SITE_URL to the final landing-page domain before launch.
-export const SITE_URL =
-  (import.meta.env?.["VITE_SITE_URL"] as string | undefined) ?? "https://turquoiseinstitute.com";
+// Canonical origin of the landing pages. VITE_SITE_URL overrides it (no trailing slash needed).
+// Pages are only indexable when served from this host; see src/server.ts.
+export const SITE_URL = (
+  (import.meta.env?.["VITE_SITE_URL"] as string | undefined) ||
+  "https://care.turquoiseinstitute.com"
+).replace(/\/+$/, "");
 
 export const CLINIC = {
   name: "Turquoise Institute",
@@ -58,7 +61,20 @@ export const SERVICE_AREAS = [
 /** Village names people also search by. */
 export const NEIGHBORHOODS = ["South Natick", "Wellesley Hills", "Saxonville", "Cochituate"];
 
-export const SERVICE_ZIPS = ["01760", "02481", "02482", "01701", "01702", "02492", "02494", "01770", "02030", "01778", "02493", "01721"];
+export const SERVICE_ZIPS = [
+  "01760",
+  "02481",
+  "02482",
+  "01701",
+  "01702",
+  "02492",
+  "02494",
+  "01770",
+  "02030",
+  "01778",
+  "02493",
+  "01721",
+];
 
 /**
  * ?town= values the ads can append to the landing URL (e.g. /migraine?town=wellesley)
@@ -77,13 +93,7 @@ export const CREDENTIALS = [
 ];
 
 export type ConditionId =
-  | "migraine"
-  | "botox-migraine"
-  | "tmj"
-  | "neck-spasms"
-  | "prp"
-  | "shoulder"
-  | "joint-pain";
+  "migraine" | "botox-migraine" | "tmj" | "neck-spasms" | "prp" | "shoulder" | "joint-pain";
 
 export interface Condition {
   id: ConditionId;
