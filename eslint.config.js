@@ -36,5 +36,11 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  {
+    // Generated shadcn/ui files export variant helpers next to components by design.
+    // TanStack route files export `Route` alongside their components by design.
+    files: ["src/components/ui/**/*.tsx", "src/routes/**/*.tsx"],
+    rules: { "react-refresh/only-export-components": "off" },
+  },
   eslintPluginPrettier,
 );
