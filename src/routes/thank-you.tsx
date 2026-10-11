@@ -40,7 +40,7 @@ function ThankYouPage() {
           <span className="flex size-16 items-center justify-center rounded-full bg-card text-primary-deep shadow-soft">
             <CheckCircle2 className="size-9" aria-hidden="true" />
           </span>
-          <h1 className="mt-8 text-balance text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+          <h1 className="mt-8 text-balance text-3xl font-semibold leading-tight text-heading sm:text-4xl">
             Thanks for reaching out — our team will be in touch shortly.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">

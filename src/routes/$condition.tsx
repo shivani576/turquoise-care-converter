@@ -5,33 +5,42 @@ import { PageBody } from "@/components/landing/PageBody";
 import { CLINIC, CONDITIONS, SITE_URL } from "@/lib/site";
 import { CONDITION_PAGES, isConditionId } from "@/lib/condition-pages";
 
-// Common misspellings/aliases and retired URLs that should land on the right page.
+// Short ad URLs are the canonical ones; old Lovable paths and common
+// misspellings redirect so no existing ad or link breaks.
 const CONDITION_ALIASES: Record<string, string> = {
-  migrane: "migraine-treatment",
-  migranes: "migraine-treatment",
-  migraine: "migraine-treatment",
-  migraines: "migraine-treatment",
-  headache: "migraine-treatment",
-  headaches: "migraine-treatment",
-  "botox-migraine": "botox-for-migraine",
-  "botox-for-migrane": "botox-for-migraine",
-  botox: "botox-for-migraine",
-  tmj: "tmj-disorder",
-  "tmj-pain": "tmj-disorder",
-  "jaw-pain": "tmj-disorder",
-  "facial-pain": "tmj-disorder",
-  "face-pain": "tmj-disorder",
-  prp: "prp-injections",
-  "platelet-rich-plasma": "prp-injections",
-  "cervical-dystonia": "botulinum-toxin-spasticity",
-  spasticity: "botulinum-toxin-spasticity",
-  "botulinum-toxin": "botulinum-toxin-spasticity",
-  shoulder: "shoulder-pain",
-  "rotator-cuff": "shoulder-pain",
-  "rotator-cuff-tear": "shoulder-pain",
-  "joint-pain": "joint-pain-osteoarthritis",
-  osteoarthritis: "joint-pain-osteoarthritis",
-  "knee-pain": "joint-pain-osteoarthritis",
+  "migraine-treatment": "migraine",
+  "botox-for-migraine": "botox-migraine",
+  "tmj-disorder": "tmj",
+  "prp-injections": "prp",
+  "shoulder-pain": "shoulder",
+  "joint-pain-osteoarthritis": "joint-pain",
+  "botulinum-toxin-spasticity": "neck-spasms",
+  "migrane": "migraine",
+  "migranes": "migraine",
+  "migraines": "migraine",
+  "headache": "migraine",
+  "headaches": "migraine",
+  "migraine-specialist": "migraine",
+  "botox": "botox-migraine",
+  "botox-for-migrane": "botox-migraine",
+  "migraine-botox": "botox-migraine",
+  "tmj-pain": "tmj",
+  "jaw-pain": "tmj",
+  "facial-pain": "tmj",
+  "tmd": "tmj",
+  "platelet-rich-plasma": "prp",
+  "prp-injection": "prp",
+  "cervical-dystonia": "neck-spasms",
+  "spasticity": "neck-spasms",
+  "botulinum-toxin": "neck-spasms",
+  "rotator-cuff": "shoulder",
+  "rotator-cuff-tear": "shoulder",
+  "shoulder-pain-treatment": "shoulder",
+  "osteoarthritis": "joint-pain",
+  "knee-pain": "joint-pain",
+  "knee": "joint-pain",
+  "arthritis": "joint-pain",
+  "hip-pain": "joint-pain",
 };
 
 export const Route = createFileRoute("/$condition")({
@@ -107,14 +116,9 @@ function ConditionNotFound() {
     <>
       <Header />
       <main className="container-page py-24 text-center">
-        <h1 className="text-3xl text-foreground">We couldn't find that page.</h1>
-        <p className="mt-4 text-muted-foreground">
-          See the conditions we treat or book a visit from our home page.
-        </p>
-        <a
-          href="/"
-          className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4"
-        >
+        <h1 className="text-3xl text-heading">We couldn't find that page.</h1>
+        <p className="mt-4 text-muted-foreground">See the conditions we treat or book a visit from our home page.</p>
+        <a href="/" className="mt-6 inline-block font-bold text-primary-deep underline underline-offset-4">
           Go to the home page
         </a>
       </main>

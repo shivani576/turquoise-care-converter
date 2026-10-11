@@ -6,8 +6,7 @@ TanStack Start + React + Tailwind, server functions for the lead form and Google
 ## Pages
 
 - `/` — home page for brand / general ads, with a "What brings you in?" picker
-- `/migraine-treatment`, `/botox-for-migraine`, `/tmj-disorder`, `/prp-injections`,
-  `/shoulder-pain`, `/joint-pain-osteoarthritis`, `/botulinum-toxin-spasticity` — one page per ad group
+- `/migraine`, `/botox-migraine`, `/tmj`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms` — one page per ad group (old long paths redirect)
 - `/thank-you` — fire the Google Ads / Meta conversion on this page view in GTM (GTM-TJ79BBT5)
 
 All page copy lives in `src/lib/condition-pages.ts`; clinic facts, reels and reviews in `src/lib/site.ts`.

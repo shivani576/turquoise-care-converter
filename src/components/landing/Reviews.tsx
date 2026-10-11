@@ -66,7 +66,7 @@ export function Reviews() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow">Patient reviews</p>
-            <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+            <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
               "He takes the time to listen."
             </h2>
           </div>

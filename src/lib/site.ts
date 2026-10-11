@@ -57,13 +57,13 @@ export const CREDENTIALS = [
 ];
 
 export type ConditionId =
-  | "migraine-treatment"
-  | "botox-for-migraine"
-  | "tmj-disorder"
-  | "botulinum-toxin-spasticity"
-  | "prp-injections"
-  | "shoulder-pain"
-  | "joint-pain-osteoarthritis";
+  | "migraine"
+  | "botox-migraine"
+  | "tmj"
+  | "neck-spasms"
+  | "prp"
+  | "shoulder"
+  | "joint-pain";
 
 export interface Condition {
   id: ConditionId;
@@ -78,49 +78,49 @@ export interface Condition {
 
 export const CONDITIONS: Condition[] = [
   {
-    id: "migraine-treatment",
+    id: "migraine",
     name: "Migraines & headaches",
     formLabel: "Migraine Treatment",
     hook: "Frequent attacks, medications that stopped working",
     url: "https://turquoiseinstitute.com/conditions/migraine-types-causes-symptoms-diagnosis-and-treatment-options/",
   },
   {
-    id: "botox-for-migraine",
+    id: "botox-migraine",
     name: "Botox for chronic migraine",
     formLabel: "Botox for Migraine",
     hook: "15 or more headache days a month",
     url: "https://turquoiseinstitute.com/",
   },
   {
-    id: "tmj-disorder",
+    id: "tmj",
     name: "TMJ & jaw pain",
     formLabel: "TMJ Disorder (TMD)",
     hook: "Clicking, clenching, jaw-related headaches",
     url: "https://turquoiseinstitute.com/conditions/temporomandibular-joint-tmj-pain-types-causes-symptoms-and-treatment-option/",
   },
   {
-    id: "prp-injections",
+    id: "prp",
     name: "PRP injections",
     formLabel: "Platelet-Rich Plasma (PRP) Injections",
     hook: "Non-surgical option for joints & tendons",
     url: "https://turquoiseinstitute.com/",
   },
   {
-    id: "shoulder-pain",
+    id: "shoulder",
     name: "Shoulder & rotator cuff pain",
     formLabel: "Shoulder / Rotator Cuff Pain",
     hook: "Pain reaching overhead or sleeping on it",
     url: "https://turquoiseinstitute.com/",
   },
   {
-    id: "joint-pain-osteoarthritis",
+    id: "joint-pain",
     name: "Knee, hip & joint arthritis",
     formLabel: "Joint Pain / Osteoarthritis",
     hook: "Stiff, aching joints holding you back",
     url: "https://turquoiseinstitute.com/",
   },
   {
-    id: "botulinum-toxin-spasticity",
+    id: "neck-spasms",
     name: "Neck spasms & cervical dystonia",
     formLabel: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
     hook: "Neck pulling, twisting or muscle spasms",

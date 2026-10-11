@@ -41,6 +41,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-heading: #54595f;
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-ink-muted: var(--ink-muted);
@@ -120,7 +121,7 @@
 
   /* Mint & sand neutrals from the brand */
   --mint: #eaf7f3;
-  --mint-deep: #cfece4; /* brand mint */
+  --mint-deep: #c7ece2; /* brand mint (phone pill on turquoiseinstitute.com) */
   --sand: oklch(0.965 0.012 85);
   --secondary: oklch(0.955 0.03 172);
   --secondary-foreground: oklch(0.32 0.06 190);

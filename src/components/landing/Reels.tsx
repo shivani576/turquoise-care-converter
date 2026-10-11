@@ -46,7 +46,7 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
             <p className="eyebrow">Hear it from Dr. Amir</p>
-            <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+            <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
               Short answers to the questions patients ask most
             </h2>
           </div>
@@ -73,7 +73,7 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
 
       <ul
         ref={rail}
-        className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-[max(2rem,calc((100vw-76rem)/2+2rem))]"
+        className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_2rem))]"
         aria-label="Instagram videos from Dr. Amir"
       >
         {ordered.map((r) => (

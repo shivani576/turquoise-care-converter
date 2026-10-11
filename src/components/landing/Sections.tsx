@@ -11,8 +11,8 @@ import {
   Timer,
   X,
 } from "lucide-react";
+import headshot from "@/assets/photos/dr-amir-headshot.jpg";
 import officePhoto from "@/assets/photos/dr-amir-office-dartmouth.jpg";
-import whiteCoat from "@/assets/photos/dr-amir-white-coat.jpg";
 import { CLINIC, CONDITIONS, CREDENTIALS } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
 import { track } from "@/lib/track";
@@ -45,9 +45,7 @@ export function PainPoints({ page }: { page: PageCopy }) {
     <section className="section-pad">
       <div className="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">
-            {page.painTitle}
-          </h2>
+          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">{page.painTitle}</h2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{page.painNote}</p>
           <CtaPair location="pain" className="mt-8" />
         </div>
@@ -76,7 +74,7 @@ export function ConditionPicker() {
       <div className="container-page">
         <div className="max-w-2xl">
           <p className="eyebrow">What brings you in?</p>
-          <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+          <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
             Choose what's bothering you most
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -115,9 +113,7 @@ export function Options({ page }: { page: PageCopy }) {
     <section className="section-pad bg-mint" id="options">
       <div className="container-page">
         <div className="max-w-2xl">
-          <h2 className="text-balance text-3xl leading-tight text-foreground sm:text-4xl">
-            {page.optionsTitle}
-          </h2>
+          <h2 className="text-balance text-3xl leading-tight text-heading sm:text-4xl">{page.optionsTitle}</h2>
           <p className="mt-4 text-lg text-muted-foreground">{page.optionsIntro}</p>
         </div>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -143,26 +139,25 @@ export function MeetDoctor() {
       <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
         <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
           <img
+            src={headshot}
+            alt={`${CLINIC.doctor.name}, Founder & Medical Director`}
+            width={682}
+            height={1024}
+            loading="lazy"
+            className="aspect-[4/5] w-full rounded-3xl object-cover object-[50%_20%] shadow-soft"
+          />
+          <img
             src={officePhoto}
-            alt={`${CLINIC.doctor.name} in his Natick office, in front of his Dartmouth diploma`}
+            alt="Dr. Amir's diplomas in the Natick office"
             width={720}
             height={1100}
             loading="lazy"
-            className="aspect-[4/5] w-full rounded-3xl object-cover object-top shadow-soft"
-          />
-          <img
-            src={whiteCoat}
-            alt=""
-            aria-hidden="true"
-            width={1256}
-            height={718}
-            loading="lazy"
-            className="absolute -bottom-6 -right-4 hidden w-48 rounded-2xl border-4 border-background object-cover shadow-soft sm:block lg:-right-8 lg:w-56"
+            className="absolute -bottom-6 -right-4 hidden w-32 rounded-2xl border-4 border-background object-cover object-top shadow-soft [aspect-ratio:4/5] sm:block lg:-right-8 lg:w-40"
           />
         </div>
         <div>
           <p className="eyebrow">Meet your doctor</p>
-          <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+          <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
             {CLINIC.doctor.name}
           </h2>
           <p className="font-script mt-2 text-xl text-primary-deep">
@@ -218,9 +213,7 @@ export function HowItWorks() {
   return (
     <section className="section-pad bg-ink text-ink-foreground" id="how-it-works">
       <div className="container-page">
-        <h2 className="max-w-2xl text-balance text-3xl leading-tight sm:text-4xl">
-          What happens next
-        </h2>
+        <h2 className="max-w-2xl text-balance text-3xl leading-tight text-ink-foreground sm:text-4xl">What happens next</h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
           {steps.map(({ icon: Icon, title, text }, i) => (
             <li key={title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -253,9 +246,7 @@ export function CostUpfront() {
             <Receipt className="size-7" aria-hidden="true" />
           </span>
           <div className="flex-1">
-            <h2 className="text-2xl leading-tight text-foreground sm:text-3xl">
-              About cost &amp; insurance
-            </h2>
+            <h2 className="text-2xl leading-tight text-heading sm:text-3xl">About cost &amp; insurance</h2>
             <p className="mt-3 max-w-3xl leading-relaxed text-foreground/80">
               We're a direct-pay specialist practice. That means no referrals, no waiting on
               insurance approvals, and full visits instead of rushed ones. You'll get an itemized

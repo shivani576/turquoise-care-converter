@@ -14,7 +14,7 @@ export function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
       <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="eyebrow">Questions</p>
-          <h2 className="mt-3 text-balance text-3xl leading-tight text-foreground sm:text-4xl">
+          <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
             Before you book
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
