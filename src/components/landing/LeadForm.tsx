@@ -60,7 +60,9 @@ export function LeadForm({
     const concern = String(fd.get("concern") ?? defaultConcern);
     setSubmitting(true);
     setFailed(false);
-    track("form_submit", { form: "consultation", location, concern });
+    // No concern/contact details in the dataLayer: GTM tags could forward them to ad
+    // platforms, and the condition a visitor picks is health information.
+    track("form_submit", { form: "consultation", location });
 
     let synced = false;
     try {
@@ -89,7 +91,7 @@ export function LeadForm({
     }
 
     // event_id lets GTM dedupe the conversion (Google Ads transaction_id, Meta eventID).
-    track("appointment_request", { concern, location, event_id: newEventId() });
+    track("appointment_request", { form: "consultation", location, event_id: newEventId() });
     await navigate({ to: "/thank-you" });
   };
 

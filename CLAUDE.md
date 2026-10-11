@@ -56,9 +56,11 @@ closing section with the **only form** (`#consultation`) → footer, sticky mobi
 
 ## Brand (must match turquoiseinstitute.com)
 
-- Colours: teal `#46B698` (buttons, highlights), mint `#C7ECE2`/`#CFECE4`, heading grey `#54595F`.
+- Colours: teal `#46B698` (highlights, icons), mint `#C7ECE2`/`#CFECE4`, heading grey `#54595F`.
 - Fonts: **Alata** headings, **Doppio One** buttons/labels, **Roboto** body, Sofadi One script accent.
-- Buttons: 15px radius, Doppio One, white text on teal; phone button = mint with grey text.
+- Buttons: 15px radius, Doppio One, white text on the `cta` teal `#32816C` (the brand teal
+  darkened just enough to pass WCAG AA, 4.67:1; white on `#46B698` is only 2.5:1 — don't
+  revert). Phone button = mint with grey text. Token: `--cta` in `src/styles.css`.
 
 ## Photos — real only, never AI-generated
 
@@ -87,6 +89,12 @@ villages: South Natick, Wellesley Hills, Saxonville, Cochituate. These appear in
 descriptions, the hero address line, "Near you" section, FAQ and schema (GeoCircle 10 km).
 Don't add towns beyond ~10 km (Newton, Sudbury, Lexington, Concord were removed on purpose).
 
+## Privacy (health data)
+
+The dataLayer must never carry the form's `concern` or any name/email/phone — they go to
+GoHighLevel only. Server logs don't print contact details either. No enhanced conversions /
+advanced matching with form data.
+
 ## Lead form behaviour
 
 Fields: first/last name, phone, email, concern (pre-selected per page), optional best time to call.
@@ -96,8 +104,7 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 ## Open items
 
 - Connect `care.turquoiseinstitute.com` (CNAME) and redirect the *.vercel.app domain to it.
-- Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`. Never send `concern` or
-  contact details to ad platforms (health data).
+- Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
 - Collect more Google reviews (only 4); consider a free intro-call offer (competitors use it).
 - Replace Instagram stills with original high-res photos when available.

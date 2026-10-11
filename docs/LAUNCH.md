@@ -66,9 +66,9 @@ The container is already loaded on every page. The site pushes these events to
 
 | Event                                                                                  | When                                                        | Extra keys                        |
 | -------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
-| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`) | `event_id`, `concern`, `location` |
+| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`) | `event_id`, `form`, `location`    |
 | `form_start`                                                                           | First focus in the form                                     | `form`, `location`                |
-| `form_submit`                                                                          | Submit pressed (before the CRM answers)                     | `form`, `location`, `concern`     |
+| `form_submit`                                                                          | Submit pressed (before the CRM answers)                     | `form`, `location`                |
 | `form_error`                                                                           | CRM rejected the lead; visitor asked to call                | `form`, `location`                |
 | `phone_click`                                                                          | Any `tel:` link (header, hero, sticky bar, form, footer, …) | `location`                        |
 | `book_consultation_click`                                                              | "Book" buttons that scroll to the form                      | `location`                        |
@@ -110,10 +110,12 @@ The container is already loaded on every page. The site pushes these events to
 
 ### Health-data privacy (important)
 
-Only send the **event names**, `event_id` and `location` to Google Ads and Meta. Do **not**
-map `concern` (the condition picked in the form) or any name, email or phone to ad-platform
-tags — that would share a visitor's health condition with an ad network. `concern` is in the
-dataLayer only for GA4 reporting; leave it out there too if your privacy policy doesn't cover it.
+By design the dataLayer never contains the condition picked in the form, or the visitor's
+name, email or phone — only event names, `event_id`, `form`, `location` and similar click
+details. The condition and contact details go to GoHighLevel only. Keep it that way: don't
+add Google Ads enhanced conversions or Meta advanced matching with form data, since that
+would share a visitor's health interest with an ad network. (The page URL, e.g.
+`/botox-migraine`, is still visible to tags, as on any landing page.)
 
 ### Test before publishing the container
 

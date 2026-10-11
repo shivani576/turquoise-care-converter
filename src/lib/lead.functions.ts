@@ -45,7 +45,7 @@ export const submitLead = createServerFn({ method: "POST" })
       // LEAD_PREVIEW=1 lets a preview deployment exercise the full flow
       // without a CRM. Never set it in production.
       if (process.env["LEAD_PREVIEW"] === "1") {
-        console.log(`submitLead (preview mode): ${data.firstName} / ${data.concern}`);
+        console.log("submitLead (preview mode): lead accepted without CRM");
         return { ok: true, synced: true as const, action: "preview" as const };
       }
       console.error("submitLead: GHL_API_TOKEN or GHL_LOCATION_ID is not configured");
@@ -111,7 +111,7 @@ export const submitLead = createServerFn({ method: "POST" })
               () => undefined,
             );
             console.log(
-              `submitLead: updated existing GHL contact ${duplicateId} (duplicate email/phone) for ${data.email} / ${data.phone}; re-tagged form-submitted: ${readd?.status ?? "failed"}`,
+              `submitLead: updated existing GHL contact ${duplicateId} (duplicate email/phone); re-tagged form-submitted: ${readd?.status ?? "failed"}`,
             );
             return {
               ok: true,
@@ -140,7 +140,7 @@ export const submitLead = createServerFn({ method: "POST" })
       console.log(
         `submitLead: created GHL contact ${created.contact?.id ?? "unknown"} in location ${
           created.contact?.locationId ?? "unknown"
-        } for ${data.email} / ${data.phone}`,
+        }`,
       );
       return {
         ok: true,
