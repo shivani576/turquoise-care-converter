@@ -9,10 +9,18 @@ interface CtaProps {
   className?: string;
   size?: "default" | "xl";
   tone?: "light" | "dark";
+  /** Button text; defaults to "Book a Consultation" */
+  label?: string | undefined;
 }
 
 /** Primary CTA — BOOK A CONSULTATION (scrolls to the form) */
-export function BookCta({ location, className, size = "xl", tone = "light" }: CtaProps) {
+export function BookCta({
+  location,
+  className,
+  size = "xl",
+  tone = "light",
+  label = "Book a Consultation",
+}: CtaProps) {
   return (
     <Button
       asChild
@@ -28,7 +36,7 @@ export function BookCta({ location, className, size = "xl", tone = "light" }: Ct
         onClick={() => track("book_consultation_click", { location })}
       >
         <CalendarCheck aria-hidden="true" />
-        Book a Consultation
+        {label}
       </a>
     </Button>
   );
@@ -61,14 +69,16 @@ export function CtaPair({
   location,
   tone = "light",
   className,
+  label,
 }: {
   location: string;
   tone?: "light" | "dark";
   className?: string;
+  label?: string | undefined;
 }) {
   return (
     <div className={cn("flex flex-col gap-3 sm:flex-row sm:items-center", className)}>
-      <BookCta location={location} tone={tone} />
+      <BookCta location={location} tone={tone} label={label} />
       <CallCta location={location} tone={tone} />
     </div>
   );
