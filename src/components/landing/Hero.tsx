@@ -39,7 +39,7 @@ export function Hero({ page }: { page: PageCopy }) {
         </div>
 
         {/* Who you'll see */}
-        <figure className="min-w-0 rounded-3xl border border-border bg-card p-4 shadow-soft sm:p-5 lg:mx-0 lg:w-full lg:max-w-sm lg:justify-self-end">
+        <figure className="min-w-0 rounded-3xl border border-border bg-card p-4 shadow-soft sm:p-5 lg:mx-0 lg:w-full lg:max-w-xs lg:justify-self-end">
           <div className="flex items-center gap-5 lg:block">
             <img
               src={headshot}
