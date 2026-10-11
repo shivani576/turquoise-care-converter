@@ -128,6 +128,15 @@ export function Options({ page }: { page: PageCopy }) {
           Your options depend on your diagnosis — Dr. Amir will walk you through what makes sense
           for you at your first visit.
         </p>
+        {page.whySpecialist ? (
+          <div className="mt-8 flex items-start gap-4 rounded-2xl border border-primary/30 bg-card p-5 sm:p-6">
+            <BadgeCheck className="mt-0.5 size-6 shrink-0 text-primary" aria-hidden="true" />
+            <div>
+              <p className="font-display text-lg text-heading">Why see a specialist?</p>
+              <p className="mt-1 leading-relaxed text-foreground/80">{page.whySpecialist}</p>
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

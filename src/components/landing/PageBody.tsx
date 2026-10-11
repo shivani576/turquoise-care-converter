@@ -1,4 +1,5 @@
 import type { PageCopy } from "@/lib/condition-pages";
+import { CLINIC } from "@/lib/site";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import {
@@ -21,6 +22,13 @@ import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "./FinalAn
  * for me → who's the doctor → can I trust them → what happens → what's it cost.
  */
 export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: boolean }) {
+  const faqs = [
+    ...page.faqs,
+    {
+      q: `Is there a specialist for ${page.localKeyword} near Wellesley or Framingham?`,
+      a: `Yes. Turquoise Institute is at ${CLINIC.address.street}, Natick — a short drive from Wellesley, Framingham, Needham, Sherborn, Dover, Wayland, Weston and Ashland. Call ${CLINIC.phoneDisplay} or request a visit online; no referral is needed.`,
+    },
+  ];
   return (
     <>
       <Header />
@@ -34,8 +42,8 @@ export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: bo
         <Reels topics={page.reelTopics} />
         <HowItWorks />
         <CostUpfront />
-        <Faq faqs={page.faqs} />
-        <Location />
+        <Faq faqs={faqs} />
+        <Location keyword={page.localKeyword} />
         <FinalCta
           heading={page.finalHeadline}
           defaultConcern={page.formConcern}

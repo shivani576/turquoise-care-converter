@@ -1,8 +1,9 @@
-import { BadgeCheck, Star } from "lucide-react";
+import { BadgeCheck, MapPin, Star } from "lucide-react";
 import headshot from "@/assets/photos/dr-amir-headshot.jpg";
 import { CLINIC, GOOGLE_RATING } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
 import { CtaPair } from "./Ctas";
+import { useTown } from "./useTown";
 
 function Headline({ text, highlight }: { text: string; highlight?: string | undefined }) {
   if (!highlight || !text.includes(highlight)) return <>{text}</>;
@@ -22,6 +23,10 @@ function Headline({ text, highlight }: { text: string; highlight?: string | unde
  * section (#consultation), which every "Book" button scrolls to.
  */
 export function Hero({ page }: { page: PageCopy }) {
+  const town = useTown();
+  // An ad for one town (…?town=wellesley) swaps "in Natick" for "near Wellesley".
+  const headline =
+    town && town !== "Natick" ? page.headline.replace("in Natick", `near ${town}`) : page.headline;
   return (
     <section
       id="top"
@@ -30,12 +35,21 @@ export function Hero({ page }: { page: PageCopy }) {
       <div className="container-page relative grid items-center gap-10 pb-12 pt-10 sm:pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-16 lg:pt-16">
         <div className="min-w-0">
           <h1 className="text-balance text-[2.1rem] leading-[1.1] text-heading sm:text-5xl lg:text-[3.4rem]">
-            <Headline text={page.headline} highlight={page.highlight} />
+            <Headline text={headline} highlight={page.highlight} />
           </h1>
           <p className="mt-5 max-w-xl text-[1.08rem] leading-relaxed text-foreground/80 sm:text-lg">
             {page.subheadline}
           </p>
           <CtaPair location="hero" label={page.ctaLabel} className="mt-8" />
+          <p className="mt-5 flex items-start gap-2 text-sm text-muted-foreground">
+            <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+            <span>
+              {CLINIC.address.street}, {CLINIC.address.city}, MA ·{" "}
+              {town && town !== "Natick"
+                ? `A short drive from ${town}`
+                : "Minutes from Wellesley, Framingham, Needham & Sherborn"}
+            </span>
+          </p>
         </div>
 
         {/* Who you'll see */}

@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { CLINIC, SERVICE_AREAS } from "@/lib/site";
+import { CLINIC, NEIGHBORHOODS, SERVICE_AREAS } from "@/lib/site";
 import { track } from "@/lib/track";
 
 export function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
@@ -52,26 +52,41 @@ export function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
   );
 }
 
-export function Location() {
+export function Location({ keyword }: { keyword: string }) {
   const { address } = CLINIC;
+  const nearby = SERVICE_AREAS.filter((t) => t !== "Natick");
   return (
     <section className="pb-16 sm:pb-24" id="location">
       <div className="container-page grid gap-6 lg:grid-cols-[1fr_1.3fr] lg:items-stretch">
-        <div className="rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8">
-          <p className="eyebrow">Visit us in Natick</p>
+        <div className="min-w-0 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8">
+          <p className="eyebrow">Near you</p>
+          <h2 className="mt-3 text-balance text-2xl leading-tight text-heading sm:text-3xl">
+            {keyword.charAt(0).toUpperCase() + keyword.slice(1)} near Wellesley, Framingham &amp; Needham
+          </h2>
           <address className="mt-4 not-italic">
-            <p className="font-display text-xl text-foreground">{CLINIC.name}</p>
-            <p className="mt-1 flex items-start gap-2 text-foreground/80">
+            <p className="flex items-start gap-2 text-foreground/80">
               <MapPin className="mt-1 size-4 shrink-0 text-primary-deep" aria-hidden="true" />
               <span>
-                {address.street}, {address.city}, {address.state} {address.zip}
+                {CLINIC.name}, {address.street}, {address.city}, {address.state} {address.zip}
               </span>
             </p>
           </address>
-          <p className="mt-4 text-[15px] text-muted-foreground">
-            Patients come to us from {SERVICE_AREAS.slice(1).join(", ")} and across MetroWest.
-            Telemedicine follow-ups are available for appropriate patients.
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            Looking for {keyword} near you? Our Natick office is a short drive from{" "}
+            {nearby.slice(0, -1).join(", ")} and {nearby[nearby.length - 1]}, including{" "}
+            {NEIGHBORHOODS.join(", ")}. Telemedicine follow-ups are available for appropriate
+            patients.
           </p>
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Towns we serve">
+            {SERVICE_AREAS.map((t) => (
+              <li
+                key={t}
+                className="rounded-full border border-border bg-mint px-3 py-1 text-sm text-foreground/80"
+              >
+                {t}, MA
+              </li>
+            ))}
+          </ul>
           <a
             href={CLINIC.directionsUrl}
             target="_blank"

@@ -2,7 +2,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/FinalAndFooter";
 import { PageBody } from "@/components/landing/PageBody";
-import { CLINIC, CONDITIONS, SITE_URL } from "@/lib/site";
+import { CLINIC, CLINIC_GEO, CONDITIONS, SERVICE_AREAS, SITE_URL } from "@/lib/site";
 import { CONDITION_PAGES, isConditionId } from "@/lib/condition-pages";
 
 // Short ad URLs are the canonical ones; old Lovable paths and common
@@ -70,11 +70,22 @@ export const Route = createFileRoute("/$condition")({
       name: page.title,
       description: page.description,
       url,
+      about: { "@type": "MedicalCondition", name: page.localKeyword },
       provider: {
         "@type": "MedicalClinic",
         "@id": `${SITE_URL}#clinic`,
         name: CLINIC.name,
         telephone: CLINIC.phoneTel,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: CLINIC.address.street,
+          addressLocality: CLINIC.address.city,
+          addressRegion: CLINIC.address.state,
+          postalCode: CLINIC.address.zip,
+          addressCountry: "US",
+        },
+        geo: { "@type": "GeoCoordinates", latitude: CLINIC_GEO.lat, longitude: CLINIC_GEO.lng },
+        areaServed: SERVICE_AREAS.map((name) => ({ "@type": "City", name: `${name}, MA` })),
       },
     };
     const faqSchema = {
@@ -91,6 +102,9 @@ export const Route = createFileRoute("/$condition")({
         { title: page.title },
         { name: "description", content: page.description },
         { name: "robots", content: "index, follow, max-image-preview:large" },
+        { name: "geo.region", content: "US-MA" },
+        { name: "geo.placename", content: "Natick" },
+        { name: "geo.position", content: "42.2843186;-71.3391106" },
         { property: "og:title", content: page.title },
         { property: "og:description", content: page.description },
         { property: "og:url", content: url },

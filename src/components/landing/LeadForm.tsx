@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Lock, Phone } from "lucide-react";
+import { ChevronDown, Lock, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CLINIC, CONDITIONS } from "@/lib/site";
 import { track } from "@/lib/track";
@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 
 const field =
   "h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground placeholder:text-muted-foreground/70 focus-visible:border-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";
+
+const CALL_TIMES = ["Morning (9am–12pm)", "Afternoon (12–5pm)", "Telemedicine visit"];
 
 const CONCERNS = [
   ...CONDITIONS.map((c) => ({ value: c.formLabel, label: c.name })),
@@ -69,7 +71,7 @@ export function LeadForm({
           email: String(fd.get("email") ?? ""),
           phone: String(fd.get("phone") ?? ""),
           concern,
-          preferredTime: "",
+          preferredTime: String(fd.get("preferredTime") ?? ""),
           pagePath: window.location.pathname,
           attribution: getAttribution(),
         },
@@ -165,15 +167,13 @@ export function LeadForm({
           <span className="mb-1.5 block text-sm font-medium text-foreground">
             What's bothering you most?
           </span>
+          <span className="relative block">
           <select
             id={`${idp}-concern`}
             name="concern"
             defaultValue={defaultConcern}
             required
-            className={cn(
-              field,
-              "appearance-none bg-[url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231f7a62' stroke-width='2' viewBox='0 0 24 24'><path d='m6 9 6 6 6-6'/></svg>\")] bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10",
-            )}
+            className={cn(field, "appearance-none pr-10")}
           >
             <option value="" disabled>
               Choose one
@@ -184,6 +184,24 @@ export function LeadForm({
               </option>
             ))}
           </select>
+          <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep" aria-hidden="true" />
+          </span>
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-foreground">
+            Best time to call you <span className="font-normal text-muted-foreground">(optional)</span>
+          </span>
+          <span className="relative block">
+            <select id={`${idp}-time`} name="preferredTime" defaultValue="" className={cn(field, "appearance-none pr-10")}>
+              <option value="">Any time</option>
+              {CALL_TIMES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep" aria-hidden="true" />
+          </span>
         </label>
 
         <Button

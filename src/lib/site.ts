@@ -35,18 +35,38 @@ export const CLINIC = {
   },
 };
 
+/** Clinic coordinates (from the Google Business Profile listing). */
+export const CLINIC_GEO = { lat: 42.2843186, lng: -71.3391106, radiusKm: 10 };
+
+/**
+ * Towns whose centers are within ~10 km of the Natick office — the radius the
+ * ads target. Order = closest / most valuable first. Used in page copy, the
+ * "near you" section, FAQs and schema so local searches match the page.
+ */
 export const SERVICE_AREAS = [
   "Natick",
   "Wellesley",
-  "Weston",
-  "Newton",
-  "Needham",
-  "Wayland",
-  "Sudbury",
-  "Sherborn",
   "Framingham",
-  "Lexington",
+  "Needham",
+  "Sherborn",
+  "Dover",
+  "Wayland",
+  "Weston",
+  "Ashland",
 ];
+
+/** Village names people also search by. */
+export const NEIGHBORHOODS = ["South Natick", "Wellesley Hills", "Saxonville", "Cochituate"];
+
+export const SERVICE_ZIPS = ["01760", "02481", "02482", "01701", "01702", "02492", "02494", "01770", "02030", "01778", "02493", "01721"];
+
+/**
+ * ?town= values the ads can append to the landing URL (e.g. /migraine?town=wellesley)
+ * so the page names the searcher's own town.
+ */
+export const TOWN_PARAM: Record<string, string> = Object.fromEntries(
+  [...SERVICE_AREAS, ...NEIGHBORHOODS].map((t) => [t.toLowerCase().replace(/\s+/g, "-"), t]),
+);
 
 export const CREDENTIALS = [
   "Board-certified physician",
@@ -211,6 +231,6 @@ export const GENERAL_FAQS = [
   },
   {
     q: "Where are you located?",
-    a: "10 Union Street, Suite 2D, Natick, MA 01760 — easy to reach from Wellesley, Weston, Newton, Needham, Framingham, Wayland and Sudbury.",
+    a: "10 Union Street, Suite 2D, Natick, MA 01760. We're a short drive from Wellesley, Framingham, Needham, Sherborn, Dover, Wayland, Weston and Ashland, and patients come to us from across MetroWest.",
   },
 ];
