@@ -24,9 +24,11 @@ TanStack Start (React 19, SSR) + Tailwind v4 + Nitro. `npm run dev` (port 3000),
 - Copy for every page: `src/lib/condition-pages.ts` (`HOME_PAGE`, `CONDITION_PAGES`)
 - Clinic facts, towns, reels, reviews: `src/lib/site.ts`
 - Shared layout: `src/components/landing/PageBody.tsx`
-- Lead → GoHighLevel: `src/lib/lead.functions.ts`; Google reviews: `src/lib/reviews.functions.ts`
+- Lead → GoHighLevel: `src/lib/lead.functions.ts` (thin server-fn stub) → `src/lib/lead.server.ts`
+  (zod validation + GHL calls; server-only). Google reviews: `src/lib/reviews.functions.ts`
 - GTM container `GTM-TJ79BBT5` in `src/routes/__root.tsx`; events via `src/lib/track.ts`
 - UTMs + gclid captured in `src/lib/utm.ts` and sent with each lead
+- Vercel Web Analytics + Speed Insights components in `__root.tsx` (enable in the Vercel dashboard)
 
 ## Pages (short URLs are canonical; old Lovable paths + misspellings redirect)
 
@@ -61,6 +63,16 @@ closing section with the **only form** (`#consultation`) → footer, sticky mobi
 - Buttons: 15px radius, Doppio One, white text on the `cta` teal `#32816C` (the brand teal
   darkened just enough to pass WCAG AA, 4.67:1; white on `#46B698` is only 2.5:1 — don't
   revert). Phone button = mint with grey text. Token: `--cta` in `src/styles.css`.
+
+## Speed (keep it this way)
+
+- Fonts are self-hosted via `@fontsource/*` imports in `src/styles.css` (latin subset) and the
+  above-the-fold ones are preloaded in `__root.tsx`. Don't re-add Google Fonts links.
+- Server-only logic goes in `*.server.ts`, called from inside a server fn handler, so it never
+  ships to the browser (that's what keeps zod out of the client bundle).
+- Images: WebP, sized ~2× display size (logo 244×112, headshot 682×1024). Below-the-fold
+  images `loading="lazy"`; the hero headshot is `fetchPriority="high"`.
+- Last measured (Lighthouse mobile, slow 4G, compressed): 82–86 performance, CLS 0, ~380 KB.
 
 ## Photos — real only, never AI-generated
 
@@ -103,6 +115,7 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 
 ## Open items
 
+- Vercel Production must track `claude-code-rebuild` (it tracked `main` = old Lovable build).
 - Connect `care.turquoiseinstitute.com` (CNAME) and redirect the *.vercel.app domain to it.
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.

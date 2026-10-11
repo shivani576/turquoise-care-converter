@@ -3,16 +3,34 @@
 Everything the code needs is already in place. The steps below are settings in Vercel,
 the DNS provider, GoHighLevel and Google Tag Manager. Do them in this order.
 
-## 1. Domain (Vercel + DNS)
+## 1. Production branch (do this first)
 
-1. Vercel → project `turquoise-care-converter` → **Settings → Domains** → add
-   `care.turquoiseinstitute.com`.
+Vercel → project → **Settings → Environments → Production → Branch Tracking** must be
+**`claude-code-rebuild`**. If it says `main`, the production URL and the custom domain serve
+the **old Lovable build**. Change it, then **Deployments → latest `claude-code-rebuild`
+deployment → ⋯ → Promote to Production** (or push any commit).
+
+## 2. Share a review link before the domain is live
+
+- Send the **production** address: `https://turquoise-care-converter.vercel.app` (Settings →
+  Domains lists it). With Vercel's default "Standard Protection", production URLs are public
+  but **preview** URLs (`…-git-…vercel.app`) require a Vercel login — a reviewer without a
+  Vercel account would see a login screen.
+- To share a preview URL instead: open the deployment → **Share** (creates a link that bypasses
+  protection), or Settings → **Deployment Protection** → Vercel Authentication → off.
+- These addresses are kept out of Google automatically (see below), and the form works there
+  once the GHL variables are set for that environment.
+- Analytics: set the GTM conversion triggers to the live hostname (section 5) so reviewers'
+  clicks and test leads don't count as ad conversions.
+
+## 3. Domain (Vercel + DNS)
+
+1. Vercel → **Settings → Domains** → `care.turquoiseinstitute.com` (already added).
 2. At the DNS provider for `turquoiseinstitute.com`, add the **CNAME** record Vercel shows
    (`care` → the value Vercel gives). Do **not** move the nameservers to Vercel — that would
    take down the main site and email.
-3. In the same Domains screen, set the `*.vercel.app` production domain to **redirect** to
-   `care.turquoiseinstitute.com` (308), so there is only one public address.
-4. Settings → Git → **Production Branch** = `claude-code-rebuild`.
+3. Once the domain shows "Valid Configuration", set `turquoise-care-converter.vercel.app` to
+   **redirect** to `care.turquoiseinstitute.com` (308), so there is only one public address.
 
 What the code already does with the domain:
 
@@ -24,7 +42,7 @@ What the code already does with the domain:
 - Old Lovable paths (`/botox-for-migraine`, `/migraine-treatment`, …) and misspellings
   301-redirect to the short URLs, so existing ads and links keep working.
 
-## 2. Vercel environment variables
+## 4. Vercel environment variables
 
 Settings → Environment Variables.
 
@@ -39,7 +57,7 @@ Settings → Environment Variables.
 
 Redeploy after changing variables (Deployments → ⋯ → Redeploy).
 
-## 3. GoHighLevel
+## 5. GoHighLevel
 
 1. **Location ID** — Settings → Business Profile (also in the URL: `/location/<ID>/`).
 2. **Token** — Settings → Private Integrations → Create. Scopes:
@@ -59,7 +77,7 @@ page, a contact in GHL with the tags above, and the workflow to run. If the CRM 
 lead, the visitor is asked to call instead, no conversion fires, and Vercel → Logs shows
 `submitLead: … failed (<status>)`.
 
-## 4. Google Tag Manager (container `GTM-TJ79BBT5`)
+## 6. Google Tag Manager (container `GTM-TJ79BBT5`)
 
 The container is already loaded on every page. The site pushes these events to
 `window.dataLayer`:
@@ -87,6 +105,12 @@ The container is already loaded on every page. The site pushes these events to
 > Use the **`appointment_request` custom event** as the conversion trigger, **not** a page
 > view of `/thank-you`. The page can be reloaded or opened directly; the event only fires
 > once, when a real lead reached GoHighLevel.
+
+> On every conversion trigger (`CE - appointment_request`, and `CE - phone_click` if used for
+> Google Ads/Meta) set **"Some Custom Events" → Page Hostname equals
+> `care.turquoiseinstitute.com`**. Then visits from the `vercel.app` review link, previews and
+> local testing never count as ad conversions. GA4 can stay on all hosts (filter by hostname
+> in reports), or use the same condition.
 
 ### Tags
 
@@ -130,7 +154,19 @@ then check:
 
 Then **Submit → Publish** the container and delete the test contact in GHL.
 
-## 5. Final checks on the live domain
+## 7. Vercel Web Analytics + Speed Insights
+
+Already in the code (`<Analytics />`, `<SpeedInsights />` in `src/routes/__root.tsx`). Turn
+them on once: Vercel → project → **Analytics** tab → **Enable**, and **Speed Insights** tab →
+**Enable**, then redeploy. Both are cookieless and collect no personal data, so no consent
+banner change is needed for them. The Hobby plan includes a limited monthly quota; see the
+tabs for current limits. Until enabled, the browser console shows a harmless 404 for
+`/_vercel/insights/script.js`.
+
+Speed Insights reports real visitors' Core Web Vitals (LCP, INP, CLS) per page — check it
+after the first week of ads.
+
+## 8. Final checks on the live domain
 
 - `https://care.turquoiseinstitute.com/robots.txt` lists the sitemap;
   `/sitemap.xml` lists the 8 pages.
