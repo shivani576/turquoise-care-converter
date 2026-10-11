@@ -13,7 +13,11 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { captureAttribution } from "../lib/utm";
 import { SITE_URL } from "../lib/site";
-import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import alataFont from "@fontsource/alata/files/alata-latin-400-normal.woff2?url";
+import robotoFont from "@fontsource/roboto/files/roboto-latin-400-normal.woff2?url";
+import doppioFont from "@fontsource/doppio-one/files/doppio-one-latin-400-normal.woff2?url";
 
 function NotFoundComponent() {
   return (
@@ -92,12 +96,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Alata&family=Doppio+One&family=Roboto:wght@400;500;700&family=Sofadi+One&display=swap",
-      },
+      // Preload the fonts used above the fold (headline, body, buttons) so they
+      // arrive with the CSS instead of after it, avoiding a late swap and layout shift.
+      ...[alataFont, robotoFont, doppioFont].map((href) => ({
+        rel: "preload",
+        href,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous" as const,
+      })),
     ],
   }),
   shellComponent: RootShell,
@@ -150,7 +157,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <Toaster position="top-center" richColors />
+      {/* Vercel Web Analytics + Speed Insights: cookieless, no personal data. They only
+          report on Vercel deployments, once enabled in the project's Analytics /
+          Speed Insights tabs. */}
+      <Analytics />
+      <SpeedInsights />
     </QueryClientProvider>
   );
 }

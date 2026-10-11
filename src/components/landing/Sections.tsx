@@ -11,7 +11,7 @@ import {
   Timer,
   X,
 } from "lucide-react";
-import headshot from "@/assets/photos/dr-amir-headshot.jpg";
+import headshot from "@/assets/photos/dr-amir-headshot.webp";
 import officePhoto from "@/assets/photos/dr-amir-office-dartmouth.jpg";
 import { CLINIC, CONDITIONS, CREDENTIALS } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";

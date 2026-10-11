@@ -1,6 +1,13 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+/* Brand fonts, self-hosted (latin only) so no request to Google blocks the first paint. */
+@import "@fontsource/alata/latin-400.css";
+@import "@fontsource/doppio-one/latin-400.css";
+@import "@fontsource/roboto/latin-400.css";
+@import "@fontsource/roboto/latin-500.css";
+@import "@fontsource/roboto/latin-700.css";
+@import "@fontsource/sofadi-one/latin-400.css";
 
 @custom-variant dark (&:is(.dark *));
 

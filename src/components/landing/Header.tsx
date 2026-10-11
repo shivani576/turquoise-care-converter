@@ -1,5 +1,5 @@
 import { CalendarCheck, Phone } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 
@@ -15,8 +15,8 @@ export function Header() {
           <img
             src={logo}
             alt="Turquoise Institute — Interventional Pain, Headache & Regenerative Medicine"
-            width={430}
-            height={197}
+            width={244}
+            height={112}
             className="h-11 w-auto sm:h-14"
           />
         </a>

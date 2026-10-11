@@ -1,5 +1,5 @@
 import { BadgeCheck, MapPin, Star } from "lucide-react";
-import headshot from "@/assets/photos/dr-amir-headshot.jpg";
+import headshot from "@/assets/photos/dr-amir-headshot.webp";
 import { CLINIC, GOOGLE_RATING } from "@/lib/site";
 import { track } from "@/lib/track";
 import type { PageCopy } from "@/lib/condition-pages";

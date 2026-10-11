@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { CalendarCheck, Instagram, Mail, MapPin, Phone, Printer } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import { Button } from "@/components/ui/button";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
@@ -68,8 +68,8 @@ export function Footer() {
           <img
             src={logo}
             alt="Turquoise Institute"
-            width={430}
-            height={197}
+            width={244}
+            height={112}
             loading="lazy"
             className="h-12 w-auto"
           />
