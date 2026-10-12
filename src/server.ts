@@ -57,12 +57,36 @@ function withRobotsHeader(request: Request, response: Response): Response {
   });
 }
 
+const COMPRESSIBLE = /^(text\/|application\/(json|xml|javascript)|image\/svg)/;
+
+// Gzip HTML and other text responses when the host doesn't (Railway, plain Node).
+// Static JS/CSS/fonts are pre-compressed at build time (compressPublicAssets).
+function compress(request: Request, response: Response): Response {
+  if (__ON_VERCEL__ || !response.body || response.headers.has("content-encoding")) {
+    return response;
+  }
+  if (!/\bgzip\b/.test(request.headers.get("accept-encoding") ?? "")) return response;
+  if (!COMPRESSIBLE.test(response.headers.get("content-type") ?? "")) return response;
+  const headers = new Headers(response.headers);
+  headers.set("content-encoding", "gzip");
+  headers.delete("content-length");
+  headers.append("vary", "Accept-Encoding");
+  return new Response(response.body.pipeThrough(new CompressionStream("gzip")), {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return withRobotsHeader(request, await normalizeCatastrophicSsrResponse(response));
+      return compress(
+        request,
+        withRobotsHeader(request, await normalizeCatastrophicSsrResponse(response)),
+      );
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

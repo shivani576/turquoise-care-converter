@@ -157,11 +157,15 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {/* Vercel Web Analytics + Speed Insights: cookieless, no personal data. They only
-          report on Vercel deployments, once enabled in the project's Analytics /
-          Speed Insights tabs. */}
-      <Analytics />
-      <SpeedInsights />
+      {/* Vercel Web Analytics + Speed Insights: cookieless, no personal data. Only
+          included in Vercel builds (they need Vercel's /_vercel endpoints); on other
+          hosts GA4 via GTM covers analytics. Enable them in the Vercel dashboard. */}
+      {__ON_VERCEL__ ? (
+        <>
+          <Analytics />
+          <SpeedInsights />
+        </>
+      ) : null}
     </QueryClientProvider>
   );
 }

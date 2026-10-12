@@ -12,6 +12,9 @@
     "format": "prettier --write .",
     "start": "node .output/server/index.mjs"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "overrides": {
     "rolldown": "1.2.1"
   },
