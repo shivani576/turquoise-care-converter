@@ -1,5 +1,9 @@
 # Launch checklist — care.turquoiseinstitute.com
 
+> **Moving to Railway?** Follow `docs/RAILWAY.md` for hosting, variables, the share link and
+> the domain. Sections 1–4 and 7 below are the Vercel equivalents; sections 5 (GoHighLevel),
+> 6 (GTM) and 8 (final checks) apply to either host.
+
 Everything the code needs is already in place. The steps below are settings in Vercel,
 the DNS provider, GoHighLevel and Google Tag Manager. Do them in this order.
 

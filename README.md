@@ -10,7 +10,7 @@ TanStack Start + React + Tailwind, server functions for the lead form and Google
 - `/thank-you` — confirmation page (noindex). Ad conversions fire on the `appointment_request` dataLayer event in GTM (GTM-TJ79BBT5)
 - `/robots.txt`, `/sitemap.xml` — generated per host; previews and `*.vercel.app` are never indexed
 
-Step-by-step setup for the domain, Vercel, GoHighLevel and GTM: [`docs/LAUNCH.md`](docs/LAUNCH.md).
+Hosting on Railway: [`docs/RAILWAY.md`](docs/RAILWAY.md). Domain, GoHighLevel and GTM setup: [`docs/LAUNCH.md`](docs/LAUNCH.md).
 
 All page copy lives in `src/lib/condition-pages.ts`; clinic facts, reels and reviews in `src/lib/site.ts`.
 
@@ -22,7 +22,7 @@ npm run dev        # http://localhost:3000
 npm run build && npm start
 ```
 
-## Environment variables (set in Vercel/Netlify, never commit)
+## Environment variables (set in the host — Railway or Vercel — never commit)
 
 | Name                                       | Purpose                                                                                  |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------- |
@@ -30,7 +30,7 @@ npm run build && npm start
 | `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | Optional: live Google rating + reviews (falls back to the saved real reviews)            |
 | `VITE_SITE_URL`                            | Optional: overrides the canonical domain (default `https://care.turquoiseinstitute.com`) |
 | `LEAD_PREVIEW=1`                           | Preview deployments only: lets the form complete without a CRM                           |
-| `NITRO_PRESET`                             | `vercel` or `netlify` on the host                                                        |
+| `NITRO_PRESET`                             | Vercel only: `vercel`. Leave unset on Railway (default Node server)                      |
 
 ## Notes
 

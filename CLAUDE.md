@@ -8,14 +8,20 @@ The single job of every page: turn an ad click into a booked consultation (form 
 
 - Work on **`claude-code-rebuild`**. Do **not** push to `main` — `main` is the old Lovable
   build and syncs back into Lovable.
-- Hosted on **Vercel** (project `turquoise-care-converter`). Every push to
-  `claude-code-rebuild` deploys automatically; Production Branch must be `claude-code-rebuild`.
-- Planned domain: `care.turquoiseinstitute.com` (CNAME `care` → value shown in Vercel → Domains).
-  Never switch the domain's nameservers to Vercel — it would break the main site and email.
+- Hosting: moving from **Vercel** to **Railway** (setup: `docs/RAILWAY.md`). The code runs on
+  both: Railway uses Nitro's default Node server (`npm start`, `railway.json`); Vercel needs
+  `NITRO_PRESET=vercel`. Whichever host is used must deploy branch `claude-code-rebuild`.
+- On non-Vercel hosts the server gzips HTML itself (`compress()` in `src/server.ts`) and static
+  assets are pre-compressed (`compressPublicAssets`); Vercel Analytics/Speed Insights are only
+  included in Vercel builds (`__ON_VERCEL__`, defined in `vite.config.ts`).
+- Planned domain: `care.turquoiseinstitute.com` (CNAME `care` → the target the host shows).
+  Never switch the domain's nameservers — it would break the main site and email.
 - `SITE_URL` defaults to `https://care.turquoiseinstitute.com` (`VITE_SITE_URL` overrides). Any other
-  host (previews, *.vercel.app, localhost) gets `X-Robots-Tag: noindex` + a disallow-all robots.txt.
-- Vercel env vars: `NITRO_PRESET=vercel`, `GHL_API_TOKEN`, `GHL_LOCATION_ID`, optional `VITE_SITE_URL`,
-  optional `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID`. `LEAD_PREVIEW=1` only on previews.
+  host (previews, *.vercel.app, *.up.railway.app, localhost) gets `X-Robots-Tag: noindex` + a
+  disallow-all robots.txt.
+- Env vars: `GHL_API_TOKEN`, `GHL_LOCATION_ID`, optional `VITE_SITE_URL`, optional
+  `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID`; on Vercel also `NITRO_PRESET=vercel`.
+  `LEAD_PREVIEW=1` only on non-production previews.
 
 ## Stack
 
@@ -28,7 +34,7 @@ TanStack Start (React 19, SSR) + Tailwind v4 + Nitro. `npm run dev` (port 3000),
   (zod validation + GHL calls; server-only). Google reviews: `src/lib/reviews.functions.ts`
 - GTM container `GTM-TJ79BBT5` in `src/routes/__root.tsx`; events via `src/lib/track.ts`
 - UTMs + gclid captured in `src/lib/utm.ts` and sent with each lead
-- Vercel Web Analytics + Speed Insights components in `__root.tsx` (enable in the Vercel dashboard)
+- Vercel Web Analytics + Speed Insights in `__root.tsx` (Vercel builds only; enable in its dashboard)
 
 ## Pages (short URLs are canonical; old Lovable paths + misspellings redirect)
 
@@ -115,7 +121,7 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 
 ## Open items
 
-- Vercel Production must track `claude-code-rebuild` (it tracked `main` = old Lovable build).
+- Finish the Railway setup (`docs/RAILWAY.md`), move the domain from Vercel to Railway, retire Vercel.
 - Connect `care.turquoiseinstitute.com` (CNAME) and redirect the *.vercel.app domain to it.
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
