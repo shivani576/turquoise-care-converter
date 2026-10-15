@@ -1,9 +1,9 @@
 // Source of truth: turquoiseinstitute.com + Google Business Profile (checked Oct 2026).
-// Canonical origin of the landing pages. VITE_SITE_URL overrides it (no trailing slash needed).
-// Pages are only indexable when served from this host; see src/server.ts.
+// Canonical origin: this app is the clinic's official homepage at the domain root.
+// VITE_SITE_URL overrides it (no trailing slash needed). Pages are only indexable
+// when served from this host, and www. redirects here; see src/server.ts.
 export const SITE_URL = (
-  (import.meta.env?.["VITE_SITE_URL"] as string | undefined) ||
-  "https://care.turquoiseinstitute.com"
+  (import.meta.env?.["VITE_SITE_URL"] as string | undefined) || "https://turquoiseinstitute.com"
 ).replace(/\/+$/, "");
 
 export const CLINIC = {

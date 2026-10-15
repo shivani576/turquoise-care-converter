@@ -1,9 +1,8 @@
-import { BadgeCheck, MapPin, Star } from "lucide-react";
+import { BadgeCheck, Check, Star } from "lucide-react";
 import headshot from "@/assets/photos/dr-amir-headshot.webp";
 import { CLINIC, GOOGLE_RATING } from "@/lib/site";
-import { track } from "@/lib/track";
 import type { PageCopy } from "@/lib/condition-pages";
-import { CtaPair } from "./Ctas";
+import { BookCta } from "./Booking";
 import { useTown } from "./useTown";
 
 function Headline({ text, highlight }: { text: string; highlight?: string | undefined }) {
@@ -19,13 +18,13 @@ function Headline({ text, highlight }: { text: string; highlight?: string | unde
 }
 
 /**
- * First screen: headline, one sentence and the buttons on the left; the doctor
- * the visitor will actually see on the right. The form lives in the closing
- * section (#consultation), which every "Book" button scrolls to.
+ * First fold: headline, one sentence, a few short points and exactly one call
+ * to action (opens the booking pop-up). The doctor the visitor will see is on
+ * the right. No location here — the practice serves several areas.
  */
 export function Hero({ page }: { page: PageCopy }) {
   const town = useTown();
-  // An ad for one town (…?town=wellesley) swaps "in Natick" for "near Wellesley".
+  // Ad-group pages: an ad for one town (…?town=wellesley) swaps "in Natick" for "near Wellesley".
   const headline =
     town && town !== "Natick" ? page.headline.replace("in Natick", `near ${town}`) : page.headline;
   return (
@@ -41,16 +40,21 @@ export function Hero({ page }: { page: PageCopy }) {
           <p className="mt-5 max-w-xl text-[1.08rem] leading-relaxed text-foreground/80 sm:text-lg">
             {page.subheadline}
           </p>
-          <CtaPair location="hero" label={page.ctaLabel} className="mt-8" />
-          <p className="mt-5 flex items-start gap-2 text-sm text-muted-foreground">
-            <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-            <span>
-              {CLINIC.address.street}, {CLINIC.address.city}, MA ·{" "}
-              {town && town !== "Natick"
-                ? `A short drive from ${town}`
-                : "Minutes from Wellesley, Framingham, Needham & Sherborn"}
-            </span>
-          </p>
+          {page.heroPoints.length > 0 ? (
+            <ul className="mt-5 space-y-2 text-[15px] font-medium text-foreground sm:text-base">
+              {page.heroPoints.map((p) => (
+                <li key={p} className="flex items-start gap-2.5">
+                  <Check
+                    className="mt-0.5 size-5 shrink-0 text-primary-deep"
+                    strokeWidth={2.5}
+                    aria-hidden="true"
+                  />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <BookCta location="hero" className="mt-8 w-full sm:w-auto" />
         </div>
 
         {/* Who you'll see */}
@@ -77,28 +81,25 @@ export function Hero({ page }: { page: PageCopy }) {
               <ul className="mt-3 space-y-1.5 text-sm text-foreground">
                 <li className="flex items-start gap-2">
                   <BadgeCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                  Fellowship-trained in Headache &amp; Interventional Pain
+                  Dual fellowship trained in Headache &amp; Interventional Pain
                 </li>
                 <li className="flex items-start gap-2">
                   <BadgeCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
                   Trained at Yale &amp; Dartmouth
                 </li>
               </ul>
-              <a
-                href={CLINIC.googleMapsUrl}
-                target="_blank"
-                rel="noopener"
-                data-track="review_click"
-                onClick={() => track("review_click", { location: "hero" })}
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary-deep"
-              >
-                <span className="flex text-[#f5a623]" aria-hidden="true">
+              <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                <span
+                  role="img"
+                  className="flex text-[#f5a623]"
+                  aria-label={`${GOOGLE_RATING.rating.toFixed(1)} out of 5 stars`}
+                >
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-4 fill-current" />
+                    <Star key={i} className="size-4 fill-current" aria-hidden="true" />
                   ))}
                 </span>
                 {GOOGLE_RATING.rating.toFixed(1)} on Google
-              </a>
+              </p>
             </figcaption>
           </div>
         </figure>

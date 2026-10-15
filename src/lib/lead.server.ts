@@ -17,7 +17,8 @@ const attributionSchema = z
 
 const leadSchema = z.object({
   firstName: z.string().trim().min(1).max(80),
-  lastName: z.string().trim().min(1).max(80),
+  // The form asks for one "Full Name"; a single word leaves the last name empty.
+  lastName: z.string().trim().max(80).optional().default(""),
   email: z.string().trim().email().max(200),
   phone: z.string().trim().min(7).max(40),
   concern: z.string().trim().max(160).optional().default(""),
@@ -70,7 +71,7 @@ export async function syncLead(input: unknown) {
     const body: Record<string, unknown> = {
       locationId,
       firstName: data.firstName,
-      lastName: data.lastName,
+      ...(data.lastName ? { lastName: data.lastName } : {}),
       email: data.email,
       phone: data.phone,
       source: attribution["utm_source"]

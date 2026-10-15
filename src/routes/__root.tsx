@@ -89,7 +89,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image:height", content: "630" },
       {
         property: "og:image:alt",
-        content: "Dr. Amir Soheil Tolebeyan, migraine, jaw and joint pain specialist in Natick, MA",
+        content: "Dr. Amir Soheil Tolebeyan, personalized pain management specialist",
       },
       { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],

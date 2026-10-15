@@ -1,45 +1,50 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ChevronDown, Lock, Phone } from "lucide-react";
+import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CLINIC, CONDITIONS } from "@/lib/site";
+import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 import { submitLead } from "@/lib/lead.functions";
 import { getAttribution } from "@/lib/utm";
 import { cn } from "@/lib/utils";
 
+export const FORM_BUTTON_LABEL = "Request a Free 15-Minute Appointment";
+
 const field =
   "h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground placeholder:text-muted-foreground/70 focus-visible:border-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";
 
-const CALL_TIMES = ["Morning (9am–12pm)", "Afternoon (12–5pm)", "Telemedicine visit"];
-
-const CONCERNS = [
-  ...CONDITIONS.map((c) => ({ value: c.formLabel, label: c.name })),
-  { value: "Other pain", label: "Something else" },
-];
-
 interface LeadFormProps {
-  /** Where the form sits, for analytics ("hero", "final") */
+  /** Where the form sits, for analytics ("modal-hero", "final") */
   location: string;
-  defaultConcern?: string | undefined;
+  /** Page context saved with the lead in the CRM (not shown as a field) */
+  concern?: string | undefined;
   className?: string;
   heading?: string;
-  /** Button text, e.g. "Book My Migraine Visit" */
-  ctaLabel?: string | undefined;
+  headingId?: string;
+  /** Inside the pop-up: no card frame of its own */
+  bare?: boolean;
+}
+
+/** "Jane Mary Doe" → first "Jane", last "Mary Doe" (GoHighLevel stores them separately). */
+function splitName(full: string): { firstName: string; lastName: string } {
+  const parts = full.trim().split(/\s+/);
+  return { firstName: parts[0] ?? "", lastName: parts.slice(1).join(" ") };
 }
 
 /**
- * Short lead form. Only reports a conversion (and goes to /thank-you) when the
- * lead actually reached the CRM; otherwise the visitor is asked to call, so no
- * lead is silently lost and ad platforms aren't fed false conversions.
+ * Three-field lead form: Full Name, Phone, Email (all required). Only reports a
+ * conversion (and goes to /thank-you) when the lead actually reached the CRM;
+ * otherwise the visitor is asked to call, so no lead is silently lost and ad
+ * platforms aren't fed false conversions.
  */
 export function LeadForm({
   location,
-  defaultConcern = "",
+  concern = "",
   className,
   heading,
-  ctaLabel = "Request My Appointment",
+  headingId,
+  bare = false,
 }: LeadFormProps) {
   const started = useRef(false);
   const [submitting, setSubmitting] = useState(false);
@@ -57,23 +62,20 @@ export function LeadForm({
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const concern = String(fd.get("concern") ?? defaultConcern);
     setSubmitting(true);
     setFailed(false);
     // No concern/contact details in the dataLayer: GTM tags could forward them to ad
-    // platforms, and the condition a visitor picks is health information.
+    // platforms, and the condition a visitor is interested in is health information.
     track("form_submit", { form: "consultation", location });
 
     let synced = false;
     try {
       const res = await sendLead({
         data: {
-          firstName: String(fd.get("firstName") ?? ""),
-          lastName: String(fd.get("lastName") ?? ""),
+          ...splitName(String(fd.get("fullName") ?? "")),
           email: String(fd.get("email") ?? ""),
           phone: String(fd.get("phone") ?? ""),
           concern,
-          preferredTime: String(fd.get("preferredTime") ?? ""),
           pagePath: window.location.pathname,
           attribution: getAttribution(),
         },
@@ -97,12 +99,20 @@ export function LeadForm({
 
   return (
     <div
-      className={cn("rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-7", className)}
+      className={cn(
+        !bare && "rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-7",
+        className,
+      )}
     >
       {heading ? (
-        <p className="font-display text-xl text-foreground sm:text-2xl">{heading}</p>
+        <h2
+          id={headingId}
+          className="pr-10 font-display text-xl leading-tight text-heading sm:text-2xl"
+        >
+          {heading}
+        </h2>
       ) : null}
-      <p className={cn("text-sm text-muted-foreground", heading && "mt-1")}>
+      <p className={cn("text-sm text-muted-foreground", heading && "mt-1.5")}>
         Takes 30 seconds. Our team will call you to find a time that works.
       </p>
       <form
@@ -111,34 +121,24 @@ export function LeadForm({
         onFocusCapture={onStart}
         className="mt-5 space-y-3.5"
       >
-        <div className="grid grid-cols-2 gap-3">
-          <label className="block">
-            <span className="sr-only">First name</span>
-            <input
-              id={`${idp}-first`}
-              name="firstName"
-              autoComplete="given-name"
-              required
-              maxLength={80}
-              placeholder="First name"
-              className={field}
-            />
+        <div>
+          <label htmlFor={`${idp}-name`} className="mb-1.5 block text-sm font-medium">
+            Full Name
           </label>
-          <label className="block">
-            <span className="sr-only">Last name</span>
-            <input
-              id={`${idp}-last`}
-              name="lastName"
-              autoComplete="family-name"
-              required
-              maxLength={80}
-              placeholder="Last name"
-              className={field}
-            />
-          </label>
+          <input
+            id={`${idp}-name`}
+            name="fullName"
+            autoComplete="name"
+            required
+            minLength={2}
+            maxLength={160}
+            className={field}
+          />
         </div>
-        <label className="block">
-          <span className="sr-only">Phone</span>
+        <div>
+          <label htmlFor={`${idp}-phone`} className="mb-1.5 block text-sm font-medium">
+            Phone
+          </label>
           <input
             id={`${idp}-phone`}
             name="phone"
@@ -148,12 +148,13 @@ export function LeadForm({
             required
             minLength={7}
             maxLength={40}
-            placeholder="Phone"
             className={field}
           />
-        </label>
-        <label className="block">
-          <span className="sr-only">Email</span>
+        </div>
+        <div>
+          <label htmlFor={`${idp}-email`} className="mb-1.5 block text-sm font-medium">
+            Email
+          </label>
           <input
             id={`${idp}-email`}
             name="email"
@@ -162,62 +163,9 @@ export function LeadForm({
             autoComplete="email"
             required
             maxLength={200}
-            placeholder="Email"
             className={field}
           />
-        </label>
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-foreground">
-            What's bothering you most?
-          </span>
-          <span className="relative block">
-            <select
-              id={`${idp}-concern`}
-              name="concern"
-              defaultValue={defaultConcern}
-              required
-              className={cn(field, "appearance-none pr-10")}
-            >
-              <option value="" disabled>
-                Choose one
-              </option>
-              {CONCERNS.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep"
-              aria-hidden="true"
-            />
-          </span>
-        </label>
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-foreground">
-            Best time to call you{" "}
-            <span className="font-normal text-muted-foreground">(optional)</span>
-          </span>
-          <span className="relative block">
-            <select
-              id={`${idp}-time`}
-              name="preferredTime"
-              defaultValue=""
-              className={cn(field, "appearance-none pr-10")}
-            >
-              <option value="">Any time</option>
-              {CALL_TIMES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-primary-deep"
-              aria-hidden="true"
-            />
-          </span>
-        </label>
+        </div>
 
         <Button
           type="submit"
@@ -225,10 +173,10 @@ export function LeadForm({
           variant="cta"
           size="xl"
           disabled={submitting}
-          className="w-full"
+          className="h-auto min-h-14 w-full whitespace-normal py-3 text-center"
           data-track="form_submit"
         >
-          {submitting ? "Sending…" : ctaLabel}
+          {submitting ? "Sending…" : FORM_BUTTON_LABEL}
         </Button>
 
         {failed ? (
@@ -268,17 +216,6 @@ export function LeadForm({
           </span>
         </p>
       </form>
-
-      <a
-        href={`tel:${CLINIC.phoneTel}`}
-        className="js-track-call mt-4 flex items-center justify-center gap-2 border-t border-border pt-4 text-sm font-semibold text-foreground hover:text-primary-deep"
-        data-track="phone_click"
-        data-location={`form-${location}`}
-        onClick={() => track("phone_click", { location: `form-${location}` })}
-      >
-        <Phone className="size-4 text-primary-deep" aria-hidden="true" /> Prefer to talk? Call{" "}
-        {CLINIC.phoneDisplay}
-      </a>
     </div>
   );
 }

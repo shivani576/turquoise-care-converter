@@ -1,24 +1,16 @@
 import { useEffect } from "react";
-import { CalendarCheck, Instagram, Mail, MapPin, Phone, Printer } from "lucide-react";
+import { Instagram, Mail, MapPin, Phone, Printer } from "lucide-react";
 import logo from "@/assets/logo.webp";
-import { Button } from "@/components/ui/button";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 import { LeadForm } from "./LeadForm";
 
-/** Closing section with the second form — the anchor every "Book" button scrolls to. */
-export function FinalCta({
-  heading,
-  defaultConcern,
-  ctaLabel,
-}: {
-  heading: string;
-  defaultConcern?: string | undefined;
-  ctaLabel?: string | undefined;
-}) {
+/** Closing section with the inline form (same three fields as the pop-up). */
+export function FinalCta({ heading, concern }: { heading: string; concern?: string | undefined }) {
   return (
     <section
       id="consultation"
+      data-main-cta=""
       className="section-pad relative overflow-hidden bg-ink bg-ink-glow text-ink-foreground"
     >
       <div className="container-page grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-16">
@@ -27,32 +19,24 @@ export function FinalCta({
             {heading}
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
-            Tell us a little about what's going on and our team will call you to set up your
-            60-minute visit with {CLINIC.doctor.short}. No referral needed.
+            Request a free 15-minute consultation and our team will call you to find a time that
+            works. No referral needed.
           </p>
-          <a
-            href={`tel:${CLINIC.phoneTel}`}
-            className="js-track-call mt-8 inline-flex items-center gap-3 font-display text-2xl text-ink-foreground hover:text-primary-soft sm:text-3xl"
-            data-track="phone_click"
-            data-location="final"
-            onClick={() => track("phone_click", { location: "final" })}
-          >
-            <Phone className="size-6 text-primary-soft" aria-hidden="true" />
-            {CLINIC.phoneDisplay}
-          </a>
-          <p className="mt-2 flex items-center gap-2 text-sm text-ink-muted">
-            <MapPin className="size-4 text-primary-soft" aria-hidden="true" />
-            {CLINIC.address.street}, {CLINIC.address.city}, {CLINIC.address.state}{" "}
-            {CLINIC.address.zip}
+          <p className="mt-6 text-ink-muted">
+            Prefer to call?{" "}
+            <a
+              href={`tel:${CLINIC.phoneTel}`}
+              className="js-track-call font-semibold text-ink-foreground underline underline-offset-4"
+              data-track="phone_click"
+              data-location="final"
+              onClick={() => track("phone_click", { location: "final" })}
+            >
+              {CLINIC.phoneDisplay}
+            </a>
           </p>
         </div>
         <div className="text-foreground">
-          <LeadForm
-            location="final"
-            defaultConcern={defaultConcern}
-            heading="Request an appointment"
-            ctaLabel={ctaLabel}
-          />
+          <LeadForm location="final" concern={concern} heading="Request an appointment" />
         </div>
       </div>
     </section>
@@ -183,42 +167,6 @@ export function Footer() {
         </p>
       </div>
     </footer>
-  );
-}
-
-/** Fixed bottom CTA bar on mobile: CALL NOW | BOOK A CONSULTATION */
-export function StickyMobileCta() {
-  return (
-    <nav
-      aria-label="Call or book"
-      id="sticky-mobile-cta"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_-12px_oklch(0.25_0.03_200/0.25)] backdrop-blur md:hidden"
-    >
-      <div className="grid grid-cols-2 gap-3">
-        <Button asChild variant="call" className="js-track-call h-13 text-[15px]">
-          <a
-            href={`tel:${CLINIC.phoneTel}`}
-            id="cta-call-sticky"
-            data-track="phone_click"
-            data-location="sticky"
-            onClick={() => track("phone_click", { location: "sticky" })}
-          >
-            <Phone aria-hidden="true" /> Call Now
-          </a>
-        </Button>
-        <Button asChild variant="cta" className="js-track-book h-13 text-[15px]">
-          <a
-            href="#consultation"
-            id="cta-book-sticky"
-            data-track="book_consultation_click"
-            data-location="sticky"
-            onClick={() => track("book_consultation_click", { location: "sticky" })}
-          >
-            <CalendarCheck aria-hidden="true" /> Book Now
-          </a>
-        </Button>
-      </div>
-    </nav>
   );
 }
 

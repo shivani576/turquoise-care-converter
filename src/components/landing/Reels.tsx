@@ -1,23 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Instagram, Play, X } from "lucide-react";
 import { CLINIC, REELS, type Reel } from "@/lib/site";
 import { track } from "@/lib/track";
 
-// Cover images are stills from Dr. Amir's own reels.
-const covers = import.meta.glob<string>("../../assets/reels/*.jpg", {
+// Cover images are stills from Dr. Amir's own reels (WebP; Instagram's baked-in play
+// button removed so no play icon shows until hover/focus).
+const covers = import.meta.glob<string>("../../assets/reels/*.webp", {
   eager: true,
   import: "default",
 });
 const coverFor = (code: string) =>
-  Object.entries(covers).find(([path]) => path.endsWith(`/${code}.jpg`))?.[1];
+  Object.entries(covers).find(([path]) => path.endsWith(`/${code}.webp`))?.[1];
 
 /**
- * Horizontal row of Dr. Amir's Instagram reels. Only the cover images load
- * with the page; the Instagram player loads when someone taps a reel, so the
- * page stays fast for ad traffic.
+ * Horizontal row of Dr. Amir's Instagram reels. Only the cover images load with
+ * the page. Tapping a cover swaps it for the Instagram player right there in the
+ * row (no pop-up), so the page stays fast and the visitor stays on the page.
  */
 export function Reels({ topics }: { topics?: Reel["topic"][] }) {
-  const [open, setOpen] = useState<Reel | null>(null);
+  const [playing, setPlaying] = useState<string | null>(null);
   const rail = useRef<HTMLUListElement>(null);
 
   const ordered = topics?.length ? [...REELS].sort((a, b) => rank(a) - rank(b)) : REELS;
@@ -25,17 +26,6 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
     const i = topics!.indexOf(r.topic);
     return i === -1 ? 99 : i;
   }
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [open]);
 
   const scroll = (dir: 1 | -1) =>
     rail.current?.scrollBy({ left: dir * rail.current.clientWidth * 0.8, behavior: "smooth" });
@@ -76,37 +66,61 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
         className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_2rem))]"
         aria-label="Instagram videos from Dr. Amir"
       >
-        {ordered.map((r) => (
-          <li key={r.code} className="w-[62vw] max-w-[15rem] shrink-0 snap-start sm:w-[15rem]">
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(r);
-                track("reel_open", { reel: r.code });
-              }}
-              className="group block w-full text-left"
-            >
-              <span className="relative block aspect-[9/16] overflow-hidden rounded-2xl bg-ink shadow-card">
-                <img
-                  src={coverFor(r.code)}
-                  alt=""
-                  width={360}
-                  height={640}
-                  loading="lazy"
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        {ordered.map((r) =>
+          playing === r.code ? (
+            <li key={r.code} className="w-[min(88vw,22rem)] shrink-0 snap-start">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-white shadow-card">
+                <iframe
+                  title={r.title}
+                  src={`https://www.instagram.com/reel/${r.code}/embed/`}
+                  className="block h-[min(80vh,40rem)] w-full"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                {/* Sits over the play icon baked into some Instagram covers */}
-                <span className="absolute left-1/2 top-1/2 flex size-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary-deep text-white shadow-cta transition-transform group-hover:scale-110">
-                  <Play className="ml-1 size-7 fill-current" aria-hidden="true" />
+                <button
+                  type="button"
+                  onClick={() => setPlaying(null)}
+                  aria-label={`Stop video: ${r.title}`}
+                  className="absolute right-2 top-2 flex size-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/75"
+                >
+                  <X className="size-4" aria-hidden="true" />
+                </button>
+              </div>
+            </li>
+          ) : (
+            <li key={r.code} className="w-[62vw] max-w-[15rem] shrink-0 snap-start sm:w-[15rem]">
+              <button
+                type="button"
+                onClick={() => {
+                  setPlaying(r.code);
+                  track("reel_open", { reel: r.code });
+                }}
+                aria-label={`Play video: ${r.title}`}
+                className="group block w-full text-left"
+              >
+                <span className="relative block aspect-[9/16] overflow-hidden rounded-2xl bg-ink shadow-card">
+                  <img
+                    src={coverFor(r.code)}
+                    alt="Still from one of Dr. Amir's videos"
+                    width={360}
+                    height={640}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  {/* Hidden until hover / keyboard focus; a tap plays straight away */}
+                  <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <Play className="ml-1 size-7 fill-current" aria-hidden="true" />
+                  </span>
+                  <span className="absolute inset-x-0 bottom-0 p-4 text-[15px] font-medium leading-snug text-white">
+                    {r.title}
+                  </span>
                 </span>
-                <span className="absolute inset-x-0 bottom-0 p-4 text-[15px] font-medium leading-snug text-white">
-                  {r.title}
-                </span>
-              </span>
-            </button>
-          </li>
-        ))}
+              </button>
+            </li>
+          ),
+        )}
         <li className="flex w-[62vw] max-w-[15rem] shrink-0 snap-start sm:w-[15rem]">
           <a
             href={CLINIC.instagram}
@@ -120,36 +134,6 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
           </a>
         </li>
       </ul>
-
-      {open ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={open.title}
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setOpen(null)}
-        >
-          <div className="relative w-full max-w-[400px]" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              onClick={() => setOpen(null)}
-              className="absolute -top-12 right-0 flex size-10 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/25"
-              aria-label="Close video"
-            >
-              <X className="size-5" />
-            </button>
-            <div className="max-h-[80vh] overflow-y-auto rounded-2xl bg-white">
-              <iframe
-                title={open.title}
-                src={`https://www.instagram.com/reel/${open.code}/embed/`}
-                className="block h-[min(78vh,720px)] w-full"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
     </section>
   );
 }

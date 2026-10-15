@@ -46,17 +46,23 @@ const MIGRAINE_FAQS = [
 ];
 
 export const HOME_PAGE: PageCopy = {
-  title: "Pain & Headache Specialist in Natick, MA | Near Wellesley & Framingham",
+  // Client rule: no "migraine", "jaw" or "joint" and no city in the title, description or
+  // first fold of the home page — "pain management" wording. Services are listed below the fold.
+  title: "Personalized Pain Management Specialist | Turquoise Institute",
   description:
-    "Migraine, Botox for migraine, TMJ, PRP and joint pain treatment in Natick, MA — minutes from Wellesley, Framingham, Needham, Sherborn and Wayland. 60-minute first visits, no referral needed.",
-  eyebrow: "Natick, MA · No referral needed",
-  headline: "Migraines, Jaw or Joint Pain? Get Answers From a Specialist in Natick.",
-  highlight: "Get Answers From a Specialist",
+    "Personalized pain management with Dr. Amir Soheil Tolebeyan, a dual fellowship trained, board-certified pain and headache specialist. Cash-pay clinic, 60-minute first visits. Book a free 15-minute consultation.",
+  eyebrow: "",
+  headline: "Personalized Pain Management Specialist",
+  highlight: "Pain Management",
   subheadline:
-    "A full-hour first visit with a fellowship-trained specialist — and treatment that goes beyond another prescription.",
-  heroPoints: ["60-min first visit", "Same-day treatment often available", "No referral needed"],
-  localKeyword: "pain and headache care",
-  ctaLabel: "Book My Consultation",
+    "A full hour with a dual fellowship trained physician to find what's driving your pain, and a treatment plan built around you.",
+  heroPoints: [
+    "Dual fellowship trained, board-certified physician",
+    "Cash-pay clinic — no insurance approvals to wait on",
+    "No referral needed",
+  ],
+  localKeyword: "pain management",
+  ctaLabel: "Book a Free 15-Minute Consultation",
   painTitle: "Does any of this sound familiar?",
   painPoints: [
     "You've seen several doctors and still don't have a clear answer.",

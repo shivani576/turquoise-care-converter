@@ -332,3 +332,22 @@
     display: none;
   }
 }
+
+/* Booking pop-up (native <dialog>): the page behind must not scroll while it's open. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+.booking-dialog[open] {
+  animation: booking-in 180ms ease-out;
+}
+@keyframes booking-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booking-dialog[open] {
+    animation: none;
+  }
+}

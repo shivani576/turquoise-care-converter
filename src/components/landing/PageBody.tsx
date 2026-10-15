@@ -1,25 +1,28 @@
 import type { PageCopy } from "@/lib/condition-pages";
 import { CLINIC } from "@/lib/site";
+import { BookingProvider } from "./Booking";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import {
   ProofBar,
+  Services,
   PainPoints,
   Options,
-  ConditionPicker,
   MeetDoctor,
-  HowItWorks,
-  CostUpfront,
+  Facilities,
+  CashPay,
 } from "./Sections";
 import { Reviews } from "./Reviews";
 import { Reels } from "./Reels";
 import { Faq, Location } from "./Faq";
-import { FinalCta, Footer, StickyMobileCta, ScrollDepthTracker } from "./FinalAndFooter";
+import { FinalCta, Footer, ScrollDepthTracker } from "./FinalAndFooter";
 
 /**
  * Shared page layout for the home page and every ad-group page.
- * Order follows the visitor's questions: am I in the right place → is this
- * for me → who's the doctor → can I trust them → what happens → what's it cost.
+ * First fold: hero with ONE call to action (opens the booking pop-up).
+ * Second fold: services (home) or "does this sound like you" (ad-group pages).
+ * One more call to action in the cash-pay section, then the closing form.
+ * The sticky "Book Now" only appears after the second fold ([data-sticky-start]).
  */
 export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: boolean }) {
   const faqs = [
@@ -30,29 +33,25 @@ export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: bo
     },
   ];
   return (
-    <>
+    <BookingProvider concern={page.formConcern}>
       <Header />
       <main>
         <Hero page={page} />
         <ProofBar />
-        <PainPoints page={page} />
-        {isHome ? <ConditionPicker /> : <Options page={page} />}
+        {isHome ? <Services /> : <PainPoints page={page} />}
+        <div data-sticky-start="" aria-hidden="true" />
+        {isHome ? <PainPoints page={page} /> : <Options page={page} />}
         <MeetDoctor />
         <Reviews />
         <Reels topics={page.reelTopics} />
-        <HowItWorks />
-        <CostUpfront />
+        <Facilities />
+        <CashPay />
         <Faq faqs={faqs} />
         <Location keyword={page.localKeyword} />
-        <FinalCta
-          heading={page.finalHeadline}
-          defaultConcern={page.formConcern}
-          ctaLabel={page.ctaLabel}
-        />
+        <FinalCta heading={page.finalHeadline} concern={page.formConcern} />
       </main>
       <Footer />
-      <StickyMobileCta />
       <ScrollDepthTracker />
-    </>
+    </BookingProvider>
   );
 }

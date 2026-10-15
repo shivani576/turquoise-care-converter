@@ -2,7 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import { isCanonicalHost } from "./lib/seo";
+import { isCanonicalHost, wwwRedirect } from "./lib/seo";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -81,6 +81,8 @@ function compress(request: Request, response: Response): Response {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const redirect = wwwRedirect(request);
+      if (redirect) return redirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return compress(

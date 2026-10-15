@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ExternalLink, Star } from "lucide-react";
 import { CLINIC, GOOGLE_RATING, GOOGLE_REVIEWS } from "@/lib/site";
@@ -49,6 +49,62 @@ function GoogleG() {
   );
 }
 
+/**
+ * One review. Shows the first three lines; "Read more" expands the text in place
+ * (no link out). Collapsed cards are all the same height.
+ */
+function ReviewCard({ review: r }: { review: ReviewsPayload["reviews"][number] }) {
+  const text = useRef<HTMLQuoteElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [clamped, setClamped] = useState(false);
+
+  // Only offer "Read more" when the text is actually cut off.
+  useLayoutEffect(() => {
+    const el = text.current;
+    if (!el) return;
+    const check = () => !expanded && setClamped(el.scrollHeight > el.clientHeight + 1);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [expanded, r.text]);
+
+  const id = `review-${r.author.replace(/\W+/g, "-").toLowerCase()}`;
+  return (
+    <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-card">
+      <div className="flex items-center justify-between">
+        <Stars value={r.rating} />
+        <GoogleG />
+      </div>
+      <blockquote
+        ref={text}
+        id={id}
+        className={`mt-4 min-h-[4.875em] leading-relaxed text-foreground/85 ${expanded ? "" : "line-clamp-3"}`}
+      >
+        “{r.text}”
+      </blockquote>
+      {clamped || expanded ? (
+        <button
+          type="button"
+          aria-expanded={expanded}
+          aria-controls={id}
+          onClick={() => {
+            setExpanded((v) => !v);
+            if (!expanded) track("review_click", { location: "read-more" });
+          }}
+          className="mt-2 self-start text-sm font-semibold text-primary-deep underline underline-offset-4"
+        >
+          {expanded ? "Read less" : "Read more"}
+        </button>
+      ) : null}
+      <div className="mt-auto pt-5">
+        <p className="font-semibold text-foreground">{r.author}</p>
+        {r.when ? <p className="text-sm text-muted-foreground">{r.when} · Google</p> : null}
+      </div>
+    </article>
+  );
+}
+
 /** Real Google reviews — live from the Places API when configured. */
 export function Reviews() {
   const [data, setData] = useState(initial);
@@ -70,13 +126,7 @@ export function Reviews() {
               "He takes the time to listen."
             </h2>
           </div>
-          <a
-            href={CLINIC.googleMapsUrl}
-            target="_blank"
-            rel="noopener"
-            onClick={() => track("review_click", { location: "summary" })}
-            className="flex items-center gap-3 self-start rounded-2xl border border-border bg-card px-5 py-3 shadow-card hover:border-primary-deep"
-          >
+          <div className="flex items-center gap-3 self-start rounded-2xl border border-border bg-card px-5 py-3 shadow-card">
             <GoogleG />
             <span>
               <span className="flex items-center gap-2">
@@ -87,24 +137,13 @@ export function Reviews() {
                 {data.count} Google {data.count === 1 ? "review" : "reviews"}
               </span>
             </span>
-          </a>
+          </div>
         </div>
 
-        <ul className="mt-10 grid gap-4 md:grid-cols-3">
+        <ul className="mt-10 grid gap-4 md:auto-rows-fr md:grid-cols-3">
           {data.reviews.slice(0, 3).map((r) => (
-            <li
-              key={r.author + r.when}
-              className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-card"
-            >
-              <div className="flex items-center justify-between">
-                <Stars value={r.rating} />
-                <GoogleG />
-              </div>
-              <blockquote className="mt-4 flex-1 leading-relaxed text-foreground/85">
-                “{r.text}”
-              </blockquote>
-              <p className="mt-5 font-semibold text-foreground">{r.author}</p>
-              {r.when ? <p className="text-sm text-muted-foreground">{r.when} · Google</p> : null}
+            <li key={r.author + r.when}>
+              <ReviewCard review={r} />
             </li>
           ))}
         </ul>
