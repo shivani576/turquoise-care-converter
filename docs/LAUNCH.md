@@ -1,4 +1,4 @@
-# Launch checklist — care.turquoiseinstitute.com
+# Launch checklist — turquoiseinstitute.com
 
 > **Moving to Railway?** Follow `docs/RAILWAY.md` for hosting, variables, the share link and
 > the domain. Sections 1–4 and 7 below are the Vercel equivalents; sections 5 (GoHighLevel),
@@ -27,18 +27,15 @@ deployment → ⋯ → Promote to Production** (or push any commit).
 - Analytics: set the GTM conversion triggers to the live hostname (section 5) so reviewers'
   clicks and test leads don't count as ad conversions.
 
-## 3. Domain (Vercel + DNS)
+## 3. Domain
 
-1. Vercel → **Settings → Domains** → `care.turquoiseinstitute.com` (already added).
-2. At the DNS provider for `turquoiseinstitute.com`, add the **CNAME** record Vercel shows
-   (`care` → the value Vercel gives). Do **not** move the nameservers to Vercel — that would
-   take down the main site and email.
-3. Once the domain shows "Valid Configuration", set `turquoise-care-converter.vercel.app` to
-   **redirect** to `care.turquoiseinstitute.com` (308), so there is only one public address.
+The site goes live at the **root**, `https://turquoiseinstitute.com/` (it is the clinic's official
+homepage). Follow `docs/ROOT-DOMAIN.md` — it covers the current website, the DNS records for
+Railway or Vercel, and email safety.
 
 What the code already does with the domain:
 
-- Canonical links, `og:url`, schema and `sitemap.xml` use `https://care.turquoiseinstitute.com`
+- Canonical links, `og:url`, schema and `sitemap.xml` use `https://turquoiseinstitute.com`
   (override with `VITE_SITE_URL` if the domain ever changes, then redeploy).
 - Any other host — preview deployments, `*.vercel.app`, localhost — is sent with
   `X-Robots-Tag: noindex` and gets a `robots.txt` that disallows crawling, so Google never
@@ -50,14 +47,14 @@ What the code already does with the domain:
 
 Settings → Environment Variables.
 
-| Name                                       | Production | Preview  | Notes                                                   |
-| ------------------------------------------ | :--------: | :------: | ------------------------------------------------------- |
-| `NITRO_PRESET`                             |  `vercel`  | `vercel` |                                                         |
-| `GHL_API_TOKEN`                            |     ✔      |  ✔ or —  | Private Integration token (see below)                   |
-| `GHL_LOCATION_ID`                          |     ✔      |  ✔ or —  | Sub-account (location) ID                               |
-| `VITE_SITE_URL`                            |  optional  |    —     | Only if the domain is not `care.turquoiseinstitute.com` |
-| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` |  optional  | optional | Live Google rating + reviews; saved reviews otherwise   |
-| `LEAD_PREVIEW`                             | **never**  |   `1`    | Lets the form finish on previews without a CRM          |
+| Name                                       | Production | Preview  | Notes                                                 |
+| ------------------------------------------ | :--------: | :------: | ----------------------------------------------------- |
+| `NITRO_PRESET`                             |  `vercel`  | `vercel` |                                                       |
+| `GHL_API_TOKEN`                            |     ✔      |  ✔ or —  | Private Integration token (see below)                 |
+| `GHL_LOCATION_ID`                          |     ✔      |  ✔ or —  | Sub-account (location) ID                             |
+| `VITE_SITE_URL`                            |  optional  |    —     | Leave unset (defaults to `turquoiseinstitute.com`)    |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` |  optional  | optional | Live Google rating + reviews; saved reviews otherwise |
+| `LEAD_PREVIEW`                             | **never**  |   `1`    | Lets the form finish on previews without a CRM        |
 
 Redeploy after changing variables (Deployments → ⋯ → Redeploy).
 
@@ -86,16 +83,16 @@ lead, the visitor is asked to call instead, no conversion fires, and Vercel → 
 The container is already loaded on every page. The site pushes these events to
 `window.dataLayer`:
 
-| Event                                                                                  | When                                                        | Extra keys                        |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
-| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`) | `event_id`, `form`, `location`    |
-| `form_start`                                                                           | First focus in the form                                     | `form`, `location`                |
-| `form_submit`                                                                          | Submit pressed (before the CRM answers)                     | `form`, `location`                |
-| `form_error`                                                                           | CRM rejected the lead; visitor asked to call                | `form`, `location`                |
-| `phone_click`                                                                          | Any `tel:` link (header, hero, sticky bar, form, footer, …) | `location`                        |
-| `book_consultation_click`                                                              | "Book" buttons that scroll to the form                      | `location`                        |
-| `email_click`, `directions_click`, `review_click`, `reel_open`, `condition_card_click` | Secondary clicks                                            | `location` / `reel` / `condition` |
-| `scroll_depth`                                                                         | 25 / 50 / 75 / 100 % of the page                            | `percent`                         |
+| Event                                                                                  | When                                                                                                       | Extra keys                        |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`)                                                | `event_id`, `form`, `location`    |
+| `form_start`                                                                           | First focus in a form (`modal-hero`, `modal-sticky`, `final`, …)                                           | `form`, `location`                |
+| `form_submit`                                                                          | Submit pressed (before the CRM answers)                                                                    | `form`, `location`                |
+| `form_error`                                                                           | CRM rejected the lead; visitor asked to call                                                               | `form`, `location`                |
+| `phone_click`                                                                          | Phone links (closing section, FAQ, footer, form error, thank-you page) — no call buttons in the first fold | `location`                        |
+| `book_consultation_click`                                                              | A Book button opened the booking pop-up (`hero`, `cash-pay`, `sticky`)                                     | `location`                        |
+| `email_click`, `directions_click`, `review_click`, `reel_open`, `condition_card_click` | Secondary clicks                                                                                           | `location` / `reel` / `condition` |
+| `scroll_depth`                                                                         | 25 / 50 / 75 / 100 % of the page                                                                           | `percent`                         |
 
 ### Variables (Variables → User-Defined → Data Layer Variable)
 
@@ -112,7 +109,7 @@ The container is already loaded on every page. The site pushes these events to
 
 > On every conversion trigger (`CE - appointment_request`, and `CE - phone_click` if used for
 > Google Ads/Meta) set **"Some Custom Events" → Page Hostname equals
-> `care.turquoiseinstitute.com`**. Then visits from the `vercel.app` review link, previews and
+> `turquoiseinstitute.com`**. Then visits from the `vercel.app` review link, previews and
 > local testing never count as ad conversions. GA4 can stay on all hosts (filter by hostname
 > in reports), or use the same condition.
 
@@ -147,7 +144,7 @@ would share a visitor's health interest with an ad network. (The page URL, e.g.
 
 ### Test before publishing the container
 
-GTM → **Preview**, open `https://care.turquoiseinstitute.com/botox-migraine?utm_source=test&gclid=test`,
+GTM → **Preview**, open `https://turquoiseinstitute.com/botox-migraine?utm_source=test&gclid=test`,
 then check:
 
 - Google tag + Conversion Linker fire on page load.
@@ -172,8 +169,8 @@ after the first week of ads.
 
 ## 8. Final checks on the live domain
 
-- `https://care.turquoiseinstitute.com/robots.txt` lists the sitemap;
+- `https://turquoiseinstitute.com/robots.txt` lists the sitemap;
   `/sitemap.xml` lists the 8 pages.
 - The `*.vercel.app` address redirects to the domain.
 - Share a page link in a message: the preview shows the share image (`/og-image.jpg`).
-- Google Search Console → add `care.turquoiseinstitute.com` → submit the sitemap.
+- Google Search Console → add `turquoiseinstitute.com` → submit the sitemap.

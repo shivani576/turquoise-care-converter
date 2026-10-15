@@ -25,12 +25,12 @@ What the code does differently on Railway vs. Vercel (automatic, nothing to conf
 
 Service → **Variables** → **New Variable** (or **Raw Editor** to paste several):
 
-| Name                                       | Value                                                             |
-| ------------------------------------------ | ----------------------------------------------------------------- |
-| `GHL_API_TOKEN`                            | GoHighLevel Private Integration token                             |
-| `GHL_LOCATION_ID`                          | GoHighLevel Location ID                                           |
-| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | optional — live Google reviews                                    |
-| `VITE_SITE_URL`                            | optional — only if the domain isn't `care.turquoiseinstitute.com` |
+| Name                                       | Value                                                        |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| `GHL_API_TOKEN`                            | GoHighLevel Private Integration token                        |
+| `GHL_LOCATION_ID`                          | GoHighLevel Location ID                                      |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | optional — live Google reviews                               |
+| `VITE_SITE_URL`                            | optional — only if the domain isn't `turquoiseinstitute.com` |
 
 Do **not** set `NITRO_PRESET` (that's Vercel-only) or `LEAD_PREVIEW`. Railway sets `PORT` itself.
 Saving variables triggers a redeploy.
@@ -39,7 +39,7 @@ Saving variables triggers a redeploy.
 
 Service → **Settings → Networking → Generate Domain**. You get
 `https://<name>.up.railway.app` — public, no login needed, hidden from Google. Share that for
-review. In GTM, conversion triggers are limited to `care.turquoiseinstitute.com`
+review. In GTM, conversion triggers are limited to `turquoiseinstitute.com`
 (`docs/LAUNCH.md` §6), so reviewers' clicks and test leads don't count as ad conversions.
 
 ## 4. Test one lead
@@ -54,12 +54,8 @@ If you get "please call us": service → **Deployments → View logs**, search `
 
 ## 5. Custom domain
 
-1. **Vercel first:** if `care.turquoiseinstitute.com` is still added in Vercel, remove it there
-   (Vercel → Settings → Domains → Remove). A domain can only point to one host.
-2. Railway service → **Settings → Networking → Custom Domain** → `care.turquoiseinstitute.com`.
-3. Railway shows a **CNAME** target (and sometimes a TXT verification record). Add exactly
-   those at the DNS provider for `turquoiseinstitute.com`. Don't change nameservers.
-4. Wait until Railway shows the domain as active (HTTPS is issued automatically).
+The site lives at the domain root, `turquoiseinstitute.com` (plus `www`, which the app redirects).
+Follow `docs/ROOT-DOMAIN.md` — read its warning about the current website first.
 
 ## 6. Retire Vercel
 

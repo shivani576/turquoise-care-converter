@@ -5,12 +5,12 @@ TanStack Start + React + Tailwind, server functions for the lead form and Google
 
 ## Pages
 
-- `/` — home page for brand / general ads, with a "What brings you in?" picker
+- `/` — the clinic's official homepage ("Personalized Pain Management Specialist"), served at the domain root
 - `/migraine`, `/botox-migraine`, `/tmj`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms` — one page per ad group (old long paths redirect)
 - `/thank-you` — confirmation page (noindex). Ad conversions fire on the `appointment_request` dataLayer event in GTM (GTM-TJ79BBT5)
 - `/robots.txt`, `/sitemap.xml` — generated per host; previews and `*.vercel.app` are never indexed
 
-Hosting on Railway: [`docs/RAILWAY.md`](docs/RAILWAY.md). Domain, GoHighLevel and GTM setup: [`docs/LAUNCH.md`](docs/LAUNCH.md).
+Hosting on Railway: [`docs/RAILWAY.md`](docs/RAILWAY.md). Going live at the root domain: [`docs/ROOT-DOMAIN.md`](docs/ROOT-DOMAIN.md). Domain, GoHighLevel and GTM setup: [`docs/LAUNCH.md`](docs/LAUNCH.md).
 
 All page copy lives in `src/lib/condition-pages.ts`; clinic facts, reels and reviews in `src/lib/site.ts`.
 
@@ -24,13 +24,13 @@ npm run build && npm start
 
 ## Environment variables (set in the host — Railway or Vercel — never commit)
 
-| Name                                       | Purpose                                                                                  |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| `GHL_API_TOKEN`, `GHL_LOCATION_ID`         | Send leads to GoHighLevel                                                                |
-| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | Optional: live Google rating + reviews (falls back to the saved real reviews)            |
-| `VITE_SITE_URL`                            | Optional: overrides the canonical domain (default `https://care.turquoiseinstitute.com`) |
-| `LEAD_PREVIEW=1`                           | Preview deployments only: lets the form complete without a CRM                           |
-| `NITRO_PRESET`                             | Vercel only: `vercel`. Leave unset on Railway (default Node server)                      |
+| Name                                       | Purpose                                                                             |
+| ------------------------------------------ | ----------------------------------------------------------------------------------- |
+| `GHL_API_TOKEN`, `GHL_LOCATION_ID`         | Send leads to GoHighLevel                                                           |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` | Optional: live Google rating + reviews (falls back to the saved real reviews)       |
+| `VITE_SITE_URL`                            | Optional: overrides the canonical domain (default `https://turquoiseinstitute.com`) |
+| `LEAD_PREVIEW=1`                           | Preview deployments only: lets the form complete without a CRM                      |
+| `NITRO_PRESET`                             | Vercel only: `vercel`. Leave unset on Railway (default Node server)                 |
 
 ## Notes
 

@@ -1,4 +1,4 @@
-# Turquoise Institute — paid-ads landing pages
+# Turquoise Institute — official homepage + paid-ads landing pages
 
 Landing pages for Google/Meta ads for **Turquoise Institute** (Dr. Amir Soheil Tolebeyan,
 interventional pain & headache specialist), 10 Union St., Suite 2D, Natick, MA 01760.
@@ -14,9 +14,11 @@ The single job of every page: turn an ad click into a booked consultation (form 
 - On non-Vercel hosts the server gzips HTML itself (`compress()` in `src/server.ts`) and static
   assets are pre-compressed (`compressPublicAssets`); Vercel Analytics/Speed Insights are only
   included in Vercel builds (`__ON_VERCEL__`, defined in `vite.config.ts`).
-- Planned domain: `care.turquoiseinstitute.com` (CNAME `care` → the target the host shows).
-  Never switch the domain's nameservers — it would break the main site and email.
-- `SITE_URL` defaults to `https://care.turquoiseinstitute.com` (`VITE_SITE_URL` overrides). Any other
+- Domain: the home page is the clinic's **official homepage at the root**,
+  `https://turquoiseinstitute.com/` (not a subdomain). Steps and the caveat about the current
+  website: `docs/ROOT-DOMAIN.md`. `www.` 301-redirects to the root (`wwwRedirect` in `src/lib/seo.ts`).
+  Never change MX/email DNS records.
+- `SITE_URL` defaults to `https://turquoiseinstitute.com` (`VITE_SITE_URL` overrides). Any other
   host (previews, *.vercel.app, *.up.railway.app, localhost) gets `X-Robots-Tag: noindex` + a
   disallow-all robots.txt.
 - Env vars: `GHL_API_TOKEN`, `GHL_LOCATION_ID`, optional `VITE_SITE_URL`, optional
@@ -47,20 +49,33 @@ Aliases live in `CONDITION_ALIASES` in `src/routes/$condition.tsx`.
 Ads may append `?town=<town>` (e.g. `/migraine?town=wellesley`): the hero headline's
 "in Natick" becomes "near Wellesley". Allowed towns = `TOWN_PARAM` in `site.ts`.
 
-## Page structure (keep this order)
+## Page structure (keep this order — client-approved Oct 2026)
 
-Header (logo, mint phone pill, teal "Schedule Now"; no nav menu) → Hero → proof bar →
-"Does this sound like you?" → options (or condition picker on home) + "Why see a specialist?"
-→ Meet the doctor → Google reviews → Instagram reels → What happens next → Cost & insurance →
-FAQ (+ auto "near Wellesley or Framingham" FAQ) → "Near you" local section + map →
-closing section with the **only form** (`#consultation`) → footer, sticky mobile Call/Book bar.
+Header (logo only, no buttons) → Hero → proof bar → **second fold**: services (home) /
+"Does this sound like you?" (ad-group pages) → `[data-sticky-start]` marker →
+"Does this sound like you?" (home) / options + "Why see a specialist?" (ad-group pages) →
+Meet the doctor → Google reviews → Instagram reels → Our clinic (facilities) →
+Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing form
+(`#consultation`) → footer.
 
-### Hero rules (decided with the client — don't re-add removed items)
+### Calls to action (client rules)
 
-- Only: H1 (key phrase highlighted in brand teal), ONE short sentence, two buttons
-  (page-specific `ctaLabel` + call), one address line naming nearby towns.
-- Right side: "You'll meet" card with Dr. Amir's headshot, name, title, Yale & Dartmouth, 5.0 on Google.
-- NO eyebrow line above the H1, NO tick/bullet list, NO form in the hero.
+- First fold: exactly ONE CTA, "Book a Free 15-Minute Consultation" (`BookCta`,
+  `src/components/landing/Booking.tsx`). No header buttons, no call buttons, no sticky in the first fold.
+- Every Book button opens the booking **pop-up** (native `<dialog>`); it never scrolls the page.
+- In-page CTAs: hero + cash-pay section + the closing form only. Don't add others.
+- Sticky "Book Now" (`StickyBookNow`): only after the second fold; hidden while any
+  `[data-main-cta]` is on screen or the pop-up is open.
+
+### Hero rules (client)
+
+- H1 (key phrase highlighted in brand teal), one sentence, short tick bullets (`heroPoints`),
+  the one CTA. Right side: "You'll meet" card (headshot, name, title, dual fellowship trained,
+  Yale & Dartmouth, 5.0 on Google — plain text, no outbound link).
+- Home page: H1 "Personalized Pain Management Specialist"; NO city/location in the hero; a
+  "cash-pay clinic" bullet. Credential wording is exactly "dual fellowship trained".
+- Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
+  or "joint" — use "pain management" wording. Services may name conditions below the fold.
 
 ## Brand (must match turquoiseinstitute.com)
 
@@ -115,14 +130,19 @@ advanced matching with form data.
 
 ## Lead form behaviour
 
-Fields: first/last name, phone, email, concern (pre-selected per page), optional best time to call.
+Fields, in order, all required: **Full Name, Phone, Email** — nothing else. Button: "Request a
+Free 15-Minute Appointment". Full Name is split into first/last for GoHighLevel; the page's
+condition (`formConcern`) is still sent as context (tag), not as a field.
 A conversion (`appointment_request` + redirect to `/thank-you`) fires **only** when GoHighLevel
 accepted the lead; on failure the visitor is asked to call. Keep it that way.
 
 ## Open items
 
 - Finish the Railway setup (`docs/RAILWAY.md`), move the domain from Vercel to Railway, retire Vercel.
-- Connect `care.turquoiseinstitute.com` (CNAME) and redirect the *.vercel.app domain to it.
+- Point `turquoiseinstitute.com` + `www` at the host (`docs/ROOT-DOMAIN.md`) — first decide
+  where the current website's pages (privacy, terms, payment policy, articles) will live.
+- Waiting on the client: keep "Read all reviews on Google" link? Remove Instagram embeds/links?
+- For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
 - Collect more Google reviews (only 4); consider a free intro-call offer (competitors use it).
