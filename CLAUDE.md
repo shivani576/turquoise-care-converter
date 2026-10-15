@@ -69,9 +69,9 @@ Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing
 
 ### Hero rules (client)
 
-- H1 (key phrase highlighted in brand teal), one sentence, short tick bullets (`heroPoints`),
-  the one CTA. Right side: "You'll meet" card (headshot, name, title, dual fellowship trained,
-  Yale & Dartmouth, 5.0 on Google — plain text, no outbound link).
+- Centred, single column: H1 (key phrase highlighted in brand teal), one sentence, short tick
+  bullets (`heroPoints`), the one CTA, then a plain-text "5.0 rating on Google" line.
+- NO doctor photo/card in the hero (client: it duplicated the "Meet your doctor" section).
 - Home page: H1 "Personalized Pain Management Specialist"; NO city/location in the hero; a
   "cash-pay clinic" bullet. Credential wording is exactly "dual fellowship trained".
 - Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
@@ -100,7 +100,7 @@ Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing
 - Server-only logic goes in `*.server.ts`, called from inside a server fn handler, so it never
   ships to the browser (that's what keeps zod out of the client bundle).
 - Images: WebP, sized ~2× display size (logo 244×112, headshot 682×1024). Below-the-fold
-  images `loading="lazy"`; the hero headshot is `fetchPriority="high"`.
+  images `loading="lazy"`. The hero has no image, so the H1 text is the LCP element.
 - Last measured (Lighthouse mobile, slow 4G, compressed): 82–86 performance, CLS 0, ~380 KB.
 
 ## Photos — real only, never AI-generated
