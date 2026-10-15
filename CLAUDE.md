@@ -77,6 +77,14 @@ Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing
 - Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
   or "joint" — use "pain management" wording. Services may name conditions below the fold.
 
+### Reviews & videos (client decisions, Oct 2026)
+
+- Reviews: equal-size cards showing the first 3 lines; "Read more" appears only when the text
+  doesn't fit and expands it in place on the page. Keep the "Read all reviews on Google" link.
+- Instagram stays (reels row, "More videos on Instagram" card, footer icon). No play-button
+  overlay and no pop-up: the play icon is invisible until hover/focus, and a tap plays the
+  video inline in its card.
+
 ## Brand (must match turquoiseinstitute.com)
 
 - Colours: teal `#46B698` (highlights, icons), mint `#C7ECE2`/`#CFECE4`, heading grey `#54595F`.
@@ -141,7 +149,6 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 - Finish the Railway setup (`docs/RAILWAY.md`), move the domain from Vercel to Railway, retire Vercel.
 - Point `turquoiseinstitute.com` + `www` at the host (`docs/ROOT-DOMAIN.md`) — first decide
   where the current website's pages (privacy, terms, payment policy, articles) will live.
-- Waiting on the client: keep "Read all reviews on Google" link? Remove Instagram embeds/links?
 - For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
