@@ -80,6 +80,10 @@ Locations + map → closing form (`#consultation`) → footer.
   the one CTA, then a plain-text "5.0 rating on Google" line.
 - No copy may repeat within a fold (hero vs proof bar, bio vs credentials, heading vs reviews…).
 - NO doctor photo/card in the hero (client: it duplicated the "Meet your doctor" section).
+- Hero background photo (optional, `Hero.tsx`): a real, licensed photo at
+  `src/assets/hero/hero.webp` (~1920×1080) and optional `hero-mobile.webp` (~800×1200) shows
+  behind the hero under a soft overlay; no file = plain mint gradient. Not a doctor photo.
+  Client asked for one (Oct 16) for trust; waiting on the photo (sandbox can't reach stock sites).
 - Every page (home + 9 service pages): NO city/location in the H1 or hero; the cash-pay bullet
   first; credential wording is exactly "dual fellowship trained".
 - Home page: H1 "Personalized Pain Management Specialist".

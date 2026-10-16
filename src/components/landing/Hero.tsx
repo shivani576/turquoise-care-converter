@@ -3,6 +3,21 @@ import { GOOGLE_RATING } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
 import { BookCta } from "./Booking";
 
+/**
+ * Optional hero background photo: drop a real, licensed photo at
+ * src/assets/hero/hero.webp (landscape, ~1920×1080) and, optionally, a portrait crop
+ * for phones at src/assets/hero/hero-mobile.webp (~800×1200). A soft overlay keeps the
+ * headline readable. Without a file the hero keeps its plain mint gradient.
+ */
+const HERO_PHOTOS = import.meta.glob<string>("../../assets/hero/*.webp", {
+  eager: true,
+  import: "default",
+});
+const heroPhoto = (name: string) =>
+  Object.entries(HERO_PHOTOS).find(([path]) => path.endsWith(`/${name}.webp`))?.[1];
+const HERO_DESKTOP = heroPhoto("hero");
+const HERO_MOBILE = heroPhoto("hero-mobile") ?? HERO_DESKTOP;
+
 function Headline({ text, highlight }: { text: string; highlight?: string | undefined }) {
   if (!highlight || !text.includes(highlight)) return <>{text}</>;
   const [before, after] = text.split(highlight);
@@ -28,6 +43,28 @@ export function Hero({ page }: { page: PageCopy }) {
       id="top"
       className="relative overflow-hidden bg-gradient-to-b from-mint via-background to-background"
     >
+      {HERO_DESKTOP ? (
+        <>
+          <picture>
+            {HERO_MOBILE !== HERO_DESKTOP ? (
+              <source media="(max-width: 767px)" srcSet={HERO_MOBILE} />
+            ) : null}
+            <img
+              src={HERO_DESKTOP}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 size-full object-cover object-center"
+            />
+          </picture>
+          {/* Soft wash so the headline stays readable over any photo */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/75 to-background/95"
+          />
+        </>
+      ) : null}
       <div className="container-page relative flex flex-col items-center py-12 text-center sm:py-16 lg:py-20">
         <h1 className="max-w-4xl text-balance text-[2.1rem] leading-[1.1] text-heading sm:text-5xl lg:text-[3.6rem]">
           <Headline text={page.headline} highlight={page.highlight} />
