@@ -18,8 +18,18 @@ export function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
             Before you book
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Still unsure? Call us at {CLINIC.phoneDisplay} — we're happy to answer questions before
-            you commit.
+            Still unsure? Call us at{" "}
+            <a
+              href={`tel:${CLINIC.phoneTel}`}
+              id="cta-call-faq"
+              className="js-track-call whitespace-nowrap font-semibold text-primary-deep underline underline-offset-4"
+              data-track="phone_click"
+              data-location="faq"
+              onClick={() => track("phone_click", { location: "faq" })}
+            >
+              {CLINIC.phoneDisplay}
+            </a>
+            . We're happy to answer questions before you commit.
           </p>
         </div>
         <Accordion

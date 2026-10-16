@@ -1,5 +1,7 @@
 import { useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import {
+  ArrowRight,
   BadgeCheck,
   ChevronLeft,
   ChevronRight,
@@ -45,8 +47,8 @@ export function ProofBar() {
 /**
  * Services offered (list fixed by the client). Facts only from the condition pages.
  * Photos: drop a real, licensed photo at src/assets/services/<slug>.webp (16:10, ~800×500)
- * and the card shows it, with the animated spine graphic as a small badge. Without a
- * photo the card shows the spine graphic on its own.
+ * and the card shows it on its own (no overlay). Without a photo the card shows the
+ * animated spine graphic instead. Each card links to the service's own page.
  */
 const SERVICE_PHOTOS = import.meta.glob<string>("../../assets/services/*.webp", {
   eager: true,
@@ -114,7 +116,7 @@ const SERVICES = [
     name: "Shoulder & rotator cuff pain",
     slug: "shoulder",
     area: "shoulder" as PainArea,
-    text: "Image-guided injections and PRP for shoulder and tendon pain — non-surgical options first.",
+    text: "Image-guided injections and PRP for shoulder and tendon pain, with non-surgical options first.",
   },
   {
     name: "Knee, hip & joint arthritis",
@@ -127,33 +129,36 @@ const SERVICES = [
 function ServiceCard({ s }: { s: (typeof SERVICES)[number] }) {
   const photo = photoFor(s.slug);
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card">
+    <Link
+      to="/$condition"
+      params={{ condition: s.slug }}
+      data-track="service_click"
+      data-location={s.slug}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-colors hover:border-primary-deep focus-visible:border-primary-deep"
+    >
       {photo ? (
-        <div className="relative">
-          <img
-            src={photo}
-            alt={PHOTO_ALT[s.slug] ?? s.name}
-            width={800}
-            height={500}
-            loading="lazy"
-            decoding="async"
-            className="aspect-[16/10] w-full object-cover"
-          />
-          {/* Animated spine badge: where the pain is */}
-          <span className="absolute bottom-2 left-2 rounded-xl bg-card/90 p-1 shadow-card backdrop-blur">
-            <PainMap area={s.area} className="block h-14 w-auto" />
-          </span>
-        </div>
+        <img
+          src={photo}
+          alt={PHOTO_ALT[s.slug] ?? s.name}
+          width={800}
+          height={500}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[16/10] w-full object-cover"
+        />
       ) : (
         <div className="relative aspect-[16/10] bg-gradient-to-b from-mint to-card">
           <PainMap area={s.area} className="absolute inset-0 m-auto block size-full p-3" />
         </div>
       )}
-      <div className="p-4 pt-3 sm:p-5 sm:pt-3">
+      <div className="flex flex-1 flex-col p-4 pt-3 sm:p-5 sm:pt-3">
         <h3 className="font-display text-lg leading-snug text-heading">{s.name}</h3>
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{s.text}</p>
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-3 font-label text-sm text-primary-deep group-hover:underline">
+          Learn more <ArrowRight className="size-4" aria-hidden="true" />
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -206,7 +211,7 @@ export function Services() {
           ref={rail}
           tabIndex={0}
           aria-label="Services (scroll sideways for more)"
-          className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1 sm:gap-4 sm:px-8 lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_1.25rem))]"
+          className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5 pb-1 sm:gap-4 sm:scroll-px-8 sm:px-8 lg:scroll-px-[max(2rem,calc((100vw_-_76rem)/2_+_1.25rem))] lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_1.25rem))]"
         >
           {SERVICES.map((s) => (
             <li key={s.name} className="w-[78vw] max-w-[18rem] shrink-0 snap-start">
@@ -276,8 +281,8 @@ export function Options({ page }: { page: PageCopy }) {
           ))}
         </ul>
         <p className="mt-8 text-sm text-muted-foreground">
-          Your options depend on your diagnosis — Dr. Amir will walk you through what makes sense
-          for you at your first visit.
+          Your options depend on your diagnosis. Dr. Amir will walk you through what makes sense for
+          you at your first visit.
         </p>
         {page.whySpecialist ? (
           <div className="mt-8 flex items-start gap-4 rounded-2xl border border-primary/30 bg-card p-5 sm:p-6">
@@ -349,7 +354,7 @@ export function Facilities() {
     {
       icon: Syringe,
       title: "Procedures done in the office",
-      text: "Nerve blocks, Botox and other injections are given right in the clinic — and when it makes sense, treatment can often start the same day.",
+      text: "Nerve blocks, Botox and other injections are given right in the clinic, and when it makes sense, treatment can often start the same day.",
     },
     {
       icon: ScanLine,
@@ -369,8 +374,8 @@ export function Facilities() {
   ];
   return (
     <section className="section-pad bg-ink text-ink-foreground" id="clinic">
-      <div className="container-page grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
-        <div>
+      <div className="container-page">
+        <div className="max-w-2xl">
           <p className="font-label text-sm uppercase tracking-wider text-primary-soft">
             Our clinic
           </p>
@@ -381,18 +386,26 @@ export function Facilities() {
             Diagnosis, procedures and follow-up all happen with the same doctor, in one office.
           </p>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2">
-          {items.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <span className="flex size-10 items-center justify-center rounded-full bg-primary text-ink">
-                <Icon className="size-5" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 font-display text-xl">{title}</h3>
-              <p className="mt-2 leading-relaxed text-ink-muted">{text}</p>
-            </li>
-          ))}
-        </ul>
       </div>
+      {/* One horizontal row: four across on desktop, swipe sideways on phones and tablets */}
+      <ul
+        tabIndex={0}
+        aria-label="Our clinic (scroll sideways for more)"
+        className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5 pb-1 sm:mt-8 sm:gap-4 sm:scroll-px-8 sm:px-8 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_1.25rem))]"
+      >
+        {items.map(({ icon: Icon, title, text }) => (
+          <li
+            key={title}
+            className="w-[78vw] max-w-[18rem] shrink-0 snap-start rounded-2xl border border-white/10 bg-white/5 p-6 lg:w-auto lg:max-w-none"
+          >
+            <span className="flex size-10 items-center justify-center rounded-full bg-primary text-ink">
+              <Icon className="size-5" aria-hidden="true" />
+            </span>
+            <h3 className="mt-4 font-display text-xl">{title}</h3>
+            <p className="mt-2 leading-relaxed text-ink-muted">{text}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -401,7 +414,7 @@ export function Facilities() {
 export function CashPay() {
   const points = [
     "No insurance pre-approvals or referrals to wait on",
-    "Full, unhurried visits — your first one is 60 minutes",
+    "Full, unhurried visits: your first one is 60 minutes",
     "An itemized receipt you can submit to your insurer for possible out-of-network reimbursement",
     "Costs explained by our team before you book",
   ];
@@ -419,8 +432,8 @@ export function CashPay() {
               </h2>
               <p className="mt-4 max-w-3xl text-lg leading-relaxed text-foreground/80">
                 We don't bill commercial insurance, Medicare or Medicaid. Instead you pay the clinic
-                directly — which lets us spend real time with you and start treatment without
-                waiting on insurance approvals.
+                directly, which lets us spend real time with you and start treatment without waiting
+                on insurance approvals.
               </p>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {points.map((p) => (

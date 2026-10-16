@@ -48,7 +48,7 @@ export const CLINIC_GEO = { lat: 42.2843186, lng: -71.3391106, radiusKm: 25 };
  */
 export const LOCATIONS = [
   { town: "Natick", label: "Natick, MA" },
-  { town: "Weston", label: "Weston, MA 02494" },
+  { town: "Weston", label: "Weston, MA" },
   { town: "Wellesley", label: "Wellesley, MA" },
   { town: "Sudbury", label: "Sudbury, MA" },
   { town: "Wayland", label: "Wayland, MA" },
@@ -69,7 +69,15 @@ export const CREDENTIALS = [
 ];
 
 export type ConditionId =
-  "migraine" | "botox-migraine" | "tmj" | "neck-spasms" | "prp" | "shoulder" | "joint-pain";
+  | "migraine"
+  | "headache"
+  | "botox-migraine"
+  | "tmj"
+  | "nerve-blocks"
+  | "neck-spasms"
+  | "prp"
+  | "shoulder"
+  | "joint-pain";
 
 export interface Condition {
   id: ConditionId;
@@ -85,10 +93,17 @@ export interface Condition {
 export const CONDITIONS: Condition[] = [
   {
     id: "migraine",
-    name: "Migraines & headaches",
+    name: "Migraine",
     formLabel: "Migraine Treatment",
     hook: "Frequent attacks, medications that stopped working",
     url: "https://turquoiseinstitute.com/conditions/migraine-types-causes-symptoms-diagnosis-and-treatment-options/",
+  },
+  {
+    id: "headache",
+    name: "Headache",
+    formLabel: "Headache Treatment",
+    hook: "Daily, tension, cluster or hard-to-name headaches",
+    url: "https://turquoiseinstitute.com/",
   },
   {
     id: "botox-migraine",
@@ -103,6 +118,13 @@ export const CONDITIONS: Condition[] = [
     formLabel: "TMJ Disorder (TMD)",
     hook: "Clicking, clenching, jaw-related headaches",
     url: "https://turquoiseinstitute.com/conditions/temporomandibular-joint-tmj-pain-types-causes-symptoms-and-treatment-option/",
+  },
+  {
+    id: "nerve-blocks",
+    name: "Nerve blocks",
+    formLabel: "Nerve Blocks",
+    hook: "A stubborn stretch of headaches or nerve pain",
+    url: "https://turquoiseinstitute.com/",
   },
   {
     id: "prp",
@@ -180,7 +202,7 @@ export const REELS: Reel[] = [
   },
   {
     code: "DbS_zNhKYrj",
-    title: "Botox isn't just cosmetic — how it helps chronic migraine",
+    title: "Botox isn't just cosmetic: how it helps chronic migraine",
     topic: "botox",
   },
   {
@@ -205,11 +227,11 @@ export const REELS: Reel[] = [
 export const GENERAL_FAQS = [
   {
     q: "Do I need a referral?",
-    a: "No. You can book directly with us — online or by calling (978) 440-0021. Telemedicine visits are also available for appropriate patients.",
+    a: "No. You can book directly with us, online or by calling (978) 440-0021. Telemedicine visits are also available for appropriate patients.",
   },
   {
     q: "What happens at the first visit?",
-    a: "Your first visit is about 60 minutes with Dr. Tolebeyan himself. He goes through your history, what you've already tried, examines you and reviews any scans — then explains what he thinks is going on and lays out your options. When it makes sense, treatment can often start the same day.",
+    a: "Your first visit is about 60 minutes with Dr. Tolebeyan himself. He goes through your history, what you've already tried, examines you and reviews any scans, then explains what he thinks is going on and lays out your options. When it makes sense, treatment can often start the same day.",
   },
   {
     q: "Do you take insurance?",

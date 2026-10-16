@@ -9,7 +9,8 @@ This app is now the clinic's official homepage. It is built to live at
 - Any other host (`*.up.railway.app`, `*.vercel.app`, previews) stays `noindex`.
 
 Live URLs once DNS points here: `https://turquoiseinstitute.com/` (home) and
-`/migraine`, `/botox-migraine`, `/tmj`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms`,
+`/migraine`, `/headache`, `/botox-migraine`, `/tmj`, `/nerve-blocks`, `/prp`, `/shoulder`,
+`/joint-pain`, `/neck-spasms`,
 `/thank-you`.
 
 ## ⚠️ Before switching DNS: the current website

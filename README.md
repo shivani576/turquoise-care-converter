@@ -6,7 +6,7 @@ TanStack Start + React + Tailwind, server functions for the lead form and Google
 ## Pages
 
 - `/` — the clinic's official homepage ("Personalized Pain Management Specialist"), served at the domain root
-- `/migraine`, `/botox-migraine`, `/tmj`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms` — one page per ad group (old long paths redirect)
+- `/migraine`, `/headache`, `/botox-migraine`, `/tmj`, `/nerve-blocks`, `/prp`, `/shoulder`, `/joint-pain`, `/neck-spasms`: one page per service / ad group (old long paths redirect)
 - `/thank-you` — confirmation page (noindex). Ad conversions fire on the `appointment_request` dataLayer event in GTM (GTM-TJ79BBT5)
 - `/robots.txt`, `/sitemap.xml` — generated per host; previews and `*.vercel.app` are never indexed
 

@@ -40,8 +40,10 @@ TanStack Start (React 19, SSR) + Tailwind v4 + Nitro. `npm run dev` (port 3000),
 
 ## Pages (short URLs are canonical; old Lovable paths + misspellings redirect)
 
-`/` home · `/migraine` · `/botox-migraine` · `/tmj` · `/prp` · `/shoulder` · `/joint-pain` ·
-`/neck-spasms` · `/thank-you` (noindex). Ad conversions fire on the `appointment_request`
+`/` home · `/migraine` · `/headache` · `/botox-migraine` · `/tmj` · `/nerve-blocks` · `/prp` ·
+`/shoulder` · `/joint-pain` · `/neck-spasms` · `/thank-you` (noindex). Every service card on the
+home page links to its own page (slug = page URL); a new service needs a `CONDITIONS` entry in
+`site.ts` and a `CONDITION_PAGES` entry. Ad conversions fire on the `appointment_request`
 dataLayer event (carries `event_id` for dedupe), not on the thank-you page view.
 `/robots.txt` and `/sitemap.xml` are server routes (`src/routes/robots[.]txt.ts`, `sitemap[.]xml.ts`).
 Setup steps for domain, Vercel, GHL and GTM: `docs/LAUNCH.md`.
@@ -54,7 +56,7 @@ swap was removed). Meta titles/descriptions may still name the area for local se
 Sticky header (logo; phone number appears after the first fold) →
 Hero → proof bar → **second fold**: services (home) / "Does this sound like you?" (ad-group
 pages) → "Does this sound like you?" (home) / options (ad-group pages) → Meet the doctor (one
-photo) → reviews → Instagram reels → Our clinic (facilities) → Cash-pay explained → FAQ →
+photo) → reviews → Instagram reels → Our clinic (facilities, one horizontal row) → Cash-pay explained → FAQ →
 Locations + map → closing form (`#consultation`) → footer.
 
 ### Calls to action (client rules)
@@ -65,8 +67,9 @@ Locations + map → closing form (`#consultation`) → footer.
   `HeaderActions` shows the phone number in the header, and `StickyBookBar` shows a sticky
   "Book a Consultation" bar at the bottom of the screen (floating pill on desktop). Both are
   hidden in the first fold. The footer has bottom padding so the bar never covers it.
-- No other CTAs in sections: no section Book buttons, no tel links in `main` (phone appears
-  as plain text in the FAQ; links only in the header, footer and the form error message).
+- No other CTAs in sections: no section Book buttons. The only tel link in `main` is the
+  phone number in the FAQ intro ("Before you book"; tracked as `phone_click`, location `faq`);
+  otherwise phone links are only in the header, footer and the form error message.
 - Every form heading: "Book a direct appointment with a doctor." (`FORM_HEADING`).
 
 ### Hero rules (client)
@@ -76,7 +79,7 @@ Locations + map → closing form (`#consultation`) → footer.
   the one CTA, then a plain-text "5.0 rating on Google" line.
 - No copy may repeat within a fold (hero vs proof bar, bio vs credentials, heading vs reviews…).
 - NO doctor photo/card in the hero (client: it duplicated the "Meet your doctor" section).
-- Every page (home + 7 ad-group pages): NO city/location in the H1 or hero; the cash-pay bullet
+- Every page (home + 9 service pages): NO city/location in the H1 or hero; the cash-pay bullet
   first; credential wording is exactly "dual fellowship trained".
 - Home page: H1 "Personalized Pain Management Specialist".
 - Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
@@ -87,8 +90,9 @@ Locations + map → closing form (`#consultation`) → footer.
 - Services: keep the list exactly as is (`SERVICES` in `Sections.tsx`). One horizontal row,
   NO auto-scroll, arrow buttons (a right arrow on phones). Each card shows a service photo
   when one exists at `src/assets/services/<slug>.webp` (16:10, ~800×500, real & licensed —
-  client wants relatable treatment photos), with the animated spine graphic (`PainMap.tsx`)
-  as a small badge; without a photo the card shows the spine graphic alone. Slugs: migraine,
+  client wants relatable treatment photos), photo only, no overlay (client removed the spine
+  badge); without a photo the card shows the animated spine graphic (`PainMap.tsx`) instead.
+  Each card links to its page and ends with "Learn more". Slugs: migraine,
   headache, botox-migraine, prp, tmj, nerve-blocks, neck-spasms, shoulder, joint-pain.
   All 9 photos were supplied by the client (Oct 16), who confirmed they may be used.
 - Reviews: one horizontal row that auto-scrolls (`useAutoScroll`; pauses on mouse hover,
@@ -129,6 +133,7 @@ Locations + map → closing form (`#consultation`) → footer.
 ## Copy rules
 
 - Talk to the patient's problem first, the clinic second; plain English; short sentences.
+- No em dashes (—) in visible copy (client: reads as AI-written). Use a full stop, comma or colon.
 - Headlines follow competitor/ad research: symptom question + who helps (no location).
 - No outcome guarantees, invented stats, or unverified claims. Verified facts: board-certified;
   fellowships in Headache & Facial Pain and Interventional Pain (Yale & Dartmouth); former
@@ -142,7 +147,7 @@ Locations + map → closing form (`#consultation`) → footer.
 
 ## Locations (client list — use exactly these, in this order)
 
-Natick, MA · Weston, MA 02494 · Wellesley, MA · Sudbury, MA · Wayland, MA · Newton, MA ·
+Natick, MA · Weston, MA · Wellesley, MA · Sudbury, MA · Wayland, MA · Newton, MA ·
 Concord, MA · Lincoln, MA · Lexington, MA · Sherborn, MA (`LOCATIONS` in `site.ts`; also drives
 `SERVICE_AREAS` and schema areaServed, radius 25 km). Framingham, Needham,
 Dover and Ashland were removed at the client's request.
@@ -168,7 +173,6 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
   where the current website's pages (privacy, terms, payment policy, articles) will live.
 - For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
 - Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
-- Confirm Weston's ZIP: the client list says 02494 (that's Needham Heights; Weston is 02493).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
 - Collect more Google reviews (only 4); consider a free intro-call offer (competitors use it).

@@ -8,14 +8,14 @@ import { track } from "@/lib/track";
 export const Route = createFileRoute("/thank-you")({
   head: () => ({
     meta: [
-      { title: "Thank You — Request Received | Turquoise Institute" },
+      { title: "Thank You: Request Received | Turquoise Institute" },
       {
         name: "description",
         content:
           "Thanks for reaching out to Turquoise Institute in Natick, MA. Our team will contact you shortly to confirm your consultation.",
       },
       { name: "robots", content: "noindex, follow" },
-      { property: "og:title", content: "Thank You — Request Received | Turquoise Institute" },
+      { property: "og:title", content: "Thank You: Request Received | Turquoise Institute" },
       {
         property: "og:description",
         content: "Our team will contact you shortly to confirm your consultation.",
@@ -42,7 +42,7 @@ function ThankYouPage() {
             <CheckCircle2 className="size-9" aria-hidden="true" />
           </span>
           <h1 className="mt-8 text-balance text-3xl font-semibold leading-tight text-heading sm:text-4xl">
-            Thanks for reaching out — our team will be in touch shortly.
+            Thanks for reaching out. Our team will be in touch shortly.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
             We've received your consultation request at {CLINIC.name}. A member of our team will

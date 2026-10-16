@@ -34,7 +34,7 @@ export interface PageCopy {
 
 const BOTOX_VS_COSMETIC_FAQ = {
   q: "Is Botox for migraine the same as cosmetic Botox?",
-  a: "It's the same medicine used in a different way. For chronic migraine, small injections are placed at specific points around the head, neck and shoulders following an FDA-approved protocol, and it's repeated about every 12 weeks. The goal is fewer headache days — not a cosmetic change.",
+  a: "It's the same medicine used in a different way. For chronic migraine, small injections are placed at specific points around the head, neck and shoulders following an FDA-approved protocol, and it's repeated about every 12 weeks. The goal is fewer headache days, not a cosmetic change.",
 };
 
 const MIGRAINE_FAQS = [
@@ -57,7 +57,7 @@ export const HOME_PAGE: PageCopy = {
   subheadline:
     "A full hour with Dr. Amir to find what's driving your pain, and a treatment plan built around you.",
   heroPoints: [
-    "Cash-pay clinic — no insurance approvals to wait on",
+    "Cash-pay clinic: no insurance approvals to wait on",
     "Dual fellowship trained, board-certified physician",
     "No referral needed",
   ],
@@ -66,19 +66,19 @@ export const HOME_PAGE: PageCopy = {
   painTitle: "Does any of this sound familiar?",
   painPoints: [
     "You've seen several doctors and still don't have a clear answer.",
-    "Your appointments feel rushed — 10 minutes and a new prescription.",
+    "Your appointments feel rushed: 10 minutes and a new prescription.",
     "The pain is making you cancel plans, miss work or skip things you love.",
     "You'd rather avoid surgery, or more pills, if there's another way.",
   ],
   painNote:
-    "Ongoing pain is real, and it's treatable — but it needs someone who looks for the cause.",
+    "Ongoing pain is real, and it's treatable, but it needs someone who looks for the cause.",
   optionsTitle: "What we help with",
   optionsIntro: "Pick what's bothering you most to see how we approach it.",
   options: [],
   faqs: [
     {
       q: "What conditions do you treat?",
-      a: "Migraine and other headache disorders, Botox for chronic migraine, TMJ and jaw pain, neck spasms and cervical dystonia, PRP injections, shoulder and rotator cuff pain, and knee, hip and other joint pain from arthritis.",
+      a: "Migraine and other headache disorders, Botox for chronic migraine, nerve blocks, TMJ and jaw pain, neck spasms and cervical dystonia, PRP injections, shoulder and rotator cuff pain, and knee, hip and other joint pain from arthritis.",
     },
     ...GENERAL_FAQS,
   ],
@@ -95,27 +95,27 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     headline: "Losing Days to Migraines? See a Headache Specialist.",
     highlight: "See a Headache Specialist",
     subheadline:
-      "A dual fellowship trained headache specialist who looks for what's behind your attacks — not just another prescription.",
+      "A dual fellowship trained headache specialist who looks for what's behind your attacks, not just another prescription.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Nerve blocks & Botox in the office",
       "No referral needed",
     ],
     localKeyword: "migraine treatment",
     whySpecialist:
-      "Dr. Tolebeyan completed a fellowship in Headache and Facial Pain Medicine — dedicated training most general practices don't have. That depth changes what's possible for complex or long-standing migraine.",
+      "Dr. Tolebeyan completed a fellowship in Headache and Facial Pain Medicine, dedicated training most general practices don't have. That depth changes what's possible for complex or long-standing migraine.",
     ctaLabel: "Book My Migraine Visit",
     formConcern: "Migraine Treatment",
     painTitle: "Does this sound like you?",
     painPoints: [
       "You plan your week around when the next migraine might hit.",
       "You've missed work, family plans or your kids' events because of an attack.",
-      "You've tried several medications — they stopped working, or the side effects weren't worth it.",
+      "You've tried several medications. They stopped working, or the side effects weren't worth it.",
       "You're reaching for painkillers so often you're worried about it.",
       'You\'ve been told it\'s "just stress" or "just a headache."',
     ],
     painNote:
-      "Migraine is a neurological condition, not a weakness — and it's very treatable with the right plan.",
+      "Migraine is a neurological condition, not a weakness, and it's very treatable with the right plan.",
     optionsTitle: "Your treatment options, in plain English",
     optionsIntro:
       "Every plan is built around your headache pattern, history and goals. These are the tools Dr. Amir uses most:",
@@ -126,7 +126,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
       {
         title: "A prevention plan that fits you",
-        text: "The aim is fewer and milder attacks — using preventive medicines, including newer migraine-specific options where appropriate, and a rescue plan for the attacks you still get.",
+        text: "The aim is fewer and milder attacks, using preventive medicines, including newer migraine-specific options where appropriate, and a rescue plan for the attacks you still get.",
       },
       {
         title: "Nerve blocks",
@@ -142,12 +142,77 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
       {
         title: "Your triggers, decoded",
-        text: "Sleep, hormones, weather, food, posture — we look at what actually sets off your attacks and what's worth changing.",
+        text: "Sleep, hormones, weather, food, posture: we look at what actually sets off your attacks and what's worth changing.",
       },
     ],
     faqs: [...MIGRAINE_FAQS, ...GENERAL_FAQS],
     reelTopics: ["migraine", "botox"],
     finalHeadline: "You don't have to keep planning your life around migraines.",
+  },
+
+  headache: {
+    title: "Headache Specialist in Natick, MA | Near Wellesley, Weston & Newton",
+    description:
+      "Headache doctor in Natick, MA for daily, tension-type, cluster and hard-to-diagnose headaches. Dual fellowship trained headache specialist, 60-minute first visit. Serving Weston, Wellesley, Sudbury, Wayland and Newton. No referral needed.",
+    eyebrow: "Headache specialist · Natick, MA",
+    headline: "Headaches That Won't Quit? Find Out What Kind You Have.",
+    highlight: "Find Out What Kind You Have",
+    subheadline:
+      "There are many types of headache, and each one is treated differently. A headache specialist starts by sorting out which you have.",
+    heroPoints: [
+      "Cash-pay clinic: no insurance approvals to wait on",
+      "Dual fellowship trained headache specialist",
+      "No referral needed",
+    ],
+    localKeyword: "headache treatment",
+    whySpecialist:
+      "Headache and Facial Pain Medicine is its own fellowship. Dr. Tolebeyan trained in it and later directed the Headache & Facial Pain Program at Tufts Medical Center.",
+    ctaLabel: "Book My Headache Visit",
+    formConcern: "Headache Treatment",
+    painTitle: "Does this sound like you?",
+    painPoints: [
+      "You get headaches most days and can't remember the last clear week.",
+      "Each doctor gives your headache a different name.",
+      "Pain starts at the back of your head or neck and creeps forward.",
+      "You take pain relievers so often that you worry they're part of the problem.",
+      "Scans came back normal, but the pain is still very real.",
+    ],
+    painNote:
+      "A normal scan doesn't mean nothing is wrong. Most headache disorders are diagnosed from your history and an exam.",
+    optionsTitle: "How we treat headaches",
+    optionsIntro: "The right treatment depends on the type of headache. Here's how Dr. Amir works:",
+    options: [
+      {
+        title: "Naming the headache",
+        text: "Tension-type, cluster, migraine, nerve-related or a mix: your pattern, history and exam point to the type.",
+      },
+      {
+        title: "Medication overuse, addressed",
+        text: "Pain relievers taken too often can keep headaches going. We help you step down safely with a plan for the hard days.",
+      },
+      {
+        title: "Nerve blocks in the office",
+        text: "For headaches that start at the back of the head, an injection near the irritated nerve can help.",
+      },
+      {
+        title: "Prevention that fits",
+        text: "Preventive treatment chosen for your headache type, health and lifestyle, adjusted at follow-up visits.",
+      },
+      {
+        title: "Neck and jaw checked too",
+        text: "Tight neck muscles, clenching and jaw problems can feed headaches, so they're part of the exam.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do I need a scan before I come in?",
+        a: "No. If you already have scans, bring them and Dr. Amir will review them. If imaging is needed, he'll tell you why.",
+      },
+      ...MIGRAINE_FAQS.slice(1),
+      ...GENERAL_FAQS,
+    ],
+    reelTopics: ["migraine", "pain"],
+    finalHeadline: "Get a clear answer about your headaches.",
   },
 
   "botox-migraine": {
@@ -160,13 +225,13 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     subheadline:
       "FDA-approved for chronic migraine: a few minutes in the office, about every 12 weeks.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Given by a headache specialist, not a med spa",
       "No referral needed",
     ],
     localKeyword: "Botox for migraines",
     whySpecialist:
-      "Where the injections go — and whether Botox is the right treatment at all — depends on headache expertise. Fellowship training in Headache and Facial Pain Medicine is exactly that.",
+      "Where the injections go, and whether Botox is the right treatment at all, depends on headache expertise. Fellowship training in Headache and Facial Pain Medicine is exactly that.",
     ctaLabel: "See If I Qualify",
     formConcern: "Botox for Migraine",
     painTitle: "Botox may be worth discussing if…",
@@ -174,11 +239,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "You have headaches on 15 or more days a month.",
       "You've tried at least a couple of preventive medications without enough relief.",
       "Daily pills come with side effects you'd rather avoid.",
-      "You want fewer attacks — not just something to take once they start.",
+      "You want fewer attacks, not just something to take once they start.",
     ],
     painNote: "Not sure if you qualify? That's exactly what the first visit is for.",
     optionsTitle: "How Botox for migraine works",
-    optionsIntro: "Simple, quick and repeated on a schedule — here's what to expect.",
+    optionsIntro: "Simple, quick and repeated on a schedule. Here's what to expect.",
     options: [
       {
         title: "First, the right diagnosis",
@@ -223,13 +288,13 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     subheadline:
       "Dual fellowship trained, including facial pain, Dr. Amir treats the jaw and the headaches together.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "In-office injections",
       "No referral needed",
     ],
     localKeyword: "TMJ treatment",
     whySpecialist:
-      "TMJ disorder sits where the jaw, head and face meet, so a dual fellowship trained physician — including Headache and Facial Pain Medicine — is well placed to treat it.",
+      "TMJ disorder sits where the jaw, head and face meet, so a dual fellowship trained physician (including Headache and Facial Pain Medicine) is well placed to treat it.",
     ctaLabel: "Book My TMJ Visit",
     formConcern: "TMJ Disorder (TMD)",
     painTitle: "Does this sound like you?",
@@ -237,17 +302,17 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "Your jaw clicks, pops or feels like it gets stuck.",
       "Chewing, yawning or talking for long makes it ache.",
       "You wake up with a sore jaw, tight face or a headache.",
-      "You clench or grind — maybe a night guard hasn't been enough.",
+      "You clench or grind. Maybe a night guard hasn't been enough.",
       "The pain spreads to your ear, temple or neck.",
     ],
     painNote: "Jaw pain and headaches are often connected. Treating just one usually isn't enough.",
     optionsTitle: "How we approach TMJ pain",
     optionsIntro:
-      "We look at the joint, the muscles and the nerves together — then match the treatment to the cause.",
+      "We look at the joint, the muscles and the nerves together, then match the treatment to the cause.",
     options: [
       {
         title: "Find the real pain source",
-        text: "Joint, muscle, nerve, or a headache disorder that's riding along — each one is treated differently.",
+        text: "Joint, muscle, nerve, or a headache disorder that's riding along: each one is treated differently.",
       },
       {
         title: "Muscle-focused injections",
@@ -265,12 +330,75 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     faqs: [
       {
         q: "Do you work with my dentist?",
-        a: "Yes — many patients already have a night guard or dental work. We're happy to coordinate so your dental and medical care fit together.",
+        a: "Yes. Many patients already have a night guard or dental work. We're happy to coordinate so your dental and medical care fit together.",
       },
       ...GENERAL_FAQS,
     ],
     reelTopics: ["botox", "pain", "migraine"],
-    finalHeadline: "Get your jaw — and your headaches — under control.",
+    finalHeadline: "Get your jaw and your headaches under control.",
+  },
+
+  "nerve-blocks": {
+    title: "Nerve Blocks for Headache & Nerve Pain in Natick, MA | Turquoise Institute",
+    description:
+      "In-office nerve blocks for headache and nerve pain in Natick, MA, given by a dual fellowship trained pain and headache specialist. Serving Weston, Wellesley, Sudbury, Wayland and Newton. No referral needed.",
+    eyebrow: "Nerve blocks · Natick, MA",
+    headline: "Stuck in a Bad Stretch of Headaches? Ask About a Nerve Block.",
+    highlight: "Ask About a Nerve Block",
+    subheadline:
+      "A quick injection near an irritated nerve, given in the office by a pain and headache specialist.",
+    heroPoints: [
+      "Cash-pay clinic: no insurance approvals to wait on",
+      "Dual fellowship trained pain & headache specialist",
+      "No referral needed",
+    ],
+    localKeyword: "nerve blocks",
+    whySpecialist:
+      "Choosing the right nerve and the right moment takes training in both headache medicine and interventional pain. Dr. Tolebeyan is dual fellowship trained in exactly those two fields.",
+    ctaLabel: "See If a Nerve Block Fits",
+    formConcern: "Nerve Blocks",
+    painTitle: "A nerve block may be worth discussing if…",
+    painPoints: [
+      "You're in a run of daily headaches that won't break.",
+      "Pain starts at the base of your skull and shoots up the back of your head.",
+      "The spot behind your ear or at the top of your neck is tender to touch.",
+      "You want relief while a longer-term prevention plan has time to work.",
+    ],
+    painNote:
+      "Not everyone needs a nerve block. Your first visit decides whether it fits your diagnosis.",
+    optionsTitle: "How a nerve block works",
+    optionsIntro: "A short procedure in the office. Here's what to expect.",
+    options: [
+      {
+        title: "Diagnosis comes first",
+        text: "Dr. Amir confirms where the pain comes from and which nerve, if any, is involved.",
+      },
+      {
+        title: "A quick injection",
+        text: "Medicine is placed next to the nerve with a fine needle. The injection itself takes a few minutes.",
+      },
+      {
+        title: "Often the same day",
+        text: "When it makes sense, the block can be given at your first visit, so you don't wait for another appointment.",
+      },
+      {
+        title: "Part of a bigger plan",
+        text: "A nerve block can calm things down. Prevention and follow-up visits help keep the pain from coming back.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Does a nerve block hurt?",
+        a: "Most people feel a quick pinch and some pressure. The needle is fine and the visit is short, so you can usually go back to your day.",
+      },
+      {
+        q: "How long does a nerve block last?",
+        a: "It varies from person to person. Dr. Amir will follow up with you to see how it worked and whether it's worth repeating.",
+      },
+      ...GENERAL_FAQS,
+    ],
+    reelTopics: ["migraine", "pain"],
+    finalHeadline: "Find out if a nerve block could help break the cycle.",
   },
 
   "neck-spasms": {
@@ -283,7 +411,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     subheadline:
       "Precise injections relax overactive neck and limb muscles to ease pain and stiffness.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Botox, Xeomin & Dysport",
       "No referral needed",
     ],
@@ -298,7 +426,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "Previous injections helped, but not as much as you hoped.",
     ],
     painNote:
-      "These conditions are manageable — the precision of the injections makes a big difference.",
+      "These conditions are manageable, and the precision of the injections makes a big difference.",
     optionsTitle: "How treatment works",
     optionsIntro: "Careful assessment first, then injections planned muscle by muscle.",
     options: [
@@ -308,7 +436,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
       {
         title: "Choosing the product",
-        text: "Botox, Xeomin or Dysport — chosen and dosed for your situation and your response to past treatment.",
+        text: "Botox, Xeomin or Dysport, chosen and dosed for your situation and your response to past treatment.",
       },
       {
         title: "Repeated on a schedule",
@@ -330,7 +458,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     subheadline:
       "A non-surgical option made from your own blood, injected under image guidance. We'll tell you honestly if it fits.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Done in one office visit",
       "No referral needed",
     ],
@@ -341,11 +469,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     painPoints: [
       "A knee, shoulder, elbow or hip has hurt for months.",
       "Physical therapy or rest helped only a little.",
-      "Cortisone shots wore off — or you'd like to avoid more of them.",
+      "Cortisone shots wore off, or you'd like to avoid more of them.",
       "You want to delay or avoid surgery if possible.",
     ],
     painNote:
-      "PRP isn't right for everyone — your first visit will tell you honestly whether it's a good fit.",
+      "PRP isn't right for everyone. Your first visit will tell you honestly whether it's a good fit.",
     optionsTitle: "How PRP works",
     optionsIntro: "Everything happens in one office visit.",
     options: [
@@ -355,7 +483,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
       {
         title: "2. Concentrating the platelets",
-        text: "Your blood is spun to separate the platelet-rich plasma — the part involved in your body's repair process.",
+        text: "Your blood is spun to separate the platelet-rich plasma, the part involved in your body's repair process.",
       },
       {
         title: "3. Image-guided injection",
@@ -386,13 +514,13 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Explore Non-Surgical Options First",
     subheadline: "We pinpoint the real source, then treat it with image-guided injections or PRP.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Precise diagnosis first",
       "No referral needed",
     ],
     localKeyword: "shoulder pain treatment",
     whySpecialist:
-      "Not every rotator cuff tear needs surgery — and not every shoulder pain is the cuff. Interventional pain and regenerative medicine open up options in between.",
+      "Not every rotator cuff tear needs surgery, and not every shoulder pain is the cuff. Interventional pain and regenerative medicine open up options in between.",
     ctaLabel: "Book My Shoulder Visit",
     formConcern: "Shoulder / Rotator Cuff Pain",
     painTitle: "Does this sound like you?",
@@ -420,12 +548,12 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       },
       {
         title: "A plan with your PT",
-        text: "Injections work best alongside the right exercises — we help you put the two together.",
+        text: "Injections work best alongside the right exercises, and we help you put the two together.",
       },
     ],
     faqs: GENERAL_FAQS,
     reelTopics: ["prp", "pain"],
-    finalHeadline: "Get back to sleeping — and reaching — without shoulder pain.",
+    finalHeadline: "Get back to sleeping and reaching without shoulder pain.",
   },
 
   "joint-pain": {
@@ -437,7 +565,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Explore Options Before Surgery",
     subheadline: "Image-guided injections and PRP to ease arthritis pain and keep you active.",
     heroPoints: [
-      "Cash-pay clinic — no insurance approvals to wait on",
+      "Cash-pay clinic: no insurance approvals to wait on",
       "Knee, hip & hand",
       "No referral needed",
     ],
@@ -449,7 +577,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
       "Your joints are stiff and achy, especially in the morning.",
       "Stairs, walking or getting up from a chair hurts.",
       "You've cut back on activities you used to enjoy.",
-      "You've been told \"it's just wear and tear\" — but want more than pain pills.",
+      "You've been told \"it's just wear and tear\", but want more than pain pills.",
     ],
     painNote: "Arthritis doesn't have to decide what you can still do.",
     optionsTitle: "How we treat joint pain",
@@ -458,7 +586,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     options: [
       {
         title: "A clear picture",
-        text: "Exam plus imaging review to see what's driving the pain — and what's realistic to improve.",
+        text: "Exam plus imaging review to see what's driving the pain and what's realistic to improve.",
       },
       {
         title: "Image-guided injections",
@@ -475,7 +603,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     ],
     faqs: GENERAL_FAQS,
     reelTopics: ["prp", "pain"],
-    finalHeadline: "Keep doing what you love — with less joint pain.",
+    finalHeadline: "Keep doing what you love, with less joint pain.",
   },
 };
 
