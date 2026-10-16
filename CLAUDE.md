@@ -85,8 +85,12 @@ Locations + map → closing form (`#consultation`) → footer.
 ### Services, reviews & videos (client decisions)
 
 - Services: keep the list exactly as is (`SERVICES` in `Sections.tsx`). One horizontal row,
-  NO auto-scroll, arrow buttons (a right arrow on phones). Each card shows an animated spine
-  graphic with its pain area (`PainMap.tsx`), not a photo.
+  NO auto-scroll, arrow buttons (a right arrow on phones). Each card shows a service photo
+  when one exists at `src/assets/services/<slug>.webp` (16:10, ~800×500, real & licensed —
+  client wants relatable treatment photos), with the animated spine graphic (`PainMap.tsx`)
+  as a small badge; without a photo the card shows the spine graphic alone. Slugs: migraine,
+  headache, botox-migraine, prp, tmj, nerve-blocks, neck-spasms, shoulder, joint-pain.
+  `botox-migraine.webp` = photo supplied by the client (Oct 16).
 - Reviews: one horizontal row that auto-scrolls (`useAutoScroll`; pauses on mouse hover,
   touch, focus and while a review is open). Each shows 3 lines; "Read more" (only when cut off)
   expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
@@ -163,6 +167,8 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
   where the current website's pages (privacy, terms, payment policy, articles) will live.
 - For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
 - Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
+- Service photos still needed for 8 of 9 cards (see slugs above); confirm the licence of the
+  supplied Botox photo (it looks like a stock photo).
 - Confirm Weston's ZIP: the client list says 02494 (that's Needham Heights; Weston is 02493).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.

@@ -43,63 +43,104 @@ export function ProofBar() {
 }
 
 /**
- * Services offered, with a real photo each. Facts only from the condition pages.
- * The section heading avoids condition names; the cards may name them.
+ * Services offered (list fixed by the client). Facts only from the condition pages.
+ * Photos: drop a real, licensed photo at src/assets/services/<slug>.webp (16:10, ~800×500)
+ * and the card shows it, with the animated spine graphic as a small badge. Without a
+ * photo the card shows the spine graphic on its own.
  */
+const SERVICE_PHOTOS = import.meta.glob<string>("../../assets/services/*.webp", {
+  eager: true,
+  import: "default",
+});
+const photoFor = (slug: string) =>
+  Object.entries(SERVICE_PHOTOS).find(([path]) => path.endsWith(`/${slug}.webp`))?.[1];
+
+const PHOTO_ALT: Record<string, string> = {
+  "botox-migraine": "Doctor giving a patient a Botox injection at the forehead",
+};
+
 const SERVICES = [
   {
     name: "Migraine",
+    slug: "migraine",
     area: "temples" as PainArea,
     text: "A clear diagnosis and a prevention plan built around your attack pattern, plus a plan for the attacks you still get.",
   },
   {
     name: "Headache",
+    slug: "headache",
     area: "head" as PainArea,
     text: "Many headaches are a mix of types. Sorting out exactly which you have changes which treatments work.",
   },
   {
     name: "Botox for chronic migraine",
+    slug: "botox-migraine",
     area: "head-neck" as PainArea,
     text: "For 15 or more headache days a month: quick injections about every 12 weeks, following the FDA-approved protocol.",
   },
   {
     name: "PRP injections",
+    slug: "prp",
     area: "shoulder-knee" as PainArea,
     text: "Your own platelets, prepared in the office and injected with image guidance into an injured tendon or joint.",
   },
   {
     name: "TMJ & facial pain",
+    slug: "tmj",
     area: "jaw" as PainArea,
     text: "Jaw pain, clenching and jaw-related headaches assessed and treated together by a facial pain specialist.",
   },
   {
     name: "Nerve blocks",
+    slug: "nerve-blocks",
     area: "occipital" as PainArea,
     text: "A quick in-office injection that can calm a stubborn stretch of headaches or irritated nerves.",
   },
   {
     name: "Neck spasms & cervical dystonia",
+    slug: "neck-spasms",
     area: "neck" as PainArea,
     text: "Targeted botulinum toxin injections (Botox, Xeomin or Dysport) for neck pulling, twisting and spasms.",
   },
   {
     name: "Shoulder & rotator cuff pain",
+    slug: "shoulder",
     area: "shoulder" as PainArea,
     text: "Image-guided injections and PRP for shoulder and tendon pain — non-surgical options first.",
   },
   {
     name: "Knee, hip & joint arthritis",
+    slug: "joint-pain",
     area: "hip-knee" as PainArea,
     text: "Image-guided injections and PRP to ease arthritis pain and help you stay active.",
   },
 ];
 
 function ServiceCard({ s }: { s: (typeof SERVICES)[number] }) {
+  const photo = photoFor(s.slug);
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-      <div className="bg-gradient-to-b from-mint to-card px-6 pt-4">
-        <PainMap area={s.area} className="mx-auto block h-32 w-auto" />
-      </div>
+      {photo ? (
+        <div className="relative">
+          <img
+            src={photo}
+            alt={PHOTO_ALT[s.slug] ?? s.name}
+            width={800}
+            height={500}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/10] w-full object-cover"
+          />
+          {/* Animated spine badge: where the pain is */}
+          <span className="absolute bottom-2 left-2 rounded-xl bg-card/90 p-1 shadow-card backdrop-blur">
+            <PainMap area={s.area} className="block h-14 w-auto" />
+          </span>
+        </div>
+      ) : (
+        <div className="relative aspect-[16/10] bg-gradient-to-b from-mint to-card">
+          <PainMap area={s.area} className="absolute inset-0 m-auto block size-full p-3" />
+        </div>
+      )}
       <div className="p-4 pt-3 sm:p-5 sm:pt-3">
         <h3 className="font-display text-lg leading-snug text-heading">{s.name}</h3>
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{s.text}</p>
