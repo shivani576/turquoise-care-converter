@@ -90,8 +90,7 @@ Locations + map → closing form (`#consultation`) → footer.
   client wants relatable treatment photos), with the animated spine graphic (`PainMap.tsx`)
   as a small badge; without a photo the card shows the spine graphic alone. Slugs: migraine,
   headache, botox-migraine, prp, tmj, nerve-blocks, neck-spasms, shoulder, joint-pain.
-  Photos supplied by the client (Oct 16): migraine, headache, botox-migraine, prp, tmj,
-  nerve-blocks. Still needed: neck-spasms, shoulder, joint-pain.
+  All 9 photos were supplied by the client (Oct 16), who confirmed they may be used.
 - Reviews: one horizontal row that auto-scrolls (`useAutoScroll`; pauses on mouse hover,
   touch, focus and while a review is open). Each shows 3 lines; "Read more" (only when cut off)
   expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
@@ -169,9 +168,6 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
   where the current website's pages (privacy, terms, payment policy, articles) will live.
 - For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
 - Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
-- Service photos still needed: neck-spasms, shoulder, joint-pain. Confirm licences for the
-  client-supplied stock photos. The PRP photo shows a facial (cosmetic-looking) injection —
-  swap for a knee/shoulder PRP photo if one is available.
 - Confirm Weston's ZIP: the client list says 02494 (that's Needham Heights; Weston is 02493).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
