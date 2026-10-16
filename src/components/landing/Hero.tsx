@@ -43,7 +43,15 @@ export function Hero({ page }: { page: PageCopy }) {
         {page.heroPoints.length > 0 ? (
           <ul className="mt-6 flex max-w-5xl flex-col items-start gap-2.5 text-left text-[15px] font-medium text-foreground sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:text-base">
             {page.heroPoints.map((p) => (
-              <li key={p} className="flex items-start gap-2">
+              <li
+                key={p}
+                className={
+                  // The cash-pay model is highlighted in the first fold (client request).
+                  /cash-pay/i.test(p)
+                    ? "flex items-start gap-2 rounded-full bg-mint-deep px-3.5 py-1.5 font-semibold text-heading"
+                    : "flex items-start gap-2 sm:py-1.5"
+                }
+              >
                 <Check
                   className="mt-0.5 size-5 shrink-0 text-primary-deep"
                   strokeWidth={2.5}

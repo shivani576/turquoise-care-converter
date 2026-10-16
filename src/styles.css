@@ -276,7 +276,10 @@
 }
 
 @utility section-pad {
-  padding-block: 4.5rem;
+  padding-block: 2.5rem;
+  @media (width >= 40rem) {
+    padding-block: 4.5rem;
+  }
   @media (width >= 64rem) {
     padding-block: 7rem;
   }
@@ -349,5 +352,57 @@ html:has(dialog[open]) {
 @media (prefers-reduced-motion: reduce) {
   .booking-dialog[open] {
     animation: none;
+  }
+}
+
+/* Animated spine graphics on the service cards (PainMap.tsx). */
+.pain-map {
+  color: var(--primary-deep);
+}
+.pain-map__vertebra {
+  fill: var(--primary);
+  opacity: 0.45;
+  animation: vertebra-breathe 2.6s ease-in-out infinite;
+}
+.pain-map__vertebra.is-active {
+  fill: var(--cta);
+  opacity: 1;
+}
+.pain-map__dot {
+  fill: var(--cta);
+}
+.pain-map__ring {
+  fill: var(--primary);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pain-pulse 2s ease-out infinite;
+}
+@keyframes vertebra-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes pain-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pain-map__vertebra,
+  .pain-map__ring {
+    animation: none;
+  }
+  .pain-map__ring {
+    opacity: 0.25;
   }
 }

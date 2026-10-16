@@ -1,40 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import {
   BadgeCheck,
-  CalendarCheck,
+  ChevronLeft,
+  ChevronRight,
   ClipboardCheck,
   FlaskConical,
   GraduationCap,
+  Landmark,
   Receipt,
   ScanLine,
   Syringe,
   Timer,
   Video,
   X,
+  Zap,
 } from "lucide-react";
 import headshot from "@/assets/photos/dr-amir-headshot.webp";
-import officePhoto from "@/assets/photos/dr-amir-office-dartmouth.webp";
-import procedurePhoto from "@/assets/services/nerve-blocks.webp";
-import imgMigraine from "@/assets/services/migraine.webp";
-import imgHeadache from "@/assets/services/headache.webp";
-import imgBotox from "@/assets/services/botox.webp";
-import imgPrp from "@/assets/services/prp.webp";
-import imgTmj from "@/assets/services/tmj.webp";
-import imgNerve from "@/assets/services/nerve-blocks.webp";
-import imgNeck from "@/assets/services/neck.webp";
-import imgShoulder from "@/assets/services/shoulder.webp";
-import imgJoint from "@/assets/services/joint.webp";
 import { CLINIC, CREDENTIALS } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
-import { BookCta } from "./Booking";
+import { PainMap, type PainArea } from "./PainMap";
 
 /** Thin credibility strip directly under the hero. */
 export function ProofBar() {
   const items = [
-    { icon: GraduationCap, label: "Dual fellowship trained (Yale & Dartmouth)" },
-    { icon: BadgeCheck, label: "Board-certified physician" },
+    { icon: GraduationCap, label: "Fellowships at Yale & Dartmouth" },
+    { icon: Landmark, label: "Former director, Tufts headache & facial pain program" },
     { icon: Timer, label: "60-minute first visits" },
-    { icon: CalendarCheck, label: "No referral needed" },
+    { icon: Zap, label: "Same-day treatment often possible" },
   ];
   return (
     <div className="border-y border-border bg-card">
@@ -57,56 +49,47 @@ export function ProofBar() {
 const SERVICES = [
   {
     name: "Migraine",
-    img: imgMigraine,
-    alt: "Dr. Amir explaining migraine patterns in one of his videos",
+    area: "temples" as PainArea,
     text: "A clear diagnosis and a prevention plan built around your attack pattern, plus a plan for the attacks you still get.",
   },
   {
     name: "Headache",
-    img: imgHeadache,
-    alt: "Dr. Amir in his office explaining types of headache",
+    area: "head" as PainArea,
     text: "Many headaches are a mix of types. Sorting out exactly which you have changes which treatments work.",
   },
   {
     name: "Botox for chronic migraine",
-    img: imgBotox,
-    alt: "Botox for chronic migraine poster in the treatment room",
+    area: "head-neck" as PainArea,
     text: "For 15 or more headache days a month: quick injections about every 12 weeks, following the FDA-approved protocol.",
   },
   {
     name: "PRP injections",
-    img: imgPrp,
-    alt: "Tube of separated platelet-rich plasma",
+    area: "shoulder-knee" as PainArea,
     text: "Your own platelets, prepared in the office and injected with image guidance into an injured tendon or joint.",
   },
   {
     name: "TMJ & facial pain",
-    img: imgTmj,
-    alt: "Gloved hands preparing an in-office injection near the head",
+    area: "jaw" as PainArea,
     text: "Jaw pain, clenching and jaw-related headaches assessed and treated together by a facial pain specialist.",
   },
   {
     name: "Nerve blocks",
-    img: imgNerve,
-    alt: "Dr. Amir preparing an in-office procedure",
+    area: "occipital" as PainArea,
     text: "A quick in-office injection that can calm a stubborn stretch of headaches or irritated nerves.",
   },
   {
     name: "Neck spasms & cervical dystonia",
-    img: imgNeck,
-    alt: "Targeted injection given in the treatment room",
+    area: "neck" as PainArea,
     text: "Targeted botulinum toxin injections (Botox, Xeomin or Dysport) for neck pulling, twisting and spasms.",
   },
   {
     name: "Shoulder & rotator cuff pain",
-    img: imgShoulder,
-    alt: "Dr. Amir preparing an injection in the procedure room",
+    area: "shoulder" as PainArea,
     text: "Image-guided injections and PRP for shoulder and tendon pain — non-surgical options first.",
   },
   {
     name: "Knee, hip & joint arthritis",
-    img: imgJoint,
-    alt: "Anatomy poster in the treatment room",
+    area: "hip-knee" as PainArea,
     text: "Image-guided injections and PRP to ease arthritis pain and help you stay active.",
   },
 ];
@@ -114,16 +97,10 @@ const SERVICES = [
 function ServiceCard({ s }: { s: (typeof SERVICES)[number] }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-      <img
-        src={s.img}
-        alt={s.alt}
-        width={400}
-        height={250}
-        loading="lazy"
-        decoding="async"
-        className="aspect-[16/10] w-full object-cover"
-      />
-      <div className="p-4 sm:p-5">
+      <div className="bg-gradient-to-b from-mint to-card px-6 pt-4">
+        <PainMap area={s.area} className="mx-auto block h-32 w-auto" />
+      </div>
+      <div className="p-4 pt-3 sm:p-5 sm:pt-3">
         <h3 className="font-display text-lg leading-snug text-heading">{s.name}</h3>
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{s.text}</p>
       </div>
@@ -132,62 +109,17 @@ function ServiceCard({ s }: { s: (typeof SERVICES)[number] }) {
 }
 
 /**
- * Second fold on the home page. Phones: one row that scrolls itself
- * continuously (pauses while touched; can also be swiped). Tablet/desktop: grid.
+ * Second fold on the home page: one horizontal row of services (no auto-scroll).
+ * Arrows scroll it; on phones a right-hand arrow shows there are more.
  */
 export function Services() {
-  const rail = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = rail.current;
-    if (!el) return;
-    const mobile = window.matchMedia("(max-width: 767px)");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let raf = 0;
-    let last = 0;
-    let pausedUntil = 0;
-    let pos = el.scrollLeft;
-    const pause = () => {
-      pausedUntil = performance.now() + 2500;
-    };
-    const step = (t: number) => {
-      raf = requestAnimationFrame(step);
-      const dt = last ? Math.min(t - last, 64) : 0;
-      last = t;
-      if (!mobile.matches || reduced.matches || t < pausedUntil) {
-        pos = el.scrollLeft;
-        return;
-      }
-      // The list is rendered twice; jump back by one copy for a seamless loop.
-      const half = el.scrollWidth / 2;
-      pos += dt * 0.035; // ≈35 px per second
-      if (pos >= half) pos -= half;
-      el.scrollLeft = pos;
-    };
-    // Only animate while the section is on screen.
-    const io = new IntersectionObserver(([e]) => {
-      cancelAnimationFrame(raf);
-      last = 0;
-      if (e?.isIntersecting) raf = requestAnimationFrame(step);
-    });
-    io.observe(el);
-    el.addEventListener("pointerdown", pause, { passive: true });
-    el.addEventListener("touchstart", pause, { passive: true });
-    el.addEventListener("wheel", pause, { passive: true });
-    el.addEventListener("focusin", pause);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-      el.removeEventListener("pointerdown", pause);
-      el.removeEventListener("touchstart", pause);
-      el.removeEventListener("wheel", pause);
-      el.removeEventListener("focusin", pause);
-    };
-  }, []);
+  const rail = useRef<HTMLUListElement>(null);
+  const scroll = (dir: 1 | -1) =>
+    rail.current?.scrollBy({ left: dir * rail.current.clientWidth * 0.85, behavior: "smooth" });
 
   return (
     <section className="section-pad bg-mint" id="services" aria-labelledby="services-title">
-      <div className="container-page">
+      <div className="container-page flex items-end justify-between gap-4">
         <div className="max-w-2xl">
           <p className="eyebrow">What we treat</p>
           <h2
@@ -196,40 +128,52 @@ export function Services() {
           >
             Pain management services
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-3 text-lg text-muted-foreground">
             Every plan is built around your diagnosis, history and goals.
           </p>
         </div>
-
-        {/* Tablet / desktop grid */}
-        <ul className="mt-10 hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s) => (
-            <li key={s.name}>
-              <ServiceCard s={s} />
-            </li>
-          ))}
-        </ul>
+        <div className="hidden shrink-0 gap-2 md:flex">
+          <button
+            type="button"
+            onClick={() => scroll(-1)}
+            aria-label="Previous services"
+            className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep"
+          >
+            <ChevronLeft className="size-5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scroll(1)}
+            aria-label="More services"
+            className="flex size-11 items-center justify-center rounded-full border border-border bg-card hover:border-primary-deep"
+          >
+            <ChevronRight className="size-5" aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
-      {/* Phone: auto-scrolling row (the only horizontal scroll on the page) */}
-      <div
-        ref={rail}
-        className="no-scrollbar mt-8 overflow-x-auto md:hidden"
-        aria-label="Services (scrolls automatically; swipe to browse)"
-        role="region"
-        tabIndex={0}
-      >
-        <ul className="flex w-max gap-3 px-4">
-          {[...SERVICES, ...SERVICES].map((s, i) => (
-            <li
-              key={`${s.name}-${i}`}
-              className="w-[72vw] max-w-[17rem] shrink-0"
-              aria-hidden={i >= SERVICES.length || undefined}
-            >
+      <div className="relative mt-6 sm:mt-8">
+        <ul
+          ref={rail}
+          tabIndex={0}
+          aria-label="Services (scroll sideways for more)"
+          className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1 sm:gap-4 sm:px-8 lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_1.25rem))]"
+        >
+          {SERVICES.map((s) => (
+            <li key={s.name} className="w-[78vw] max-w-[18rem] shrink-0 snap-start">
               <ServiceCard s={s} />
             </li>
           ))}
         </ul>
+        {/* Phones: arrow to show there are more services */}
+        <button
+          type="button"
+          onClick={() => scroll(1)}
+          aria-label="More services"
+          className="absolute right-2 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-cta text-white shadow-cta md:hidden"
+        >
+          <ChevronRight className="size-6" aria-hidden="true" />
+        </button>
       </div>
     </section>
   );
@@ -304,7 +248,7 @@ export function MeetDoctor() {
   return (
     <section className="section-pad" id="dr-amir">
       <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
-        <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+        <div className="mx-auto w-full max-w-[15rem] sm:max-w-sm lg:max-w-none">
           <img
             src={headshot}
             alt={`${CLINIC.doctor.name}, Founder & Medical Director`}
@@ -313,15 +257,6 @@ export function MeetDoctor() {
             loading="lazy"
             decoding="async"
             className="aspect-[4/5] w-full rounded-3xl object-cover object-[50%_20%] shadow-soft"
-          />
-          <img
-            src={officePhoto}
-            alt="Dr. Amir's diplomas in his office"
-            width={360}
-            height={550}
-            loading="lazy"
-            decoding="async"
-            className="absolute -bottom-6 -right-4 hidden w-32 rounded-2xl border-4 border-background object-cover object-top shadow-soft [aspect-ratio:4/5] sm:block lg:-right-8 lg:w-40"
           />
         </div>
         <div>
@@ -334,12 +269,7 @@ export function MeetDoctor() {
           </p>
           <div className="mt-5 space-y-4 text-lg leading-relaxed text-foreground/80">
             <p>
-              Dr. Amir is a board-certified, dual fellowship trained physician — in Headache &amp;
-              Facial Pain Medicine and in Interventional Pain Medicine. He previously directed the
-              Headache and Facial Pain Program at Tufts Medical Center.
-            </p>
-            <p>
-              He founded Turquoise Institute so patients could get what's missing in most
+              Dr. Amir founded Turquoise Institute so patients could get what's missing in most
               appointments: time. Your first visit is a full hour with him, and he explains what's
               going on in plain language before suggesting any treatment.
             </p>
@@ -390,7 +320,7 @@ export function Facilities() {
   ];
   return (
     <section className="section-pad bg-ink text-ink-foreground" id="clinic">
-      <div className="container-page grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
+      <div className="container-page grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
         <div>
           <p className="font-label text-sm uppercase tracking-wider text-primary-soft">
             Our clinic
@@ -401,15 +331,6 @@ export function Facilities() {
           <p className="mt-4 text-lg leading-relaxed text-ink-muted">
             Diagnosis, procedures and follow-up all happen with the same doctor, in one office.
           </p>
-          <img
-            src={procedurePhoto}
-            alt="Dr. Amir preparing a procedure in the clinic"
-            width={400}
-            height={250}
-            loading="lazy"
-            decoding="async"
-            className="mt-8 aspect-[16/10] w-full max-w-sm rounded-2xl object-cover"
-          />
         </div>
         <ul className="grid gap-4 sm:grid-cols-2">
           {items.map(({ icon: Icon, title, text }) => (
@@ -427,7 +348,7 @@ export function Facilities() {
   );
 }
 
-/** Cash-pay explained in full. Holds the one in-page CTA before the closing form. */
+/** Cash-pay explained in full (highlighted in the first fold as a bullet). */
 export function CashPay() {
   const points = [
     "No insurance pre-approvals or referrals to wait on",
@@ -463,17 +384,14 @@ export function CashPay() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-                <BookCta location="cash-pay" className="w-full sm:w-auto" />
-                <a
-                  href={CLINIC.insuranceUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="font-semibold text-primary-deep underline underline-offset-4"
-                >
-                  Read our payment policy
-                </a>
-              </div>
+              <a
+                href={CLINIC.insuranceUrl}
+                target="_blank"
+                rel="noopener"
+                className="mt-6 inline-block font-semibold text-primary-deep underline underline-offset-4"
+              >
+                Read our payment policy
+              </a>
             </div>
           </div>
         </div>

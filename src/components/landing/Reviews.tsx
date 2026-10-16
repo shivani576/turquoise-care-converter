@@ -4,6 +4,7 @@ import { ExternalLink, Star } from "lucide-react";
 import { CLINIC, GOOGLE_RATING, GOOGLE_REVIEWS } from "@/lib/site";
 import { getGoogleReviews, type ReviewsPayload } from "@/lib/reviews.functions";
 import { track } from "@/lib/track";
+import { useAutoScroll } from "./useAutoScroll";
 
 const initial: ReviewsPayload = {
   source: "saved",
@@ -53,7 +54,16 @@ function GoogleG() {
  * One review. Shows the first three lines; "Read more" expands the text in place
  * (no link out). Collapsed cards are all the same height.
  */
-function ReviewCard({ review: r }: { review: ReviewsPayload["reviews"][number] }) {
+function ReviewCard({
+  review: r,
+  copy,
+  onToggle,
+}: {
+  review: ReviewsPayload["reviews"][number];
+  /** 0 = the real card; >0 = a visual duplicate for the auto-scroll loop */
+  copy: number;
+  onToggle: (expanded: boolean) => void;
+}) {
   const text = useRef<HTMLQuoteElement>(null);
   const [expanded, setExpanded] = useState(false);
   const [clamped, setClamped] = useState(false);
@@ -69,9 +79,9 @@ function ReviewCard({ review: r }: { review: ReviewsPayload["reviews"][number] }
     return () => ro.disconnect();
   }, [expanded, r.text]);
 
-  const id = `review-${r.author.replace(/\W+/g, "-").toLowerCase()}`;
+  const id = `review-${r.author.replace(/\W+/g, "-").toLowerCase()}-${copy}`;
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-card">
+    <article className="flex h-full w-[80vw] max-w-[22rem] flex-col rounded-2xl border border-border bg-card p-6 shadow-card">
       <div className="flex items-center justify-between">
         <Stars value={r.rating} />
         <GoogleG />
@@ -88,7 +98,9 @@ function ReviewCard({ review: r }: { review: ReviewsPayload["reviews"][number] }
           type="button"
           aria-expanded={expanded}
           aria-controls={id}
+          tabIndex={copy > 0 ? -1 : undefined}
           onClick={() => {
+            onToggle(!expanded);
             setExpanded((v) => !v);
             if (!expanded) track("review_click", { location: "read-more" });
           }}
@@ -105,10 +117,18 @@ function ReviewCard({ review: r }: { review: ReviewsPayload["reviews"][number] }
   );
 }
 
+// The row is rendered several times so it can loop seamlessly at any screen width.
+const COPIES = 4;
+
 /** Real Google reviews — live from the Places API when configured. */
 export function Reviews() {
   const [data, setData] = useState(initial);
   const load = useServerFn(getGoogleReviews);
+  const rail = useRef<HTMLDivElement>(null);
+  const [openCount, setOpenCount] = useState(0);
+  const onToggle = (expanded: boolean) => setOpenCount((n) => Math.max(0, n + (expanded ? 1 : -1)));
+  const reviews = data.reviews.slice(0, 6);
+  useAutoScroll(rail, { copies: COPIES, paused: openCount > 0 });
 
   useEffect(() => {
     load()
@@ -123,7 +143,7 @@ export function Reviews() {
           <div className="max-w-2xl">
             <p className="eyebrow">Patient reviews</p>
             <h2 className="mt-3 text-balance text-3xl leading-tight text-heading sm:text-4xl">
-              "He takes the time to listen."
+              What patients say
             </h2>
           </div>
           <div className="flex items-center gap-3 self-start rounded-2xl border border-border bg-card px-5 py-3 shadow-card">
@@ -139,15 +159,28 @@ export function Reviews() {
             </span>
           </div>
         </div>
+      </div>
 
-        <ul className="mt-10 grid gap-4 md:auto-rows-fr md:grid-cols-3">
-          {data.reviews.slice(0, 3).map((r) => (
-            <li key={r.author + r.when}>
-              <ReviewCard review={r} />
-            </li>
-          ))}
+      {/* Auto-scrolling row (pauses on hover, touch, focus or while a review is open) */}
+      <div
+        ref={rail}
+        className="no-scrollbar mt-8 overflow-x-auto sm:mt-10"
+        role="region"
+        aria-label="Patient reviews (scroll automatically)"
+        tabIndex={0}
+      >
+        <ul className="flex w-max items-start gap-4 px-5 sm:px-8">
+          {Array.from({ length: COPIES }).flatMap((_, copy) =>
+            reviews.map((r) => (
+              <li key={`${copy}-${r.author}${r.when}`} aria-hidden={copy > 0 || undefined}>
+                <ReviewCard review={r} copy={copy} onToggle={onToggle} />
+              </li>
+            )),
+          )}
         </ul>
+      </div>
 
+      <div className="container-page">
         <a
           href={CLINIC.googleMapsUrl}
           target="_blank"

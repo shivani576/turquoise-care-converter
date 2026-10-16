@@ -10,6 +10,8 @@ import { getAttribution } from "@/lib/utm";
 import { cn } from "@/lib/utils";
 
 export const FORM_BUTTON_LABEL = "Request a Free 15-Minute Appointment";
+/** Heading on every form on the page (pop-up and closing section). */
+export const FORM_HEADING = "Book a direct appointment with a doctor.";
 
 const field =
   "h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground placeholder:text-muted-foreground/70 focus-visible:border-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";

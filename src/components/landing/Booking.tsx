@@ -7,11 +7,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { CalendarCheck, X } from "lucide-react";
+import { CalendarCheck, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
 import { cn } from "@/lib/utils";
-import { LeadForm } from "./LeadForm";
+import { FORM_HEADING, LeadForm } from "./LeadForm";
 
 export const PRIMARY_CTA_LABEL = "Book a Free 15-Minute Consultation";
 
@@ -71,18 +72,17 @@ export function BookingProvider({
             <LeadForm
               location={`modal-${location}`}
               concern={concern}
-              heading="Book a free 15-minute consultation"
+              heading={FORM_HEADING}
               headingId="booking-title"
               bare
             />
           ) : (
             <h2 id="booking-title" className="sr-only">
-              Book a free 15-minute consultation
+              {FORM_HEADING}
             </h2>
           )}
         </div>
       </dialog>
-      <StickyBookNow hidden={isOpen} />
     </BookingContext.Provider>
   );
 }
@@ -122,76 +122,69 @@ export function BookCta({
 }
 
 /**
- * Floating "Book Now": appears only once the visitor has scrolled past the
- * second fold (the [data-sticky-start] marker), and hides whenever a main
- * call to action ([data-main-cta]) is on screen or the pop-up is open.
+ * Header phone number + sticky "Book a Consultation" (the header is sticky).
+ * Hidden in the first fold — they appear once the hero's CTA has scrolled up
+ * out of view, so the first fold keeps exactly one call to action.
  */
-function StickyBookNow({ hidden }: { hidden: boolean }) {
+export function HeaderActions() {
   const { open } = useBooking();
-  const [pastStart, setPastStart] = useState(false);
-  const [ctaVisible, setCtaVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const start = document.querySelector("[data-sticky-start]");
-    const ctas = Array.from(document.querySelectorAll("[data-main-cta]"));
-    if (!start) return;
-
-    // A scroll listener rather than an IntersectionObserver: a fast fling or jump can
-    // carry the marker from below the screen to above it without it ever being "in
-    // view", and an observer would never report that.
+    const heroCta = document.getElementById("cta-book-hero");
+    const header = document.querySelector("header");
+    // Scroll listener (not IntersectionObserver) so a fast fling past the CTA is never missed.
     let frame = 0;
-    const checkStart = () => {
+    const check = () => {
       frame = 0;
-      setPastStart(start.getBoundingClientRect().top < 0);
+      const limit = header?.getBoundingClientRect().bottom ?? 0;
+      setShow(heroCta ? heroCta.getBoundingClientRect().bottom < limit : window.scrollY > 0);
     };
     const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(checkStart);
+      if (!frame) frame = requestAnimationFrame(check);
     };
-    checkStart();
+    check();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
-
-    const visible = new Set<Element>();
-    const ctaObserver = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) visible.add(e.target);
-        else visible.delete(e.target);
-      }
-      setCtaVisible(visible.size > 0);
-    });
-    ctas.forEach((el) => ctaObserver.observe(el));
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
-      ctaObserver.disconnect();
     };
   }, []);
 
-  const show = pastStart && !ctaVisible && !hidden;
   return (
     <div
-      id="sticky-book"
+      id="header-actions"
       aria-hidden={!show}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur transition-all duration-300 md:inset-x-auto md:bottom-6 md:right-6 md:rounded-full md:border md:p-1.5 md:shadow-soft",
-        show
-          ? "visible translate-y-0 opacity-100"
-          : "pointer-events-none invisible translate-y-[150%] opacity-0",
+        "flex items-center gap-2 transition-all duration-300 sm:gap-3",
+        show ? "visible opacity-100" : "pointer-events-none invisible -translate-y-1 opacity-0",
       )}
     >
+      <a
+        href={`tel:${CLINIC.phoneTel}`}
+        id="cta-call-header"
+        className="js-track-call inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-[15px] bg-mint-deep px-2.5 font-label text-[13px] text-muted-foreground hover:bg-[#b7e3d7] sm:h-11 sm:px-4 sm:text-sm"
+        data-track="phone_click"
+        data-location="header"
+        onClick={() => track("phone_click", { location: "header" })}
+      >
+        <Phone className="size-4 shrink-0" aria-hidden="true" />
+        {CLINIC.phoneDisplay}
+      </a>
       <Button
         type="button"
         variant="cta"
-        id="cta-book-sticky"
+        id="cta-book-header"
         data-track="book_consultation_click"
-        data-location="sticky"
+        data-location="header"
         aria-haspopup="dialog"
-        className="js-track-book h-12 w-full text-[15px] md:w-auto md:rounded-full md:px-6"
-        onClick={() => open("sticky")}
+        className="js-track-book h-10 whitespace-normal px-2.5 text-center text-[13px] leading-tight sm:h-11 sm:px-5 sm:text-sm"
+        onClick={() => open("header")}
       >
-        <CalendarCheck aria-hidden="true" /> Book Now
+        <CalendarCheck className="hidden sm:block" aria-hidden="true" />
+        Book a Consultation
       </Button>
     </div>
   );

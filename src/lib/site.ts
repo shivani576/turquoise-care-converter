@@ -38,57 +38,41 @@ export const CLINIC = {
   },
 };
 
-/** Clinic coordinates (from the Google Business Profile listing). */
-export const CLINIC_GEO = { lat: 42.2843186, lng: -71.3391106, radiusKm: 10 };
+/** Clinic coordinates (from the Google Business Profile listing). The radius covers the
+ * farthest listed location (Lexington, ~22 km). */
+export const CLINIC_GEO = { lat: 42.2843186, lng: -71.3391106, radiusKm: 25 };
 
 /**
- * Towns whose centers are within ~10 km of the Natick office — the radius the
- * ads target. Order = closest / most valuable first. Used in page copy, the
- * "near you" section, FAQs and schema so local searches match the page.
+ * Locations the clinic serves — exactly the client's list (Oct 2026), in their order.
+ * `label` is shown on the page as given by the client.
  */
-export const SERVICE_AREAS = [
-  "Natick",
-  "Wellesley",
-  "Framingham",
-  "Needham",
-  "Sherborn",
-  "Dover",
-  "Wayland",
-  "Weston",
-  "Ashland",
-];
+export const LOCATIONS = [
+  { town: "Natick", label: "Natick, MA" },
+  { town: "Weston", label: "Weston, MA 02494" },
+  { town: "Wellesley", label: "Wellesley, MA" },
+  { town: "Sudbury", label: "Sudbury, MA" },
+  { town: "Wayland", label: "Wayland, MA" },
+  { town: "Newton", label: "Newton, MA" },
+  { town: "Concord", label: "Concord, MA" },
+  { town: "Lincoln", label: "Lincoln, MA" },
+  { town: "Lexington", label: "Lexington, MA" },
+  { town: "Sherborn", label: "Sherborn, MA" },
+] as const;
 
-/** Village names people also search by. */
-export const NEIGHBORHOODS = ["South Natick", "Wellesley Hills", "Saxonville", "Cochituate"];
-
-export const SERVICE_ZIPS = [
-  "01760",
-  "02481",
-  "02482",
-  "01701",
-  "01702",
-  "02492",
-  "02494",
-  "01770",
-  "02030",
-  "01778",
-  "02493",
-  "01721",
-];
+export const SERVICE_AREAS: string[] = LOCATIONS.map((l) => l.town);
 
 /**
  * ?town= values the ads can append to the landing URL (e.g. /migraine?town=wellesley)
  * so the page names the searcher's own town.
  */
 export const TOWN_PARAM: Record<string, string> = Object.fromEntries(
-  [...SERVICE_AREAS, ...NEIGHBORHOODS].map((t) => [t.toLowerCase().replace(/\s+/g, "-"), t]),
+  SERVICE_AREAS.map((t) => [t.toLowerCase().replace(/\s+/g, "-"), t]),
 );
 
 export const CREDENTIALS = [
   "Board-certified physician",
-  "Fellowship-trained in Headache & Facial Pain Medicine",
-  "Fellowship-trained in Interventional Pain Medicine",
-  "Trained at Yale & Dartmouth",
+  "Dual fellowship trained: Headache & Facial Pain Medicine and Interventional Pain Medicine",
+  "Fellowships at Yale & Dartmouth",
   "Former director, Headache & Facial Pain Program, Tufts Medical Center",
 ];
 
@@ -194,6 +178,8 @@ export interface Reel {
   code: string;
   title: string;
   topic: "migraine" | "botox" | "prp" | "pain";
+  /** No usable still for this reel (only a blurry frame): show a designed brand cover instead. */
+  designedCover?: boolean;
 }
 
 export const REELS: Reel[] = [
@@ -217,7 +203,12 @@ export const REELS: Reel[] = [
     title: "Why migraines often follow your hormonal cycle",
     topic: "migraine",
   },
-  { code: "DaQ7Jkfvz58", title: "Can weather changes trigger your migraines?", topic: "migraine" },
+  {
+    code: "DaQ7Jkfvz58",
+    title: "Can weather changes trigger your migraines?",
+    topic: "migraine",
+    designedCover: true,
+  },
   { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
   { code: "DYkOmlxgSp_", title: "Your MRI may not explain your pain", topic: "pain" },
 ];
@@ -241,6 +232,6 @@ export const GENERAL_FAQS = [
   },
   {
     q: "Where are you located?",
-    a: "10 Union Street, Suite 2D, Natick, MA 01760. We're a short drive from Wellesley, Framingham, Needham, Sherborn, Dover, Wayland, Weston and Ashland, and patients come to us from across MetroWest.",
+    a: "10 Union Street, Suite 2D, Natick, MA 01760. We see patients from Natick, Weston, Wellesley, Sudbury, Wayland, Newton, Concord, Lincoln, Lexington and Sherborn.",
   },
 ];

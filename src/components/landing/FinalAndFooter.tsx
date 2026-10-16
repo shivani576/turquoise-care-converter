@@ -3,7 +3,7 @@ import { Instagram, Mail, MapPin, Phone, Printer } from "lucide-react";
 import logo from "@/assets/logo.webp";
 import { CLINIC } from "@/lib/site";
 import { track } from "@/lib/track";
-import { LeadForm } from "./LeadForm";
+import { FORM_HEADING, LeadForm } from "./LeadForm";
 
 /** Closing section with the inline form (same three fields as the pop-up). */
 export function FinalCta({ heading, concern }: { heading: string; concern?: string | undefined }) {
@@ -19,24 +19,12 @@ export function FinalCta({ heading, concern }: { heading: string; concern?: stri
             {heading}
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
-            Request a free 15-minute consultation and our team will call you to find a time that
-            works. No referral needed.
-          </p>
-          <p className="mt-6 text-ink-muted">
-            Prefer to call?{" "}
-            <a
-              href={`tel:${CLINIC.phoneTel}`}
-              className="js-track-call font-semibold text-ink-foreground underline underline-offset-4"
-              data-track="phone_click"
-              data-location="final"
-              onClick={() => track("phone_click", { location: "final" })}
-            >
-              {CLINIC.phoneDisplay}
-            </a>
+            Your free 15-minute consultation is with the doctor, so you can ask your questions
+            before you book a full visit. No referral needed.
           </p>
         </div>
         <div className="text-foreground">
-          <LeadForm location="final" concern={concern} heading="Request an appointment" />
+          <LeadForm location="final" concern={concern} heading={FORM_HEADING} />
         </div>
       </div>
     </section>
@@ -46,7 +34,7 @@ export function FinalCta({ heading, concern }: { heading: string; concern?: stri
 export function Footer() {
   const { address } = CLINIC;
   return (
-    <footer className="border-t border-border bg-card pb-28 pt-12 md:pb-12">
+    <footer className="border-t border-border bg-card py-10 md:py-12">
       <div className="container-page grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <img

@@ -55,10 +55,10 @@ export const HOME_PAGE: PageCopy = {
   headline: "Personalized Pain Management Specialist",
   highlight: "Pain Management",
   subheadline:
-    "A full hour with a dual fellowship trained physician to find what's driving your pain, and a treatment plan built around you.",
+    "A full hour with Dr. Amir to find what's driving your pain, and a treatment plan built around you.",
   heroPoints: [
-    "Dual fellowship trained, board-certified physician",
     "Cash-pay clinic — no insurance approvals to wait on",
+    "Dual fellowship trained, board-certified physician",
     "No referral needed",
   ],
   localKeyword: "pain management",
@@ -88,14 +88,14 @@ export const HOME_PAGE: PageCopy = {
 
 export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   migraine: {
-    title: "Migraine Specialist in Natick, MA | Near Wellesley, Framingham & Needham",
+    title: "Migraine Specialist in Natick, MA | Near Wellesley, Weston & Newton",
     description:
-      "Migraine doctor in Natick, MA for patients from Wellesley, Framingham, Needham, Sherborn, Dover and Wayland. Fellowship-trained headache specialist, 60-minute first visit, nerve blocks & Botox. No referral needed.",
+      "Migraine doctor in Natick, MA for patients from Weston, Wellesley, Sudbury, Wayland, Newton and Sherborn. Dual fellowship trained headache specialist, 60-minute first visit, nerve blocks & Botox. No referral needed.",
     eyebrow: "Migraine specialist · Natick, MA",
     headline: "Losing Days to Migraines? See a Headache Specialist in Natick.",
     highlight: "See a Headache Specialist",
     subheadline:
-      "A full-hour first visit with a fellowship-trained headache specialist, plus in-office options like nerve blocks and Botox.",
+      "A full-hour first visit with a dual fellowship trained headache specialist, plus in-office options like nerve blocks and Botox.",
     heroPoints: ["60-min first visit", "Nerve blocks & Botox in-office", "No referral needed"],
     localKeyword: "migraine treatment",
     whySpecialist:
@@ -147,9 +147,9 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   },
 
   "botox-migraine": {
-    title: "Botox for Migraines in Natick, MA | Near Wellesley & Framingham",
+    title: "Botox for Migraines in Natick, MA | Near Wellesley & Weston",
     description:
-      "Botox for chronic migraine in Natick, MA, given by a fellowship-trained headache specialist. Serving Wellesley, Framingham, Needham, Sherborn, Dover and Wayland. No referral needed.",
+      "Botox for chronic migraine in Natick, MA, given by a dual fellowship trained headache specialist. Serving Weston, Wellesley, Sudbury, Wayland, Newton and Sherborn. No referral needed.",
     eyebrow: "Botox for chronic migraine · Natick, MA",
     headline: "15+ Headache Days a Month? Ask About Botox for Chronic Migraine.",
     highlight: "Ask About Botox",
@@ -206,18 +206,18 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   },
 
   tmj: {
-    title: "TMJ & Jaw Pain Treatment in Natick, MA | Near Wellesley & Framingham",
+    title: "TMJ & Jaw Pain Treatment in Natick, MA | Near Wellesley & Weston",
     description:
-      "TMJ and jaw pain treatment in Natick, MA from a physician fellowship-trained in Headache & Facial Pain. Serving Wellesley, Framingham, Needham, Sherborn and Wayland. No referral needed.",
+      "TMJ and jaw pain treatment in Natick, MA from a dual fellowship trained physician (Headache & Facial Pain). Serving Weston, Wellesley, Sudbury, Wayland and Newton. No referral needed.",
     eyebrow: "TMJ & jaw pain · Natick, MA",
     headline: "Jaw Pain, Clenching or Morning Headaches? See a Facial Pain Specialist.",
     highlight: "See a Facial Pain Specialist",
     subheadline:
-      "Fellowship-trained in facial pain, Dr. Amir treats the jaw and the headaches together.",
+      "Dual fellowship trained, including facial pain, Dr. Amir treats the jaw and the headaches together.",
     heroPoints: ["Jaw + headaches treated together", "In-office injections", "No referral needed"],
     localKeyword: "TMJ treatment",
     whySpecialist:
-      "TMJ disorder sits where the jaw, head and face meet, so a physician fellowship-trained in Headache and Facial Pain Medicine is well placed to treat it.",
+      "TMJ disorder sits where the jaw, head and face meet, so a dual fellowship trained physician — including Headache and Facial Pain Medicine — is well placed to treat it.",
     ctaLabel: "Book My TMJ Visit",
     formConcern: "TMJ Disorder (TMD)",
     painTitle: "Does this sound like you?",
@@ -264,7 +264,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   "neck-spasms": {
     title: "Cervical Dystonia & Spasticity Botox in Natick, MA | Turquoise Institute",
     description:
-      "Botox, Xeomin and Dysport injections for cervical dystonia and spasticity in Natick, MA. Serving Wellesley, Framingham, Needham and nearby towns. No referral needed.",
+      "Botox, Xeomin and Dysport injections for cervical dystonia and spasticity in Natick, MA. Serving Weston, Wellesley, Newton and nearby towns. No referral needed.",
     eyebrow: "Botox · Xeomin · Dysport · Natick, MA",
     headline: "Neck Pulling, Twisting or Painful Spasms? Targeted Injections Can Help.",
     highlight: "Targeted Injections Can Help",
@@ -305,9 +305,9 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   },
 
   prp: {
-    title: "PRP Injections in Natick, MA | Near Wellesley, Framingham & Needham",
+    title: "PRP Injections in Natick, MA | Near Wellesley, Weston & Newton",
     description:
-      "Image-guided PRP injections for knee, shoulder and tendon pain in Natick, MA. Serving Wellesley, Framingham, Needham, Sherborn, Dover and Wayland. No referral needed.",
+      "Image-guided PRP injections for knee, shoulder and tendon pain in Natick, MA. Serving Weston, Wellesley, Sudbury, Wayland, Newton and Sherborn. No referral needed.",
     eyebrow: "PRP injections · Natick, MA",
     headline: "Joint or Tendon Pain Not Healing? See If PRP Is Right for You.",
     highlight: "See If PRP Is Right for You",
@@ -360,7 +360,7 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   shoulder: {
     title: "Shoulder & Rotator Cuff Pain Treatment in Natick, MA | Near Wellesley",
     description:
-      "Non-surgical shoulder and rotator cuff pain treatment in Natick, MA: image-guided injections and PRP. Serving Wellesley, Framingham, Needham and nearby towns. No referral needed.",
+      "Non-surgical shoulder and rotator cuff pain treatment in Natick, MA: image-guided injections and PRP. Serving Weston, Wellesley, Newton and nearby towns. No referral needed.",
     eyebrow: "Shoulder & rotator cuff pain · Natick, MA",
     headline: "Shoulder Pain Keeping You Up at Night? Explore Non-Surgical Options First.",
     highlight: "Explore Non-Surgical Options First",
@@ -405,9 +405,9 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
   },
 
   "joint-pain": {
-    title: "Knee & Joint Pain Treatment in Natick, MA | Near Wellesley & Framingham",
+    title: "Knee & Joint Pain Treatment in Natick, MA | Near Wellesley & Weston",
     description:
-      "Non-surgical knee, hip and joint arthritis treatment in Natick, MA: image-guided injections and PRP. Serving Wellesley, Framingham, Needham, Sherborn and Wayland. No referral needed.",
+      "Non-surgical knee, hip and joint arthritis treatment in Natick, MA: image-guided injections and PRP. Serving Weston, Wellesley, Sudbury, Wayland and Newton. No referral needed.",
     eyebrow: "Knee, hip & joint arthritis · Natick, MA",
     headline: "Knee or Hip Arthritis Slowing You Down? Explore Options Before Surgery.",
     highlight: "Explore Options Before Surgery",
