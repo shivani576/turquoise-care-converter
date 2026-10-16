@@ -53,7 +53,7 @@ swap was removed). Meta titles/descriptions may still name the area for local se
 
 ## Page structure (keep this order — client brief Oct 16 2026)
 
-Sticky header (logo; phone number appears after the first fold) →
+Sticky header (logo + phone number, always visible) →
 Hero → proof bar → **second fold**: services (home) / "Does this sound like you?" (ad-group
 pages) → "Does this sound like you?" (home) / options (ad-group pages) → Meet the doctor (one
 photo) → reviews → Instagram reels → Our clinic (facilities, one horizontal row) → Cash-pay explained → FAQ →
@@ -61,12 +61,13 @@ Locations + map → closing form (`#consultation`) → footer.
 
 ### Calls to action (client rules)
 
-- First fold: exactly ONE CTA, "Book a Free 15-Minute Consultation" (`BookCta` in
+- First fold: exactly ONE booking button, "Book a Free 15-Minute Consultation" (`BookCta` in
   `src/components/landing/Booking.tsx`). It opens the booking **pop-up** (native `<dialog>`).
+- The header phone number (`HeaderActions`) is visible at all times, first fold included, on
+  every page and on mobile (client, Oct 16).
 - After the first fold (hero CTA scrolled out of view), on every page and on mobile too:
-  `HeaderActions` shows the phone number in the header, and `StickyBookBar` shows a sticky
-  "Book a Consultation" bar at the bottom of the screen (floating pill on desktop). Both are
-  hidden in the first fold. The footer has bottom padding so the bar never covers it.
+  `StickyBookBar` shows a sticky "Book a Consultation" bar at the bottom of the screen
+  (floating pill on desktop). It is hidden in the first fold. The footer has bottom padding so the bar never covers it.
 - No other CTAs in sections: no section Book buttons. The only tel link in `main` is the
   phone number in the FAQ intro ("Before you book"; tracked as `phone_click`, location `faq`);
   otherwise phone links are only in the header, footer and the form error message.
@@ -94,7 +95,9 @@ Locations + map → closing form (`#consultation`) → footer.
   badge); without a photo the card shows the animated spine graphic (`PainMap.tsx`) instead.
   Each card links to its page and ends with "Learn more". Slugs: migraine,
   headache, botox-migraine, prp, tmj, nerve-blocks, neck-spasms, shoulder, joint-pain.
-  All 9 photos were supplied by the client (Oct 16), who confirmed they may be used.
+  All 9 photos were supplied by the client (Oct 16), who confirmed they may be used. Keep the
+  set mixed (men and women), not only female patients; Botox, TMJ and joint-pain photos were
+  swapped for male patients / a doctor's exam for that reason.
 - Reviews: one horizontal row that auto-scrolls (`useAutoScroll`; pauses on mouse hover,
   touch, focus and while a review is open). Each shows 3 lines; "Read more" (only when cut off)
   expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
@@ -102,6 +105,11 @@ Locations + map → closing form (`#consultation`) → footer.
 - Instagram reels stay: play icon invisible until hover/focus; a tap plays inline (no pop-up).
   The 3rd reel ("weather", `DaQ7Jkfvz58.webp`) uses a designed 720×1280 thumbnail (brand
   gradient, storm cloud, "Weather & migraines", Dr. Amir's real headshot) — its still was blurry.
+  Reel order (client, Oct 16): weather, "next migraine treatment isn't another pill", "Botox
+  isn't just cosmetic", then the rest (`REELS` order). The home page uses that order as is;
+  service pages group reels by their `reelTopics`.
+- Hero subheadline must not promise a visit length ("a full hour"); keep it generic. The
+  60-minute first visit may still be mentioned below the hero.
 
 ## Brand (must match turquoiseinstitute.com)
 

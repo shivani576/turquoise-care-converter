@@ -18,10 +18,10 @@ import { FinalCta, Footer, ScrollDepthTracker } from "./FinalAndFooter";
 
 /**
  * Shared page layout for the home page and every ad-group page.
- * First fold: hero with ONE call to action (opens the booking pop-up).
- * Second fold: services (home) or "does this sound like you" (ad-group pages).
- * Once the hero CTA scrolls out of view, the sticky header shows the phone number and a
- * sticky "Book a Consultation" bar appears at the bottom. The closing form ends the page.
+ * First fold: hero with ONE booking button (opens the pop-up); the header phone number
+ * is always shown. Second fold: services (home) or "does this sound like you" (ad-group
+ * pages). Once the hero CTA scrolls out of view, a sticky "Book a Consultation" bar
+ * appears at the bottom. The closing form ends the page.
  */
 export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: boolean }) {
   return (

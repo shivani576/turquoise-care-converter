@@ -54,8 +54,7 @@ export const HOME_PAGE: PageCopy = {
   eyebrow: "",
   headline: "Personalized Pain Management Specialist",
   highlight: "Pain Management",
-  subheadline:
-    "A full hour with Dr. Amir to find what's driving your pain, and a treatment plan built around you.",
+  subheadline: "Find out what's driving your pain, and get a treatment plan built around you.",
   heroPoints: [
     "Cash-pay clinic: no insurance approvals to wait on",
     "Dual fellowship trained, board-certified physician",
@@ -82,7 +81,8 @@ export const HOME_PAGE: PageCopy = {
     },
     ...GENERAL_FAQS,
   ],
-  reelTopics: ["migraine", "botox", "prp", "pain"],
+  // Empty: the home page shows the reels in the client's order (REELS in site.ts).
+  reelTopics: [],
   finalHeadline: "One unhurried visit can change your whole plan.",
 };
 

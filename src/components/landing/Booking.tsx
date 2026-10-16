@@ -151,18 +151,10 @@ function usePastFirstFold() {
   return past;
 }
 
-/** Header phone number: hidden in the first fold, shown once it has scrolled away. */
+/** Header phone number: always visible, first fold included (client, Oct 16). */
 export function HeaderActions() {
-  const show = usePastFirstFold();
   return (
-    <div
-      id="header-actions"
-      aria-hidden={!show}
-      className={cn(
-        "transition-all duration-300",
-        show ? "visible opacity-100" : "pointer-events-none invisible -translate-y-1 opacity-0",
-      )}
-    >
+    <div id="header-actions">
       <a
         href={`tel:${CLINIC.phoneTel}`}
         id="cta-call-header"

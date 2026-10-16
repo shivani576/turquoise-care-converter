@@ -58,14 +58,14 @@ const photoFor = (slug: string) =>
   Object.entries(SERVICE_PHOTOS).find(([path]) => path.endsWith(`/${slug}.webp`))?.[1];
 
 const PHOTO_ALT: Record<string, string> = {
-  "botox-migraine": "Doctor giving a patient a Botox injection at the forehead",
+  "botox-migraine": "Gloved hands giving a man a Botox injection at the forehead",
   migraine: "Woman holding her temples during a migraine",
   headache: "Woman on a sofa with a headache, hand on her forehead",
   prp: "Ultrasound-guided injection of platelet-rich plasma into the knee",
   "neck-spasms": "Woman holding the back of her painful neck",
   shoulder: "Woman holding her painful shoulder, with the joint highlighted",
-  "joint-pain": "Person holding a painful hip and knee",
-  tmj: "Woman holding her jaw in pain",
+  "joint-pain": "Doctor examining a patient's knee",
+  tmj: "Man holding his painful jaw",
   "nerve-blocks": "Doctor giving an injection in the upper back",
 };
 

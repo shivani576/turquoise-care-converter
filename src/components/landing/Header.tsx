@@ -2,9 +2,9 @@ import logo from "@/assets/logo.webp";
 import { HeaderActions } from "./Booking";
 
 /**
- * Sticky header styled like turquoiseinstitute.com. In the first fold it shows only
- * the logo; on landing pages (`actions`) the phone number appears once the first fold
- * has scrolled away — on mobile too. "Book a Consultation" is the sticky bottom bar.
+ * Sticky header styled like turquoiseinstitute.com: the logo and, on landing pages
+ * (`actions`), the phone number, always visible (mobile too). "Book a Consultation"
+ * is the sticky bottom bar after the first fold.
  */
 export function Header({ actions = false }: { actions?: boolean }) {
   return (

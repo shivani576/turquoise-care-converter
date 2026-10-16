@@ -194,7 +194,13 @@ export interface Reel {
   topic: "migraine" | "botox" | "prp" | "pain";
 }
 
+// Order chosen by the client (Oct 16): the weather video and the two Botox videos lead.
 export const REELS: Reel[] = [
+  {
+    code: "DaQ7Jkfvz58",
+    title: "Can weather changes trigger your migraines?",
+    topic: "migraine",
+  },
   {
     code: "DeMXeRCABoB",
     title: "What if your next migraine treatment isn't another pill?",
@@ -213,11 +219,6 @@ export const REELS: Reel[] = [
   {
     code: "DZ-o0q2KDw6",
     title: "Why migraines often follow your hormonal cycle",
-    topic: "migraine",
-  },
-  {
-    code: "DaQ7Jkfvz58",
-    title: "Can weather changes trigger your migraines?",
     topic: "migraine",
   },
   { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
