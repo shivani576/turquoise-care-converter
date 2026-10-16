@@ -170,8 +170,6 @@ export interface Reel {
   code: string;
   title: string;
   topic: "migraine" | "botox" | "prp" | "pain";
-  /** No usable still for this reel (only a blurry frame): show a designed brand cover instead. */
-  designedCover?: boolean;
 }
 
 export const REELS: Reel[] = [
@@ -199,7 +197,6 @@ export const REELS: Reel[] = [
     code: "DaQ7Jkfvz58",
     title: "Can weather changes trigger your migraines?",
     topic: "migraine",
-    designedCover: true,
   },
   { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
   { code: "DYkOmlxgSp_", title: "Your MRI may not explain your pain", topic: "pain" },

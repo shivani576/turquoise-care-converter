@@ -2,10 +2,10 @@ import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Instagram, Play, X } from "lucide-react";
 import { CLINIC, REELS, type Reel } from "@/lib/site";
 import { track } from "@/lib/track";
-import { PainMap } from "./PainMap";
 
 // Cover images are stills from Dr. Amir's own reels (WebP; Instagram's baked-in play
-// button removed so no play icon shows until hover/focus).
+// button removed so no play icon shows until hover/focus). DaQ7Jkfvz58 (weather) is a
+// designed thumbnail with his real headshot — its only still was too blurry.
 const covers = import.meta.glob<string>("../../assets/reels/*.webp", {
   eager: true,
   import: "default",
@@ -100,21 +100,15 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
                 className="group block w-full text-left"
               >
                 <span className="relative block aspect-[9/16] overflow-hidden rounded-2xl bg-ink shadow-card">
-                  {r.designedCover ? (
-                    <span className="flex size-full items-center justify-center bg-gradient-to-b from-[#1f5a4b] to-ink px-8 pb-20 pt-6 text-primary-soft">
-                      <PainMap area="temples" className="h-full max-h-52 w-auto" />
-                    </span>
-                  ) : (
-                    <img
-                      src={coverFor(r.code)}
-                      alt="Still from one of Dr. Amir's videos"
-                      width={360}
-                      height={640}
-                      loading="lazy"
-                      decoding="async"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  )}
+                  <img
+                    src={coverFor(r.code)}
+                    alt="Still from one of Dr. Amir's videos"
+                    width={360}
+                    height={640}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
                   <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   {/* Hidden until hover / keyboard focus; a tap plays straight away */}
                   <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">

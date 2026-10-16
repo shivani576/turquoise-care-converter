@@ -57,6 +57,11 @@ const photoFor = (slug: string) =>
 
 const PHOTO_ALT: Record<string, string> = {
   "botox-migraine": "Doctor giving a patient a Botox injection at the forehead",
+  migraine: "Woman holding her temples during a migraine",
+  headache: "Woman on a sofa with a headache, hand on her forehead",
+  prp: "Injection with a syringe of golden platelet-rich plasma",
+  tmj: "Woman holding her jaw in pain",
+  "nerve-blocks": "Doctor giving an injection in the upper back",
 };
 
 const SERVICES = [
