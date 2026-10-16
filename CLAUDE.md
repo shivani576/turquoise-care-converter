@@ -83,7 +83,10 @@ Locations + map → closing form (`#consultation`) → footer.
 - Hero background photo (optional, `Hero.tsx`): a real, licensed photo at
   `src/assets/hero/hero.webp` (~1920×1080) and optional `hero-mobile.webp` (~800×1200) shows
   behind the hero under a soft overlay; no file = plain mint gradient. Not a doctor photo.
-  Client asked for one (Oct 16) for trust; waiting on the photo (sandbox can't reach stock sites).
+  Current photos (Oct 16): a bright exam/consult room with a mint wall, supplied by the client
+  as AI-generated images (the one exception to the real-photos rule, decided by the client).
+  It shows a generic room with no people, so it doesn't claim to be the clinic. Replace with
+  real photos of the Natick office when available.
 - Every page (home + 9 service pages): NO city/location in the H1 or hero; the cash-pay bullet
   first; credential wording is exactly "dual fellowship trained".
 - Home page: H1 "Personalized Pain Management Specialist".
@@ -136,6 +139,8 @@ Locations + map → closing form (`#consultation`) → footer.
 - Last measured (Lighthouse mobile, slow 4G, compressed): 82–86 performance, CLS 0, ~380 KB.
 
 ## Photos — real only, never AI-generated
+
+Exception: the hero background room image (client-supplied, AI-generated, no people).
 
 - `src/assets/photos/dr-amir-headshot.jpg` — official headshot (primary doctor photo).
 - Other photos and reel covers are stills from Dr. Amir's Instagram (`@dramir.pain.headachemd`).
