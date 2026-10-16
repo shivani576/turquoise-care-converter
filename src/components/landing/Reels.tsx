@@ -13,9 +13,10 @@ const covers = import.meta.glob<string>("../../assets/reels/*.webp", {
 const coverFor = (code: string) =>
   Object.entries(covers).find(([path]) => path.endsWith(`/${code}.webp`))?.[1];
 
-// The reels as our own MP4 files (src/assets/reels/<code>.mp4, H.264, ~720×1280). When a file
-// exists, a tap plays it right here with the native player: one tap, no Instagram links.
-// Without one we fall back to Instagram's player, sandboxed so it can't open Instagram.
+// The reels as our own MP4 files (src/assets/reels/<code>.mp4, H.264, ~720×1280). A tap plays
+// the file right here with the native player: one tap, no Instagram links (client rule).
+// Instagram's own player is never used (it needs a second tap and links out), so a reel
+// without an MP4 isn't shown, and the section is hidden until at least one MP4 exists.
 const videos = import.meta.glob<string>("../../assets/reels/*.mp4", {
   eager: true,
   import: "default",
@@ -25,14 +26,14 @@ const videoFor = (code: string) =>
 
 /**
  * Horizontal row of Dr. Amir's reels. Only the cover images load with the page.
- * Tapping a cover plays the video right there in the row (no pop-up, no link out):
- * our own MP4 when we have it, otherwise Instagram's sandboxed player.
+ * Tapping a cover plays our own MP4 right there in the row (no pop-up, no link out).
  */
 export function Reels({ topics }: { topics?: Reel["topic"][] }) {
   const [playing, setPlaying] = useState<string | null>(null);
   const rail = useRef<HTMLUListElement>(null);
 
-  const ordered = topics?.length ? [...REELS].sort((a, b) => rank(a) - rank(b)) : REELS;
+  const withVideo = REELS.filter((r) => videoFor(r.code));
+  const ordered = topics?.length ? [...withVideo].sort((a, b) => rank(a) - rank(b)) : withVideo;
   function rank(r: Reel) {
     const i = topics!.indexOf(r.topic);
     return i === -1 ? 99 : i;
@@ -40,6 +41,9 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
 
   const scroll = (dir: 1 | -1) =>
     rail.current?.scrollBy({ left: dir * rail.current.clientWidth * 0.8, behavior: "smooth" });
+
+  // No MP4s yet: hide the whole section rather than fall back to Instagram.
+  if (ordered.length === 0) return null;
 
   return (
     <section className="section-pad overflow-hidden" id="videos">
@@ -75,38 +79,25 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
       <ul
         ref={rail}
         className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-[max(2rem,calc((100vw_-_76rem)/2_+_2rem))]"
-        aria-label="Instagram videos from Dr. Amir"
+        aria-label="Videos from Dr. Amir"
       >
         {ordered.map((r) =>
           playing === r.code ? (
             <li key={r.code} className="w-[min(88vw,22rem)] shrink-0 snap-start">
               <div className="relative overflow-hidden rounded-2xl border border-border bg-white shadow-card">
-                {videoFor(r.code) ? (
-                  <video
-                    src={videoFor(r.code)}
-                    poster={coverFor(r.code)}
-                    title={r.title}
-                    aria-label={r.title}
-                    className="block aspect-[9/16] max-h-[min(80vh,40rem)] w-full bg-black object-contain"
-                    controls
-                    autoPlay
-                    playsInline
-                    preload="auto"
-                    controlsList="nodownload"
-                    onEnded={() => track("reel_complete", { reel: r.code })}
-                  />
-                ) : (
-                  <iframe
-                    title={r.title}
-                    src={`https://www.instagram.com/reel/${r.code}/embed/`}
-                    className="block h-[min(80vh,40rem)] w-full"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    // No allow-popups / allow-top-navigation: links inside the player
-                    // ("View on Instagram", profile) can't take the visitor off the page.
-                    sandbox="allow-scripts allow-same-origin allow-presentation"
-                  />
-                )}
+                <video
+                  src={videoFor(r.code)}
+                  poster={coverFor(r.code)}
+                  title={r.title}
+                  aria-label={r.title}
+                  className="block aspect-[9/16] max-h-[min(80vh,40rem)] w-full bg-black object-contain"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  controlsList="nodownload"
+                  onEnded={() => track("reel_complete", { reel: r.code })}
+                />
                 <button
                   type="button"
                   onClick={() => setPlaying(null)}
