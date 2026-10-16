@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { serveMedia } from "./lib/media.server";
 import { isCanonicalHost, wwwRedirect } from "./lib/seo";
 
 type ServerEntry = {
@@ -83,6 +84,11 @@ export default {
     try {
       const redirect = wwwRedirect(request);
       if (redirect) return redirect;
+      // Reel videos with Range support (Node/Railway only; Vercel's CDN serves them itself).
+      if (!__ON_VERCEL__) {
+        const media = await serveMedia(request);
+        if (media) return withRobotsHeader(request, media);
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return compress(

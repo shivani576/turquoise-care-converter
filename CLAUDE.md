@@ -109,18 +109,28 @@ Locations + map → closing form (`#consultation`) → footer.
   touch, focus and while a review is open). Each shows 3 lines; "Read more" (only when cut off)
   expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
   supplied yet — add real ones only.
-- Reels: play icon invisible until hover/focus; ONE tap plays inline with the native `<video>`
-  player (no pop-up). Visitors must never be sent to Instagram from this section and must
-  never need a second tap (client, Oct 16), so Instagram's embed is NOT used at all. Each reel
-  needs its own MP4 at `src/assets/reels/<code>.mp4` (H.264 + AAC, ~720×1280,
-  `-movflags +faststart`); a reel without one isn't shown, and the whole section is hidden
-  until at least one MP4 exists (client chose this over the Instagram player). No "More
-  videos on Instagram" card. `reel_complete` fires at the end.
+- Reels (`Reels.tsx`): our own MP4s only. Instagram's embed is NOT used (it needs a second
+  tap and links out); visitors must never be sent to Instagram from this section (client,
+  Oct 16). No "More videos on Instagram" card. Behaviour (client, Oct 16):
+  - The first video autoplays MUTED when the section scrolls into view (browsers only allow
+    muted autoplay), with a "Tap for sound" badge; skipped for reduced-motion / Save-Data.
+  - ONE tap on any video plays it from the start with sound + native controls (`reel_open`).
+  - Scrolling the section out of view pauses whatever plays; coming back resumes it.
+  - `reel_complete` fires at the end. Covers are `src/assets/reels/<code>.webp`.
+  Files: `src/assets/reels/<code>.mp4`, H.264 main + AAC, 540×960, CRF 29, `+faststart`
+  (landscape sources are centre-cropped to 9:16, which also drops the VEED watermark).
+  A reel without an MP4 isn't shown; no MP4s = no section.
+  iPhone Safari needs HTTP Range: on Node/Railway the videos are served through
+  `/media/assets/<file>.mp4` (`src/lib/media.server.ts`, 206 responses); Vercel and dev use
+  the plain `/assets/` URL (their servers support Range). Keep it that way.
   The weather reel (`DaQ7Jkfvz58.webp`) uses a designed 720×1280 thumbnail (brand
   gradient, storm cloud, "Weather & migraines", Dr. Amir's real headshot) — its still was blurry.
   Reel order (client, Oct 16): PRP ("pain relief from your own blood"), "next migraine
   treatment isn't another pill", "Botox isn't just cosmetic", "what kind of headache", weather,
-  then the rest (`REELS` order). The home page uses that order as is;
+  then the rest (`REELS` order). Supplied so far: PRP, another pill, Botox cosmetic, MRI
+  (white-coat video, matched by its cover), carpal tunnel, and two with unconfirmed topics
+  (`dr-amir-office`, `dr-amir-outdoors`, neutral titles). Still missing: what kind of
+  headache, weather, hormonal cycle. The home page uses that order as is;
   service pages group reels by their `reelTopics`.
 - Hero subheadline must not promise a visit length ("a full hour"); keep it generic. The
   60-minute first visit may still be mentioned below the hero.
@@ -195,8 +205,9 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 - Finish the Railway setup (`docs/RAILWAY.md`), move the domain from Vercel to Railway, retire Vercel.
 - Point `turquoiseinstitute.com` + `www` at the host (`docs/ROOT-DOMAIN.md`) — first decide
   where the current website's pages (privacy, terms, payment policy, articles) will live.
-- Get the 7 reels as MP4 files (drop in `src/assets/reels/<code>.mp4`): the videos section
-  is hidden on every page until they arrive.
+- Reels still missing as MP4: what kind of headache (`DX92rd2qyXb`), weather (`DaQ7Jkfvz58`),
+  hormonal cycle (`DZ-o0q2KDw6`). Get real titles for `dr-amir-office` and `dr-amir-outdoors`
+  and confirm the white-coat video is the MRI reel.
 - Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.

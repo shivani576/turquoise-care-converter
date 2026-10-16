@@ -223,6 +223,15 @@ export const REELS: Reel[] = [
     topic: "migraine",
   },
   { code: "DYkOmlxgSp_", title: "Your MRI may not explain your pain", topic: "pain" },
+  {
+    // Supplied as a file (Oct 16), not one of the original Instagram codes.
+    code: "carpal-tunnel",
+    title: "Numbness and tingling in your hand: could it be carpal tunnel?",
+    topic: "pain",
+  },
+  // Supplied as files (Oct 16). Topics not confirmed yet: neutral titles until the client names them.
+  { code: "dr-amir-office", title: "Dr. Amir answers a common patient question", topic: "pain" },
+  { code: "dr-amir-outdoors", title: "A quick tip from Dr. Amir", topic: "pain" },
 ];
 
 export const GENERAL_FAQS = [
