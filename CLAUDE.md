@@ -49,41 +49,47 @@ Aliases live in `CONDITION_ALIASES` in `src/routes/$condition.tsx`.
 Ads may append `?town=<town>` (e.g. `/migraine?town=wellesley`): the hero headline's
 "in Natick" becomes "near Wellesley". Allowed towns = `TOWN_PARAM` in `site.ts`.
 
-## Page structure (keep this order — client-approved Oct 2026)
+## Page structure (keep this order — client brief Oct 16 2026)
 
-Header (logo only, no buttons) → Hero → proof bar → **second fold**: services (home) /
-"Does this sound like you?" (ad-group pages) → `[data-sticky-start]` marker →
-"Does this sound like you?" (home) / options + "Why see a specialist?" (ad-group pages) →
-Meet the doctor → Google reviews → Instagram reels → Our clinic (facilities) →
-Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing form
-(`#consultation`) → footer.
+Sticky header (logo; phone + "Book a Consultation" appear after the hero CTA scrolls away) →
+Hero → proof bar → **second fold**: services (home) / "Does this sound like you?" (ad-group
+pages) → "Does this sound like you?" (home) / options (ad-group pages) → Meet the doctor (one
+photo) → reviews → Instagram reels → Our clinic (facilities) → Cash-pay explained → FAQ →
+Locations + map → closing form (`#consultation`) → footer.
 
 ### Calls to action (client rules)
 
-- First fold: exactly ONE CTA, "Book a Free 15-Minute Consultation" (`BookCta`,
-  `src/components/landing/Booking.tsx`). No header buttons, no call buttons, no sticky in the first fold.
-- Every Book button opens the booking **pop-up** (native `<dialog>`); it never scrolls the page.
-- In-page CTAs: hero + cash-pay section + the closing form only. Don't add others.
-- Sticky "Book Now" (`StickyBookNow`): only after the second fold; hidden while any
-  `[data-main-cta]` is on screen or the pop-up is open.
+- First fold: exactly ONE CTA, "Book a Free 15-Minute Consultation" (`BookCta` in
+  `src/components/landing/Booking.tsx`). It opens the booking **pop-up** (native `<dialog>`).
+- Header exception: `HeaderActions` (phone number + sticky "Book a Consultation") is hidden in
+  the first fold and appears once the hero CTA has scrolled out of view — on mobile too.
+- No other CTAs in sections: no section Book buttons, no tel links in `main` (phone appears
+  as plain text in the FAQ; links only in the header, footer and the form error message).
+- Every form heading: "Book a direct appointment with a doctor." (`FORM_HEADING`).
 
 ### Hero rules (client)
 
 - Centred, single column: H1 (key phrase highlighted in brand teal), one sentence, short tick
-  bullets (`heroPoints`), the one CTA, then a plain-text "5.0 rating on Google" line.
+  bullets (`heroPoints`; the cash-pay bullet comes first and is shown as a highlighted pill),
+  the one CTA, then a plain-text "5.0 rating on Google" line.
+- No copy may repeat within a fold (hero vs proof bar, bio vs credentials, heading vs reviews…).
 - NO doctor photo/card in the hero (client: it duplicated the "Meet your doctor" section).
 - Home page: H1 "Personalized Pain Management Specialist"; NO city/location in the hero; a
   "cash-pay clinic" bullet. Credential wording is exactly "dual fellowship trained".
 - Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
   or "joint" — use "pain management" wording. Services may name conditions below the fold.
 
-### Reviews & videos (client decisions, Oct 2026)
+### Services, reviews & videos (client decisions)
 
-- Reviews: equal-size cards showing the first 3 lines; "Read more" appears only when the text
-  doesn't fit and expands it in place on the page. Keep the "Read all reviews on Google" link.
-- Instagram stays (reels row, "More videos on Instagram" card, footer icon). No play-button
-  overlay and no pop-up: the play icon is invisible until hover/focus, and a tap plays the
-  video inline in its card.
+- Services: keep the list exactly as is (`SERVICES` in `Sections.tsx`). One horizontal row,
+  NO auto-scroll, arrow buttons (a right arrow on phones). Each card shows an animated spine
+  graphic with its pain area (`PainMap.tsx`), not a photo.
+- Reviews: one horizontal row that auto-scrolls (`useAutoScroll`; pauses on mouse hover,
+  touch, focus and while a review is open). Each shows 3 lines; "Read more" (only when cut off)
+  expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
+  supplied yet — add real ones only.
+- Instagram reels stay: play icon invisible until hover/focus; a tap plays inline (no pop-up).
+  The 3rd reel ("weather") uses a designed cover (`designedCover`) — its only still was blurry.
 
 ## Brand (must match turquoiseinstitute.com)
 
@@ -101,12 +107,15 @@ Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing
   ships to the browser (that's what keeps zod out of the client bundle).
 - Images: WebP, sized ~2× display size (logo 244×112, headshot 682×1024). Below-the-fold
   images `loading="lazy"`. The hero has no image, so the H1 text is the LCP element.
+- Phones: `section-pad` is 2.5rem — keep mobile spacing tight (client: no empty spaces).
 - Last measured (Lighthouse mobile, slow 4G, compressed): 82–86 performance, CLS 0, ~380 KB.
 
 ## Photos — real only, never AI-generated
 
 - `src/assets/photos/dr-amir-headshot.jpg` — official headshot (primary doctor photo).
 - Other photos and reel covers are stills from Dr. Amir's Instagram (`@dramir.pain.headachemd`).
+  They are low resolution (360×640); replace with originals or Pixabay photos when someone can
+  supply them (this sandbox can't reach Pixabay or Instagram).
   Avoid frames showing the "Align Spine Chiropractic" wall art or identifiable patients.
 
 ## Copy rules
@@ -123,12 +132,12 @@ Cash-pay section (the ONE mid-page CTA) → FAQ → "Near you" + map → closing
 - Meta ads policy: ad text must not assert a personal health condition ("Do you have migraines?");
   fine on the landing page.
 
-## Local targeting (ads radius ≈10 km around the clinic)
+## Locations (client list — use exactly these, in this order)
 
-Towns: Natick, Wellesley, Framingham, Needham, Sherborn, Dover, Wayland, Weston, Ashland;
-villages: South Natick, Wellesley Hills, Saxonville, Cochituate. These appear in titles,
-descriptions, the hero address line, "Near you" section, FAQ and schema (GeoCircle 10 km).
-Don't add towns beyond ~10 km (Newton, Sudbury, Lexington, Concord were removed on purpose).
+Natick, MA · Weston, MA 02494 · Wellesley, MA · Sudbury, MA · Wayland, MA · Newton, MA ·
+Concord, MA · Lincoln, MA · Lexington, MA · Sherborn, MA (`LOCATIONS` in `site.ts`; also drives
+`SERVICE_AREAS`, `?town=` values and schema areaServed, radius 25 km). Framingham, Needham,
+Dover and Ashland were removed at the client's request.
 
 ## Privacy (health data)
 
@@ -150,6 +159,8 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 - Point `turquoiseinstitute.com` + `www` at the host (`docs/ROOT-DOMAIN.md`) — first decide
   where the current website's pages (privacy, terms, payment policy, articles) will live.
 - For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
+- Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
+- Confirm Weston's ZIP: the client list says 02494 (that's Needham Heights; Weston is 02493).
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
 - Collect more Google reviews (only 4); consider a free intro-call offer (competitors use it).

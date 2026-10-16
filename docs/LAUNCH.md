@@ -83,16 +83,16 @@ lead, the visitor is asked to call instead, no conversion fires, and Vercel → 
 The container is already loaded on every page. The site pushes these events to
 `window.dataLayer`:
 
-| Event                                                                                  | When                                                                                                       | Extra keys                        |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`)                                                | `event_id`, `form`, `location`    |
-| `form_start`                                                                           | First focus in a form (`modal-hero`, `modal-sticky`, `final`, …)                                           | `form`, `location`                |
-| `form_submit`                                                                          | Submit pressed (before the CRM answers)                                                                    | `form`, `location`                |
-| `form_error`                                                                           | CRM rejected the lead; visitor asked to call                                                               | `form`, `location`                |
-| `phone_click`                                                                          | Phone links (closing section, FAQ, footer, form error, thank-you page) — no call buttons in the first fold | `location`                        |
-| `book_consultation_click`                                                              | A Book button opened the booking pop-up (`hero`, `cash-pay`, `sticky`)                                     | `location`                        |
-| `email_click`, `directions_click`, `review_click`, `reel_open`, `condition_card_click` | Secondary clicks                                                                                           | `location` / `reel` / `condition` |
-| `scroll_depth`                                                                         | 25 / 50 / 75 / 100 % of the page                                                                           | `percent`                         |
+| Event                                                                                  | When                                                                          | Extra keys                        |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
+| `appointment_request`                                                                  | **Lead accepted by GoHighLevel** (just before `/thank-you`)                   | `event_id`, `form`, `location`    |
+| `form_start`                                                                           | First focus in a form (`modal-hero`, `modal-sticky`, `final`, …)              | `form`, `location`                |
+| `form_submit`                                                                          | Submit pressed (before the CRM answers)                                       | `form`, `location`                |
+| `form_error`                                                                           | CRM rejected the lead; visitor asked to call                                  | `form`, `location`                |
+| `phone_click`                                                                          | Phone links (header after the first fold, footer, form error, thank-you page) | `location`                        |
+| `book_consultation_click`                                                              | A Book button opened the booking pop-up (`hero`, `header`)                    | `location`                        |
+| `email_click`, `directions_click`, `review_click`, `reel_open`, `condition_card_click` | Secondary clicks                                                              | `location` / `reel` / `condition` |
+| `scroll_depth`                                                                         | 25 / 50 / 75 / 100 % of the page                                              | `percent`                         |
 
 ### Variables (Variables → User-Defined → Data Layer Variable)
 
