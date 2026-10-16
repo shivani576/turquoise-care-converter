@@ -105,7 +105,7 @@ Locations + map → closing form (`#consultation`) → footer.
 - Instagram reels stay: play icon invisible until hover/focus; a tap plays inline (no pop-up).
   The 3rd reel ("weather", `DaQ7Jkfvz58.webp`) uses a designed 720×1280 thumbnail (brand
   gradient, storm cloud, "Weather & migraines", Dr. Amir's real headshot) — its still was blurry.
-  Reel order (client, Oct 16): weather, "next migraine treatment isn't another pill", "Botox
+  Reel order (client, Oct 16): PRP ("pain relief from your own blood"), weather, "next migraine treatment isn't another pill", "Botox
   isn't just cosmetic", then the rest (`REELS` order). The home page uses that order as is;
   service pages group reels by their `reelTopics`.
 - Hero subheadline must not promise a visit length ("a full hour"); keep it generic. The
