@@ -194,14 +194,9 @@ export interface Reel {
   topic: "migraine" | "botox" | "prp" | "pain";
 }
 
-// Order chosen by the client (Oct 16): PRP first, then the weather video and the two Botox videos.
+// Order chosen by the client (Oct 16): PRP, the two Botox videos, headache types, then weather.
 export const REELS: Reel[] = [
   { code: "DbqrjJiKwBA", title: "PRP: pain relief from your own blood", topic: "prp" },
-  {
-    code: "DaQ7Jkfvz58",
-    title: "Can weather changes trigger your migraines?",
-    topic: "migraine",
-  },
   {
     code: "DeMXeRCABoB",
     title: "What if your next migraine treatment isn't another pill?",
@@ -215,6 +210,11 @@ export const REELS: Reel[] = [
   {
     code: "DX92rd2qyXb",
     title: "What kind of headache are you actually dealing with?",
+    topic: "migraine",
+  },
+  {
+    code: "DaQ7Jkfvz58",
+    title: "Can weather changes trigger your migraines?",
     topic: "migraine",
   },
   {
