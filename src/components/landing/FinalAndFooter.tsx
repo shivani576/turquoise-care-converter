@@ -34,7 +34,7 @@ export function FinalCta({ heading, concern }: { heading: string; concern?: stri
 export function Footer() {
   const { address } = CLINIC;
   return (
-    <footer className="border-t border-border bg-card py-10 md:py-12">
+    <footer className="border-t border-border bg-card pb-24 pt-10 md:pt-12">
       <div className="container-page grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <img

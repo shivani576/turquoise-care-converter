@@ -3,8 +3,8 @@ import { HeaderActions } from "./Booking";
 
 /**
  * Sticky header styled like turquoiseinstitute.com. In the first fold it shows only
- * the logo; on landing pages (`actions`) the phone number and "Book a Consultation"
- * appear once the hero's call to action has scrolled out of view — on mobile too.
+ * the logo; on landing pages (`actions`) the phone number appears once the first fold
+ * has scrolled away — on mobile too. "Book a Consultation" is the sticky bottom bar.
  */
 export function Header({ actions = false }: { actions?: boolean }) {
   return (

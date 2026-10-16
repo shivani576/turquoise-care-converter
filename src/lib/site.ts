@@ -61,14 +61,6 @@ export const LOCATIONS = [
 
 export const SERVICE_AREAS: string[] = LOCATIONS.map((l) => l.town);
 
-/**
- * ?town= values the ads can append to the landing URL (e.g. /migraine?town=wellesley)
- * so the page names the searcher's own town.
- */
-export const TOWN_PARAM: Record<string, string> = Object.fromEntries(
-  SERVICE_AREAS.map((t) => [t.toLowerCase().replace(/\s+/g, "-"), t]),
-);
-
 export const CREDENTIALS = [
   "Board-certified physician",
   "Dual fellowship trained: Headache & Facial Pain Medicine and Interventional Pain Medicine",

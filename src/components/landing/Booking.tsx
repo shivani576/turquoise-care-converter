@@ -122,23 +122,19 @@ export function BookCta({
 }
 
 /**
- * Header phone number + sticky "Book a Consultation" (the header is sticky).
- * Hidden in the first fold — they appear once the hero's CTA has scrolled up
- * out of view, so the first fold keeps exactly one call to action.
+ * True once the hero's call to action has scrolled up out of view (under the sticky
+ * header). Scroll listener, not IntersectionObserver, so a fast fling is never missed.
  */
-export function HeaderActions() {
-  const { open } = useBooking();
-  const [show, setShow] = useState(false);
-
+function usePastFirstFold() {
+  const [past, setPast] = useState(false);
   useEffect(() => {
     const heroCta = document.getElementById("cta-book-hero");
     const header = document.querySelector("header");
-    // Scroll listener (not IntersectionObserver) so a fast fling past the CTA is never missed.
     let frame = 0;
     const check = () => {
       frame = 0;
       const limit = header?.getBoundingClientRect().bottom ?? 0;
-      setShow(heroCta ? heroCta.getBoundingClientRect().bottom < limit : window.scrollY > 0);
+      setPast(heroCta ? heroCta.getBoundingClientRect().bottom < limit : window.scrollY > 0);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(check);
@@ -152,20 +148,25 @@ export function HeaderActions() {
       cancelAnimationFrame(frame);
     };
   }, []);
+  return past;
+}
 
+/** Header phone number: hidden in the first fold, shown once it has scrolled away. */
+export function HeaderActions() {
+  const show = usePastFirstFold();
   return (
     <div
       id="header-actions"
       aria-hidden={!show}
       className={cn(
-        "flex items-center gap-2 transition-all duration-300 sm:gap-3",
+        "transition-all duration-300",
         show ? "visible opacity-100" : "pointer-events-none invisible -translate-y-1 opacity-0",
       )}
     >
       <a
         href={`tel:${CLINIC.phoneTel}`}
         id="cta-call-header"
-        className="js-track-call inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-[15px] bg-mint-deep px-2.5 font-label text-[13px] text-muted-foreground hover:bg-[#b7e3d7] sm:h-11 sm:px-4 sm:text-sm"
+        className="js-track-call inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[15px] bg-mint-deep px-3.5 font-label text-sm text-muted-foreground hover:bg-[#b7e3d7] sm:h-11 sm:px-4"
         data-track="phone_click"
         data-location="header"
         onClick={() => track("phone_click", { location: "header" })}
@@ -173,18 +174,39 @@ export function HeaderActions() {
         <Phone className="size-4 shrink-0" aria-hidden="true" />
         {CLINIC.phoneDisplay}
       </a>
+    </div>
+  );
+}
+
+/**
+ * Sticky "Book a Consultation" bar at the bottom of the screen: hidden in the first
+ * fold, shown once it has scrolled away. Full width on phones, a floating pill on desktop.
+ */
+export function StickyBookBar() {
+  const { open } = useBooking();
+  const show = usePastFirstFold();
+  return (
+    <div
+      id="sticky-book"
+      aria-hidden={!show}
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur transition-all duration-300 md:inset-x-auto md:bottom-6 md:right-6 md:rounded-full md:border md:p-1.5 md:shadow-soft",
+        show
+          ? "visible translate-y-0 opacity-100"
+          : "pointer-events-none invisible translate-y-[150%] opacity-0",
+      )}
+    >
       <Button
         type="button"
         variant="cta"
-        id="cta-book-header"
+        id="cta-book-sticky"
         data-track="book_consultation_click"
-        data-location="header"
+        data-location="sticky"
         aria-haspopup="dialog"
-        className="js-track-book h-10 whitespace-normal px-2.5 text-center text-[13px] leading-tight sm:h-11 sm:px-5 sm:text-sm"
-        onClick={() => open("header")}
+        className="js-track-book h-12 w-full text-[15px] md:w-auto md:rounded-full md:px-6"
+        onClick={() => open("sticky")}
       >
-        <CalendarCheck className="hidden sm:block" aria-hidden="true" />
-        Book a Consultation
+        <CalendarCheck aria-hidden="true" /> Book a Consultation
       </Button>
     </div>
   );

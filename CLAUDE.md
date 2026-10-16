@@ -46,12 +46,12 @@ dataLayer event (carries `event_id` for dedupe), not on the thank-you page view.
 `/robots.txt` and `/sitemap.xml` are server routes (`src/routes/robots[.]txt.ts`, `sitemap[.]xml.ts`).
 Setup steps for domain, Vercel, GHL and GTM: `docs/LAUNCH.md`.
 Aliases live in `CONDITION_ALIASES` in `src/routes/$condition.tsx`.
-Ads may append `?town=<town>` (e.g. `/migraine?town=wellesley`): the hero headline's
-"in Natick" becomes "near Wellesley". Allowed towns = `TOWN_PARAM` in `site.ts`.
+No location in any page's H1 or hero (client rule for every page; the old `?town=` headline
+swap was removed). Meta titles/descriptions may still name the area for local search.
 
 ## Page structure (keep this order — client brief Oct 16 2026)
 
-Sticky header (logo; phone + "Book a Consultation" appear after the hero CTA scrolls away) →
+Sticky header (logo; phone number appears after the first fold) →
 Hero → proof bar → **second fold**: services (home) / "Does this sound like you?" (ad-group
 pages) → "Does this sound like you?" (home) / options (ad-group pages) → Meet the doctor (one
 photo) → reviews → Instagram reels → Our clinic (facilities) → Cash-pay explained → FAQ →
@@ -61,8 +61,10 @@ Locations + map → closing form (`#consultation`) → footer.
 
 - First fold: exactly ONE CTA, "Book a Free 15-Minute Consultation" (`BookCta` in
   `src/components/landing/Booking.tsx`). It opens the booking **pop-up** (native `<dialog>`).
-- Header exception: `HeaderActions` (phone number + sticky "Book a Consultation") is hidden in
-  the first fold and appears once the hero CTA has scrolled out of view — on mobile too.
+- After the first fold (hero CTA scrolled out of view), on every page and on mobile too:
+  `HeaderActions` shows the phone number in the header, and `StickyBookBar` shows a sticky
+  "Book a Consultation" bar at the bottom of the screen (floating pill on desktop). Both are
+  hidden in the first fold. The footer has bottom padding so the bar never covers it.
 - No other CTAs in sections: no section Book buttons, no tel links in `main` (phone appears
   as plain text in the FAQ; links only in the header, footer and the form error message).
 - Every form heading: "Book a direct appointment with a doctor." (`FORM_HEADING`).
@@ -74,8 +76,9 @@ Locations + map → closing form (`#consultation`) → footer.
   the one CTA, then a plain-text "5.0 rating on Google" line.
 - No copy may repeat within a fold (hero vs proof bar, bio vs credentials, heading vs reviews…).
 - NO doctor photo/card in the hero (client: it duplicated the "Meet your doctor" section).
-- Home page: H1 "Personalized Pain Management Specialist"; NO city/location in the hero; a
-  "cash-pay clinic" bullet. Credential wording is exactly "dual fellowship trained".
+- Every page (home + 7 ad-group pages): NO city/location in the H1 or hero; the cash-pay bullet
+  first; credential wording is exactly "dual fellowship trained".
+- Home page: H1 "Personalized Pain Management Specialist".
 - Home page title, meta description, H1, hero and share image must NOT use "migraine", "jaw"
   or "joint" — use "pain management" wording. Services may name conditions below the fold.
 
@@ -121,7 +124,7 @@ Locations + map → closing form (`#consultation`) → footer.
 ## Copy rules
 
 - Talk to the patient's problem first, the clinic second; plain English; short sentences.
-- Headlines follow competitor/ad research: symptom question + who helps + "in Natick".
+- Headlines follow competitor/ad research: symptom question + who helps (no location).
 - No outcome guarantees, invented stats, or unverified claims. Verified facts: board-certified;
   fellowships in Headache & Facial Pain and Interventional Pain (Yale & Dartmouth); former
   director, Headache & Facial Pain Program, Tufts Medical Center; 60-min first visits; same-day
@@ -136,7 +139,7 @@ Locations + map → closing form (`#consultation`) → footer.
 
 Natick, MA · Weston, MA 02494 · Wellesley, MA · Sudbury, MA · Wayland, MA · Newton, MA ·
 Concord, MA · Lincoln, MA · Lexington, MA · Sherborn, MA (`LOCATIONS` in `site.ts`; also drives
-`SERVICE_AREAS`, `?town=` values and schema areaServed, radius 25 km). Framingham, Needham,
+`SERVICE_AREAS` and schema areaServed, radius 25 km). Framingham, Needham,
 Dover and Ashland were removed at the client's request.
 
 ## Privacy (health data)

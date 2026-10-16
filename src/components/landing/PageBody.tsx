@@ -1,5 +1,5 @@
 import type { PageCopy } from "@/lib/condition-pages";
-import { BookingProvider } from "./Booking";
+import { BookingProvider, StickyBookBar } from "./Booking";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import {
@@ -20,8 +20,8 @@ import { FinalCta, Footer, ScrollDepthTracker } from "./FinalAndFooter";
  * Shared page layout for the home page and every ad-group page.
  * First fold: hero with ONE call to action (opens the booking pop-up).
  * Second fold: services (home) or "does this sound like you" (ad-group pages).
- * Once the hero CTA scrolls out of view, the sticky header shows the phone number and
- * a "Book a Consultation" button. The closing form ends the page.
+ * Once the hero CTA scrolls out of view, the sticky header shows the phone number and a
+ * sticky "Book a Consultation" bar appears at the bottom. The closing form ends the page.
  */
 export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: boolean }) {
   return (
@@ -42,6 +42,7 @@ export function PageBody({ page, isHome = false }: { page: PageCopy; isHome?: bo
         <FinalCta heading={page.finalHeadline} concern={page.formConcern} />
       </main>
       <Footer />
+      <StickyBookBar />
       <ScrollDepthTracker />
     </BookingProvider>
   );

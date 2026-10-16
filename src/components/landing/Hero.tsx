@@ -2,7 +2,6 @@ import { Check, Star } from "lucide-react";
 import { GOOGLE_RATING } from "@/lib/site";
 import type { PageCopy } from "@/lib/condition-pages";
 import { BookCta } from "./Booking";
-import { useTown } from "./useTown";
 
 function Headline({ text, highlight }: { text: string; highlight?: string | undefined }) {
   if (!highlight || !text.includes(highlight)) return <>{text}</>;
@@ -23,10 +22,6 @@ function Headline({ text, highlight }: { text: string; highlight?: string | unde
  * several areas.
  */
 export function Hero({ page }: { page: PageCopy }) {
-  const town = useTown();
-  // Ad-group pages: an ad for one town (…?town=wellesley) swaps "in Natick" for "near Wellesley".
-  const headline =
-    town && town !== "Natick" ? page.headline.replace("in Natick", `near ${town}`) : page.headline;
   const rating = GOOGLE_RATING.rating.toFixed(1);
   return (
     <section
@@ -35,7 +30,7 @@ export function Hero({ page }: { page: PageCopy }) {
     >
       <div className="container-page relative flex flex-col items-center py-12 text-center sm:py-16 lg:py-20">
         <h1 className="max-w-4xl text-balance text-[2.1rem] leading-[1.1] text-heading sm:text-5xl lg:text-[3.6rem]">
-          <Headline text={headline} highlight={page.highlight} />
+          <Headline text={page.headline} highlight={page.highlight} />
         </h1>
         <p className="mt-5 max-w-2xl text-pretty text-[1.08rem] leading-relaxed text-foreground/80 sm:text-lg">
           {page.subheadline}

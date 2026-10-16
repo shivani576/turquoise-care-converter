@@ -92,11 +92,15 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     description:
       "Migraine doctor in Natick, MA for patients from Weston, Wellesley, Sudbury, Wayland, Newton and Sherborn. Dual fellowship trained headache specialist, 60-minute first visit, nerve blocks & Botox. No referral needed.",
     eyebrow: "Migraine specialist · Natick, MA",
-    headline: "Losing Days to Migraines? See a Headache Specialist in Natick.",
+    headline: "Losing Days to Migraines? See a Headache Specialist.",
     highlight: "See a Headache Specialist",
     subheadline:
-      "A full-hour first visit with a dual fellowship trained headache specialist, plus in-office options like nerve blocks and Botox.",
-    heroPoints: ["60-min first visit", "Nerve blocks & Botox in-office", "No referral needed"],
+      "A dual fellowship trained headache specialist who looks for what's behind your attacks — not just another prescription.",
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Nerve blocks & Botox in the office",
+      "No referral needed",
+    ],
     localKeyword: "migraine treatment",
     whySpecialist:
       "Dr. Tolebeyan completed a fellowship in Headache and Facial Pain Medicine — dedicated training most general practices don't have. That depth changes what's possible for complex or long-standing migraine.",
@@ -154,8 +158,12 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     headline: "15+ Headache Days a Month? Ask About Botox for Chronic Migraine.",
     highlight: "Ask About Botox",
     subheadline:
-      "FDA-approved for chronic migraine. A few minutes in the office every 12 weeks — given by a headache specialist.",
-    heroPoints: ["Headache specialist, not a med spa", "Every ~12 weeks", "No referral needed"],
+      "FDA-approved for chronic migraine: a few minutes in the office, about every 12 weeks.",
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Given by a headache specialist, not a med spa",
+      "No referral needed",
+    ],
     localKeyword: "Botox for migraines",
     whySpecialist:
       "Where the injections go — and whether Botox is the right treatment at all — depends on headache expertise. Fellowship training in Headache and Facial Pain Medicine is exactly that.",
@@ -214,7 +222,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "See a Facial Pain Specialist",
     subheadline:
       "Dual fellowship trained, including facial pain, Dr. Amir treats the jaw and the headaches together.",
-    heroPoints: ["Jaw + headaches treated together", "In-office injections", "No referral needed"],
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "In-office injections",
+      "No referral needed",
+    ],
     localKeyword: "TMJ treatment",
     whySpecialist:
       "TMJ disorder sits where the jaw, head and face meet, so a dual fellowship trained physician — including Headache and Facial Pain Medicine — is well placed to treat it.",
@@ -270,7 +282,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "Targeted Injections Can Help",
     subheadline:
       "Precise injections relax overactive neck and limb muscles to ease pain and stiffness.",
-    heroPoints: ["Botox, Xeomin & Dysport", "Tailored dosing", "No referral needed"],
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Botox, Xeomin & Dysport",
+      "No referral needed",
+    ],
     localKeyword: "cervical dystonia treatment",
     ctaLabel: "Book My Consultation",
     formConcern: "Botulinum Toxin (Spasticity / Cervical Dystonia)",
@@ -313,7 +329,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     highlight: "See If PRP Is Right for You",
     subheadline:
       "A non-surgical option made from your own blood, injected under image guidance. We'll tell you honestly if it fits.",
-    heroPoints: ["Your own platelets", "Image-guided", "No pressure"],
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Done in one office visit",
+      "No referral needed",
+    ],
     localKeyword: "PRP injections",
     ctaLabel: "Check If I'm a Candidate",
     formConcern: "Platelet-Rich Plasma (PRP) Injections",
@@ -365,7 +385,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     headline: "Shoulder Pain Keeping You Up at Night? Explore Non-Surgical Options First.",
     highlight: "Explore Non-Surgical Options First",
     subheadline: "We pinpoint the real source, then treat it with image-guided injections or PRP.",
-    heroPoints: ["Precise diagnosis", "Image-guided injections & PRP", "No referral needed"],
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Precise diagnosis first",
+      "No referral needed",
+    ],
     localKeyword: "shoulder pain treatment",
     whySpecialist:
       "Not every rotator cuff tear needs surgery — and not every shoulder pain is the cuff. Interventional pain and regenerative medicine open up options in between.",
@@ -412,7 +436,11 @@ export const CONDITION_PAGES: Record<ConditionId, PageCopy> = {
     headline: "Knee or Hip Arthritis Slowing You Down? Explore Options Before Surgery.",
     highlight: "Explore Options Before Surgery",
     subheadline: "Image-guided injections and PRP to ease arthritis pain and keep you active.",
-    heroPoints: ["Knee, hip & hand", "Image-guided injections & PRP", "No referral needed"],
+    heroPoints: [
+      "Cash-pay clinic — no insurance approvals to wait on",
+      "Knee, hip & hand",
+      "No referral needed",
+    ],
     localKeyword: "knee and joint pain treatment",
     ctaLabel: "Book My Joint Visit",
     formConcern: "Joint Pain / Osteoarthritis",
