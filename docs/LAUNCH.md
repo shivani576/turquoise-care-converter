@@ -91,7 +91,7 @@ The container is already loaded on every page. The site pushes these events to
 | `form_error`                                                                           | CRM rejected the lead; visitor asked to call                                  | `form`, `location`                |
 | `phone_click`                                                                          | Phone links (header after the first fold, footer, form error, thank-you page) | `location`                        |
 | `book_consultation_click`                                                              | A Book button opened the booking pop-up (`hero`, `sticky`)                    | `location`                        |
-| `email_click`, `directions_click`, `review_click`, `reel_open`, `condition_card_click` | Secondary clicks                                                              | `location` / `reel` / `condition` |
+| `email_click`, `directions_click`, `review_click`, `reel_open`, `reel_complete`, `condition_card_click` | Secondary clicks                                                              | `location` / `reel` / `condition` |
 | `scroll_depth`                                                                         | 25 / 50 / 75 / 100 % of the page                                              | `percent`                         |
 
 ### Variables (Variables → User-Defined → Data Layer Variable)

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Instagram, Play, X } from "lucide-react";
-import { CLINIC, REELS, type Reel } from "@/lib/site";
+import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
+import { REELS, type Reel } from "@/lib/site";
 import { track } from "@/lib/track";
 
 // Cover images are stills from Dr. Amir's own reels (WebP; Instagram's baked-in play
@@ -13,10 +13,20 @@ const covers = import.meta.glob<string>("../../assets/reels/*.webp", {
 const coverFor = (code: string) =>
   Object.entries(covers).find(([path]) => path.endsWith(`/${code}.webp`))?.[1];
 
+// The reels as our own MP4 files (src/assets/reels/<code>.mp4, H.264, ~720×1280). When a file
+// exists, a tap plays it right here with the native player: one tap, no Instagram links.
+// Without one we fall back to Instagram's player, sandboxed so it can't open Instagram.
+const videos = import.meta.glob<string>("../../assets/reels/*.mp4", {
+  eager: true,
+  import: "default",
+});
+const videoFor = (code: string) =>
+  Object.entries(videos).find(([path]) => path.endsWith(`/${code}.mp4`))?.[1];
+
 /**
- * Horizontal row of Dr. Amir's Instagram reels. Only the cover images load with
- * the page. Tapping a cover swaps it for the Instagram player right there in the
- * row (no pop-up), so the page stays fast and the visitor stays on the page.
+ * Horizontal row of Dr. Amir's reels. Only the cover images load with the page.
+ * Tapping a cover plays the video right there in the row (no pop-up, no link out):
+ * our own MP4 when we have it, otherwise Instagram's sandboxed player.
  */
 export function Reels({ topics }: { topics?: Reel["topic"][] }) {
   const [playing, setPlaying] = useState<string | null>(null);
@@ -71,13 +81,32 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
           playing === r.code ? (
             <li key={r.code} className="w-[min(88vw,22rem)] shrink-0 snap-start">
               <div className="relative overflow-hidden rounded-2xl border border-border bg-white shadow-card">
-                <iframe
-                  title={r.title}
-                  src={`https://www.instagram.com/reel/${r.code}/embed/`}
-                  className="block h-[min(80vh,40rem)] w-full"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                />
+                {videoFor(r.code) ? (
+                  <video
+                    src={videoFor(r.code)}
+                    poster={coverFor(r.code)}
+                    title={r.title}
+                    aria-label={r.title}
+                    className="block aspect-[9/16] max-h-[min(80vh,40rem)] w-full bg-black object-contain"
+                    controls
+                    autoPlay
+                    playsInline
+                    preload="auto"
+                    controlsList="nodownload"
+                    onEnded={() => track("reel_complete", { reel: r.code })}
+                  />
+                ) : (
+                  <iframe
+                    title={r.title}
+                    src={`https://www.instagram.com/reel/${r.code}/embed/`}
+                    className="block h-[min(80vh,40rem)] w-full"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    // No allow-popups / allow-top-navigation: links inside the player
+                    // ("View on Instagram", profile) can't take the visitor off the page.
+                    sandbox="allow-scripts allow-same-origin allow-presentation"
+                  />
+                )}
                 <button
                   type="button"
                   onClick={() => setPlaying(null)}
@@ -122,18 +151,6 @@ export function Reels({ topics }: { topics?: Reel["topic"][] }) {
             </li>
           ),
         )}
-        <li className="flex w-[62vw] max-w-[15rem] shrink-0 snap-start sm:w-[15rem]">
-          <a
-            href={CLINIC.instagram}
-            target="_blank"
-            rel="noopener"
-            className="flex aspect-[9/16] w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-primary/40 bg-mint p-6 text-center text-primary-deep hover:border-primary-deep"
-          >
-            <Instagram className="size-9" aria-hidden="true" />
-            <span className="font-semibold">More videos on Instagram</span>
-            <span className="text-sm text-muted-foreground">{CLINIC.instagramHandle}</span>
-          </a>
-        </li>
       </ul>
     </section>
   );

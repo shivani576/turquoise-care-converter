@@ -14,6 +14,7 @@ export type TrackEvent =
   | "form_submit"
   | "form_error"
   | "reel_open"
+  | "reel_complete"
   | "review_click"
   | "appointment_request"
   | "scroll_depth";

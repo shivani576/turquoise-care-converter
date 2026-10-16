@@ -110,6 +110,11 @@ Locations + map → closing form (`#consultation`) → footer.
   expands it in place. Keep the "Read all reviews on Google" link. Instagram reviews: none
   supplied yet — add real ones only.
 - Instagram reels stay: play icon invisible until hover/focus; a tap plays inline (no pop-up).
+  Visitors must never be sent off the page from this section (client, Oct 16): no "More videos
+  on Instagram" card. If `src/assets/reels/<code>.mp4` exists (H.264 + AAC, ~720×1280,
+  `-movflags +faststart`), a tap plays it with the native `<video>` player (one tap, no
+  Instagram links). Otherwise Instagram's embed is used, sandboxed without `allow-popups` /
+  `allow-top-navigation` so its links can't open Instagram. `reel_complete` fires at the end.
   The weather reel (`DaQ7Jkfvz58.webp`) uses a designed 720×1280 thumbnail (brand
   gradient, storm cloud, "Weather & migraines", Dr. Amir's real headshot) — its still was blurry.
   Reel order (client, Oct 16): PRP ("pain relief from your own blood"), "next migraine
@@ -189,7 +194,9 @@ accepted the lead; on failure the visitor is asked to call. Keep it that way.
 - Finish the Railway setup (`docs/RAILWAY.md`), move the domain from Vercel to Railway, retire Vercel.
 - Point `turquoiseinstitute.com` + `www` at the host (`docs/ROOT-DOMAIN.md`) — first decide
   where the current website's pages (privacy, terms, payment policy, articles) will live.
-- For one-tap inline video, get the reels as MP4 files (Instagram embeds need a second tap).
+- Get the 7 reels as MP4 files (drop in `src/assets/reels/<code>.mp4`) for one-tap native
+  playback; until then the sandboxed Instagram embed needs a second tap. Check on the live
+  preview that the sandboxed embed still plays (this sandbox can't reach Instagram).
 - Get high-resolution photos (originals or Pixabay) for the reel covers; Instagram reviews to add.
 - Set up GA4 / Google Ads / Meta tags in GTM per `docs/LAUNCH.md`.
 - Confirm with clinic: callback time, HSA/FSA/financing, whether Dr. Amir prescribes CGRP meds.
